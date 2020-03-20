@@ -15,8 +15,8 @@ namespace tag_h
         // Static stream used for background loading
         Stream stream = null;
 
-        // Relative URI 
-        private Uri location;
+        // String to location of file 
+        private string location;
 
         // Underlying image bitmap
         BitmapImage image = null;
@@ -24,8 +24,24 @@ namespace tag_h
         // Creates a HImage 
         public HImage(string location)
         {
-            this.location = new Uri(location);
+            this.location = location;
+        }
 
+        // Returns if the HImage is loaded onto memory
+        public bool isImageLoaded()
+        {
+            return image != null;
+        }
+
+        // Gets underlying bitmap
+        public BitmapImage getBitmap()
+        {
+            return image;
+        }
+
+        // Loads internal bitmap from disk to memory
+        public void loadBitmap()
+        {
             // Open stream to image
             if (stream != null)
             {
@@ -39,16 +55,17 @@ namespace tag_h
 
             image.BeginInit();
             image.CacheOption = BitmapCacheOption.OnLoad;
-            image.DecodePixelHeight = 1080;
             image.StreamSource = stream;
             image.EndInit();
         }
 
-        // Gets underlying bitmap
-        public BitmapImage getBitmap()
+        // Deloads internal bitmap
+        // if no references to the internal bitmap is kept
+        public void deloadBitmap()
         {
-            return image;
+            image = null;
         }
+        
 
         // Get width of file
         public double getWidth()
@@ -61,5 +78,6 @@ namespace tag_h
         {
             return image.Height;
         }
+
     }
 }
