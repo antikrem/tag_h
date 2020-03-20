@@ -79,5 +79,16 @@ namespace tag_h
             return image.Height;
         }
 
+        // Get pixel width of file
+        public double getPixelWidth()
+        {
+            return image.PixelWidth;
+        }
+
+        // Get pixel height of file
+        public double getPixelHeight()
+        {
+            return image.PixelHeight;
+        }
     }
 }
