@@ -70,6 +70,7 @@ namespace tag_h
             {
                 maximiseWindow();
             }
+            updateCenterImageView();
         }
 
         // Maximises window to cover full screen less taskbar
@@ -96,6 +97,30 @@ namespace tag_h
             this.isMaximised = false;
         }
 
+        // Sets center image to show full iamge, and not scale smaller images
+        private void updateCenterImageView()
+        {
+            double imageWidth = currentImage.getPixelWidth();
+            double imageHeight = currentImage.getPixelHeight();
+
+            if (imageHeight > this.Height)
+            {
+                imageWidth = (this.Height / imageHeight) * imageWidth;
+                imageHeight = this.Height;
+
+            }
+
+            if (imageWidth > this.Width)
+            {
+                imageHeight = (this.Width / imageWidth) * imageHeight;
+                imageWidth = this.Width;
+                
+            }
+
+            CenterImage.Width = imageWidth;
+            CenterImage.Height = imageHeight;
+        }
+
         // Sets next image in the queue to be source
         // Does nothing if queue is empty
         public void displayNextImageInQueue(object sender, RoutedEventArgs e)
@@ -103,11 +128,15 @@ namespace tag_h
             currentImage = TagHApplication.Get().getNextImage();
             if (currentImage != null)
             {
-                // Set new values
+                // Set new image
                 CenterImage.Source = currentImage.getBitmap();
-                CenterImage.Stretch = Stretch.Uniform;
+
+                // Set CenterImage to be correct size
+                updateCenterImageView();
             }
         }
+
+        // 
     }
 
     
