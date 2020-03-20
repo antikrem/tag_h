@@ -28,7 +28,7 @@ namespace tag_h
         private TagHApplication()
         {
             // Initialise database
-            this.imageDataBase = new ImageDatabase("\\\\192.168.0.101\\pr0n\\Lewd\\2D\\Hentai\\");
+            this.imageDataBase = new ImageDatabase();
             updateHImageQueue();
         }
 
@@ -41,11 +41,18 @@ namespace tag_h
             }
             return instance;
         }
+        
+        // Close the database
+        private void closeDatabase()
+        {
+            this.imageDataBase.Close();
+        }
 
         // Closes application
         public static void Close()
         {
             System.Windows.Application.Current.Shutdown();
+            TagHApplication.Get().closeDatabase();
         }
 
         // Updates queue of HImages
