@@ -68,6 +68,7 @@ namespace tag_h
                     skip = true;
                 } else
                 {
+                    image.loadBitmap();
                     imageQueue.Enqueue(image);
                     place++;
                 }
