@@ -149,13 +149,10 @@ namespace tag_h
             centerImage();
         }
 
-        // Sets next image in the queue to be source
-        // Does nothing if queue is empty
-        public void displayNextImageInQueue(object sender, RoutedEventArgs e)
+        // Set new center image
+        // Frees old image
+        private void setNewImage(HImage nextImage)
         {
-            // Get the next image
-            var nextImage = TagHApplication.Get().getNextImage();
-
             // If there is a next image, do something
             if (nextImage != null)
             {
@@ -177,6 +174,21 @@ namespace tag_h
                 // Also center the image
                 centerImage();
             }
+        }
+
+        // Sets next image in the queue to be source
+        // Does nothing if queue is empty
+        public void displayNextImageInQueue(object sender, RoutedEventArgs e)
+        {
+            setNewImage(TagHApplication.Get().getNextImage());
+
+        }
+
+        // Sets last image in the queue to be source
+        // Does nothing if queue is empty
+        public void displayPreviousImageInQueue(object sender, RoutedEventArgs e)
+        {
+            setNewImage(TagHApplication.Get().getPreviousImage());
 
         }
 

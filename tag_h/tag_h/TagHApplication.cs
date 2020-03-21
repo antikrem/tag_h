@@ -76,6 +76,7 @@ namespace tag_h
                 return image;
             } else
             {
+                place = imageList.Count - 1;
                 return null;
             }
         }
@@ -93,6 +94,7 @@ namespace tag_h
             }
             else
             {
+                place = 0;
                 return null;
             }
         }
