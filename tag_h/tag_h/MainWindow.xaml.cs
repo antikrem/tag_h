@@ -52,6 +52,11 @@ namespace tag_h
         // Specifies that the mouse is currently dragging
         bool mouseIsDragging = false;
 
+        // Used to only drag after sufficient drags are made
+        int dragCount = 0;
+
+        // Constant that indicates the number of IFrames before mouse moves
+        static int dragIFrames = 5;
 
         public MainWindow()
         {
@@ -217,9 +222,10 @@ namespace tag_h
 
             // set dragging as true at the current mouse drag position
             mouseIsDragging = true;
+            dragCount = 0;
             mouseDragOffset = new Point(
-                e.GetPosition(CenterImage).X,
-                e.GetPosition(CenterImage).Y
+                e.GetPosition(CenterImage).X / zoom,
+                e.GetPosition(CenterImage).Y / zoom
             );
         }
 
@@ -227,6 +233,7 @@ namespace tag_h
         public void centerImageMouseDragStop(object sender, RoutedEventArgs e)
         {
             mouseIsDragging = false;
+            dragCount = 0;
         }
 
         // Handle event of mouse moving over image
@@ -234,14 +241,19 @@ namespace tag_h
         {
             if (mouseIsDragging)
             {
-                // Find the change in mouse position and update image
-                var currentMouse = e.GetPosition(CenterImage);
-                double x = mouseDragOffset.X - currentMouse.X;
-                double y = mouseDragOffset.Y - currentMouse.Y;
+                dragCount++;
+                if (dragCount > dragIFrames)
+                {
+                    // Find the change in mouse position and update image
+                    var currentMouse = e.GetPosition(CenterImage);
+                    double x = mouseDragOffset.X - currentMouse.X / zoom;
+                    double y = mouseDragOffset.Y - currentMouse.Y / zoom;
 
-                centerFocus.X = centerFocus.X + x;
-                centerFocus.Y = centerFocus.Y + y;
-                centerImageAt(centerFocus.X, centerFocus.Y);
+                    centerFocus.X = centerFocus.X + x;
+                    centerFocus.Y = centerFocus.Y + y;
+                    centerImageAt(centerFocus.X, centerFocus.Y);
+                }
+               
             }
         }
 
