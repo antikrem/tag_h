@@ -162,7 +162,7 @@ namespace tag_h
                 // If theres a current image, dispose it
                 if (currentImage != null)
                 {
-                    TagHApplication.Get().addUsedImage(currentImage);
+                    currentImage.deloadBitmap();
                 }
 
                 // New image is the current image

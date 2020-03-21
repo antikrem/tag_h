@@ -183,9 +183,15 @@ namespace tag_h
 
         // Get a HImage with a condition and offset
         // Returns null if offset is too bit
-        public HImage getHImage(int offset)
+        public List<HImage> getHImageList()
         {
-            return offset >= files.Count ? null : new HImage(files[offset]);
+            List<HImage> hImages = new List<HImage>();
+            foreach (var i in files)
+            {
+                hImages.Add(new HImage(i));
+            }
+            return hImages;
+
         }
 
         // Gets the image folder location

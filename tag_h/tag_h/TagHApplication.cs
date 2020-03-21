@@ -16,27 +16,22 @@ namespace tag_h
         // Singleton isntance
         private static TagHApplication instance = null;
 
-        // Place in queue
-        int place = 0;
-
-        // Potentially, a reverse place is used, and previous images are looked at
-        // These will negative, and zero when the current image is new from the queue
-        int reversePlace = 0;
-
         // Store of all images
         ImageDatabase imageDataBase = null;
 
-        // Queue of awaiting HImages to use, all pre cached
-        Queue<HImage> imageQueue = new Queue<HImage>();
+        // Place in imageList, -1 indicates start before list
+        int place = -1;
 
-        // List of old images, all uncached
-        List<HImage> previousImageList = new List<HImage>();
+        // List of all images, not loaded
+        List<HImage> imageList = new List<HImage>();
 
         // Private constructor
         private TagHApplication()
         {
             // Initialise database
             this.imageDataBase = new ImageDatabase();
+
+            // Get all images
             updateHImageQueue();
         }
 
@@ -66,41 +61,40 @@ namespace tag_h
         // Updates queue of HImages
         public void updateHImageQueue()
         {
-            bool skip = false;
-            while (this.imageQueue.Count < MAXIMUM_LOADED_IMAGE && !skip)
-            {
-                var image = this.imageDataBase.getHImage(this.place);
-
-                if (image == null)
-                {
-                    skip = true;
-                } else
-                {
-                    image.loadBitmap();
-                    this.imageQueue.Enqueue(image);
-                    this.place++;
-                }
-            }
+            this.imageList = this.imageDataBase.getHImageList();
         }
 
         // Gets next image in the queue
+        // Returns null on end
         public HImage getNextImage()
         {
-            if (this.imageQueue.Count > 0)
+            place++;
+            if (place < imageList.Count)
             {
-                updateHImageQueue();
-                return this.imageQueue.Dequeue();
+                var image = imageList[place];
+                image.loadBitmap();
+                return image;
             } else
             {
                 return null;
             }
         }
 
-        // Adds image to a previous image list
-        public void addUsedImage(HImage image)
+        // Gets previous image in the queue
+        // Returns null on start
+        public HImage getPreviousImage()
         {
-            image.deloadBitmap();
-            previousImageList.Add(image);
+            place--;
+            if (place >= 0)
+            {
+                var image = imageList[place];
+                image.loadBitmap();
+                return image;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 
