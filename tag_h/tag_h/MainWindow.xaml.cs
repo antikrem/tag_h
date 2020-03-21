@@ -36,6 +36,13 @@ namespace tag_h
         // Current image being drawn
         HImage currentImage = null;
 
+        // Image 100% zoom size
+        double imageDefaultWidth = 0;
+        double imageDefaultHeight = 0;
+
+        // Offset zoom
+        double zoom = 1;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -119,6 +126,9 @@ namespace tag_h
 
             CenterImage.Width = imageWidth;
             CenterImage.Height = imageHeight;
+            imageDefaultWidth = imageWidth;
+            imageDefaultHeight = imageHeight;
+            zoomImage(1);
         }
 
         // Sets next image in the queue to be source
@@ -133,10 +143,67 @@ namespace tag_h
 
                 // Set CenterImage to be correct size
                 updateCenterImageView();
+
+                // Also center the image
+                centerImage();
             }
         }
 
-        // 
+        // Centers the image, such that the given pixel of the image
+        // At the current resolution will be in the center of the image
+        public void centerImageAt(double x, double y)
+        {
+            // Centering image by displacement of size
+            CenterImage.Margin = new Thickness(
+                (this.Width / 2) - CenterImage.Width + (CenterImage.Width - this.zoom * x),
+                (this.Height / 2) - CenterImage.Height + (CenterImage.Height - this.zoom * y), 
+                0, 
+                0
+            );
+        }
+
+        // More generalise image center
+        // Centers at the direct middle of image
+        public void centerImage()
+        {
+            centerImageAt(
+                imageDefaultWidth / 2,
+                imageDefaultHeight / 2
+            );
+        }
+
+        // Zooms image to given zoomOffset
+        public void zoomImage(double zoom)
+        {
+            this.zoom = zoom;
+            CenterImage.Width = this.zoom * imageDefaultWidth;
+            CenterImage.Height = this.zoom * imageDefaultHeight;
+        }
+
+
+        // handle for image mouse down, which could be a number of events
+        public void centerImageMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // Handle a double click
+            if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2) {
+                // Choose zoom depending if its already zoomed
+                if (zoom == 1)
+                {
+                    zoomImage(2);
+                    
+                    // Center image at mouse click position
+                    Point clickPoint = e.GetPosition(CenterImage);
+                    centerImageAt(clickPoint.X, clickPoint.Y);
+                }
+                else
+                {
+                    zoomImage(1);
+                    // Center image right in the middle
+                    centerImage();
+                }
+                
+            }
+        }
     }
 
     

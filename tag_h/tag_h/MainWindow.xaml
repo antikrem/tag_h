@@ -13,7 +13,12 @@
         >
 
     <Grid>
-        <Image x:Name="CenterImage" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+        <Image x:Name="CenterImage" 
+               Stretch="Uniform" 
+               RenderOptions.BitmapScalingMode="HighQuality" 
+               MouseDown ="centerImageMouseDown"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"/>
         <Grid HorizontalAlignment="Right" VerticalAlignment="Top" 
               Height="40"
               Width="80">
