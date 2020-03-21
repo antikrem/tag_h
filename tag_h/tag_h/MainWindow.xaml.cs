@@ -143,7 +143,10 @@ namespace tag_h
             CenterImage.Height = imageHeight;
             imageDefaultWidth = imageWidth;
             imageDefaultHeight = imageHeight;
+
+            // zoom and center
             zoomImage(1);
+            centerImage();
         }
 
         // Sets next image in the queue to be source
@@ -219,7 +222,6 @@ namespace tag_h
                 if (zoom == 1)
                 {
                     zoomImage(2);
-                    
                     // Center image at mouse click position
                     Point clickPoint = e.GetPosition(CenterImage);
                     centerImageAt(clickPoint.X, clickPoint.Y);
