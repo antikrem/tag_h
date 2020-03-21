@@ -18,11 +18,19 @@ namespace tag_h
 
         // Place in queue
         int place = 0;
+
+        // Potentially, a reverse place is used, and previous images are looked at
+        // These will negative, and zero when the current image is new from the queue
+        int reversePlace = 0;
+
         // Store of all images
         ImageDatabase imageDataBase = null;
 
-        // Queue of awaiting HImages to use
+        // Queue of awaiting HImages to use, all pre cached
         Queue<HImage> imageQueue = new Queue<HImage>();
+
+        // List of old images, all uncached
+        List<HImage> previousImageList = new List<HImage>();
 
         // Private constructor
         private TagHApplication()
@@ -35,9 +43,9 @@ namespace tag_h
         // Singleton accessor
         public static TagHApplication Get()
         {
-            if (instance == null)
+            if (TagHApplication.instance == null)
             {
-                instance = new TagHApplication();
+                TagHApplication.instance = new TagHApplication();
             }
             return instance;
         }
@@ -61,7 +69,7 @@ namespace tag_h
             bool skip = false;
             while (this.imageQueue.Count < MAXIMUM_LOADED_IMAGE && !skip)
             {
-                var image = this.imageDataBase.getHImage(place);
+                var image = this.imageDataBase.getHImage(this.place);
 
                 if (image == null)
                 {
@@ -69,23 +77,30 @@ namespace tag_h
                 } else
                 {
                     image.loadBitmap();
-                    imageQueue.Enqueue(image);
-                    place++;
+                    this.imageQueue.Enqueue(image);
+                    this.place++;
                 }
             }
         }
 
-        // Gets next iamge in the queue
+        // Gets next image in the queue
         public HImage getNextImage()
         {
-            if (imageQueue.Count > 0)
+            if (this.imageQueue.Count > 0)
             {
                 updateHImageQueue();
-                return imageQueue.Dequeue();
+                return this.imageQueue.Dequeue();
             } else
             {
                 return null;
             }
+        }
+
+        // Adds image to a previous image list
+        public void addUsedImage(HImage image)
+        {
+            image.deloadBitmap();
+            previousImageList.Add(image);
         }
     }
 

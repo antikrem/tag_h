@@ -150,9 +150,21 @@ namespace tag_h
         // Does nothing if queue is empty
         public void displayNextImageInQueue(object sender, RoutedEventArgs e)
         {
-            currentImage = TagHApplication.Get().getNextImage();
-            if (currentImage != null)
+            // Get the next image
+            var nextImage = TagHApplication.Get().getNextImage();
+
+            // If there is a next image, do something
+            if (nextImage != null)
             {
+                // If theres a current image, dispose it
+                if (currentImage != null)
+                {
+                    TagHApplication.Get().addUsedImage(currentImage);
+                }
+
+                // New image is the current image
+                currentImage = nextImage;
+
                 // Set new image
                 CenterImage.Source = currentImage.getBitmap();
 
@@ -162,6 +174,7 @@ namespace tag_h
                 // Also center the image
                 centerImage();
             }
+
         }
 
         // Centers the image, such that the given pixel of the image
