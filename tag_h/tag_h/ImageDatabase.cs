@@ -72,8 +72,8 @@ namespace tag_h
         private void addNewImage(string fileName)
         {
             string commandLine =
-                "INSERT INTO dbo.Tags (FileName, Tags, PhysicalExists) " +
-                "VALUES (@fileName, NULL, 1);"; 
+                "INSERT INTO dbo.Tags (FileName, Tags, PhysicalExists, New, Viewd) " +
+                "VALUES (@fileName, NULL, 1, 1, 0);"; 
             SqlCommand cmd = new SqlCommand(commandLine, dbConnection);
             cmd.Parameters.AddWithValue("@fileName", fileName);
 
@@ -81,10 +81,11 @@ namespace tag_h
         }
 
         // Mark an existing image as physically existent
+        // Also sets these images as old
         private void markImagePhysicallyExistent(string fileName)
         {
             string commandLine =
-                "UPDATE dbo.Tags SET PhysicalExists = 1 " +
+                "UPDATE dbo.Tags SET PhysicalExists = 1, New = 0 " +
                 "WHERE FileName = @fileName;";
             SqlCommand cmd = new SqlCommand(commandLine, dbConnection);
             cmd.Parameters.AddWithValue("@fileName", fileName);
@@ -181,15 +182,34 @@ namespace tag_h
             this.dbConnection.Close();
         }
 
+        // Marks an image as viewed
+        public void markImageAsViewed(HImage image)
+        {
+            string commandLine =
+                "UPDATE dbo.Tags SET Viewed = 1, New = 0 " +
+                "WHERE Id = @id;";
+            SqlCommand cmd = new SqlCommand(commandLine, dbConnection);
+            cmd.Parameters.AddWithValue("@id", image.getUUID());
+
+            cmd.ExecuteNonQuery();
+        }
+
         // Get a HImage with a condition and offset
         // Returns null if offset is too bit
         public List<HImage> getHImageList()
         {
             List<HImage> hImages = new List<HImage>();
-            foreach (var i in files)
+
+            SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.Tags", dbConnection);
+
+            using (SqlDataReader objReader = cmd.ExecuteReader())
             {
-                hImages.Add(new HImage(i));
+                while (objReader.Read())
+                {
+                    hImages.Add(new HImage(objReader.GetInt32(0), objReader.GetString(1)));
+                }
             }
+
             return hImages;
 
         }

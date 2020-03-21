@@ -73,6 +73,7 @@ namespace tag_h
             {
                 var image = imageList[place];
                 image.loadBitmap();
+                imageDataBase.markImageAsViewed(image);
                 return image;
             } else
             {
