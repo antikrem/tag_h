@@ -12,6 +12,9 @@ namespace tag_h
      */
     class HImage
     {
+        // Unique ID assigned to each HImage
+        private int UUID;
+        
         // Static stream used for background loading
         Stream stream = null;
 
@@ -22,9 +25,16 @@ namespace tag_h
         BitmapImage image = null;
 
         // Creates a HImage 
-        public HImage(string location)
+        public HImage(int UUID, string location)
         {
+            this.UUID = UUID;
             this.location = location;
+        }
+
+        // Gets id of image
+        public int getUUID()
+        {
+            return this.UUID;
         }
 
         // Returns if the HImage is loaded onto memory
