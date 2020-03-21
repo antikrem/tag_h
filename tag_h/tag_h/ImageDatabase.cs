@@ -72,7 +72,7 @@ namespace tag_h
         private void addNewImage(string fileName)
         {
             string commandLine =
-                "INSERT INTO dbo.Tags (FileName, Tags, PhysicalExists, New, Viewd) " +
+                "INSERT INTO dbo.Tags (FileName, Tags, PhysicalExists, New, Viewed) " +
                 "VALUES (@fileName, NULL, 1, 1, 0);"; 
             SqlCommand cmd = new SqlCommand(commandLine, dbConnection);
             cmd.Parameters.AddWithValue("@fileName", fileName);
