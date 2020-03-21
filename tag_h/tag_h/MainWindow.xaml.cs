@@ -43,6 +43,16 @@ namespace tag_h
         // Offset zoom
         double zoom = 1;
 
+        // Current center focus
+        Point centerFocus = new Point(0, 0);
+
+        // Mouse drag start
+        Point mouseDragOffset = new Point(0, 0);
+
+        // Specifies that the mouse is currently dragging
+        bool mouseIsDragging = false;
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -155,11 +165,12 @@ namespace tag_h
         {
             // Centering image by displacement of size
             CenterImage.Margin = new Thickness(
-                (this.Width / 2) - CenterImage.Width + (CenterImage.Width - this.zoom * x),
-                (this.Height / 2) - CenterImage.Height + (CenterImage.Height - this.zoom * y), 
+                (this.Width / 2) - this.zoom * x,
+                (this.Height / 2)  - this.zoom * y, 
                 0, 
                 0
             );
+            centerFocus = new Point(x, y);
         }
 
         // More generalise image center
@@ -181,7 +192,7 @@ namespace tag_h
         }
 
 
-        // handle for image mouse down, which could be a number of events
+        // Handle for image mouse down, which could be a number of events
         public void centerImageMouseDown(object sender, MouseButtonEventArgs e)
         {
             // Handle a double click
@@ -203,7 +214,37 @@ namespace tag_h
                 }
                 
             }
+
+            // set dragging as true at the current mouse drag position
+            mouseIsDragging = true;
+            mouseDragOffset = new Point(
+                e.GetPosition(CenterImage).X,
+                e.GetPosition(CenterImage).Y
+            );
         }
+
+        // Handle for image mouse up, which resets mouse drag
+        public void centerImageMouseDragStop(object sender, RoutedEventArgs e)
+        {
+            mouseIsDragging = false;
+        }
+
+        // Handle event of mouse moving over image
+        public void centerImageMouseMove(object sender, MouseEventArgs e)
+        {
+            if (mouseIsDragging)
+            {
+                // Find the change in mouse position and update image
+                var currentMouse = e.GetPosition(CenterImage);
+                double x = mouseDragOffset.X - currentMouse.X;
+                double y = mouseDragOffset.Y - currentMouse.Y;
+
+                centerFocus.X = centerFocus.X + x;
+                centerFocus.Y = centerFocus.Y + y;
+                centerImageAt(centerFocus.X, centerFocus.Y);
+            }
+        }
+
     }
 
     

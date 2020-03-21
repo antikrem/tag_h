@@ -17,6 +17,9 @@
                Stretch="Uniform" 
                RenderOptions.BitmapScalingMode="HighQuality" 
                MouseDown ="centerImageMouseDown"
+               MouseUp ="centerImageMouseDragStop"
+               MouseLeave ="centerImageMouseDragStop"
+               MouseMove ="centerImageMouseMove"
                HorizontalAlignment="Left"
                VerticalAlignment="Top"/>
         <Grid HorizontalAlignment="Right" VerticalAlignment="Top" 
