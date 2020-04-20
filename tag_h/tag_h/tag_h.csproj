@@ -76,6 +76,7 @@
     <Compile Include="HImage.cs" />
     <Compile Include="ImageDatabase.cs" />
     <Compile Include="TagHApplication.cs" />
+    <Compile Include="TagStructure.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

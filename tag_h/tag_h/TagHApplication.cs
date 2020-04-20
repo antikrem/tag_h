@@ -25,6 +25,9 @@ namespace tag_h
         // List of all images, not loaded
         List<HImage> imageList = new List<HImage>();
 
+        // Current tag structure used by application
+        TagStructure tagStructure = null;
+
         // Private constructor
         private TagHApplication()
         {
@@ -33,6 +36,8 @@ namespace tag_h
 
             // Get all images
             updateHImageQueue();
+
+            this.tagStructure = new TagStructure("tags.xml");
         }
 
         // Singleton accessor
