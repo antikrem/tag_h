@@ -10,45 +10,43 @@ namespace tag_h
     /* Represents a field, which is a combination of tags */
     class Field
     {
+        // Set to true if this field is active
+        public bool IsActive { get; set; }
+
         // Name of this field
-        private string fieldName;
+        public string Name { get; }
 
         // List of tags that are associated with this field
-        private List<Tag> tags = new List<Tag>();
+        public List<Tag> Tags { get; }
 
         // Generates a new tfield
-        public Field(string fieldName)
+        public Field(string fieldName, List<Tag> tags)
         {
-            this.fieldName = fieldName;
+            this.Name = fieldName;
+            this.Tags = tags;
         }
 
-        // Add a new tag
-        public void addTags(List<Tag> tags)
-        {
-            this.tags = tags;
-        }
     }
 
     /* Represents a tag, which is an element of a feild that can be active*/
     class Tag
     {
+        // Set to true if this tag is active
+        public bool IsSelected { get; set; }
+
         // Name of this tag
-        private string tagName;
+        public string Name { get; }
 
         // List of fields that are dependent on this Field
-        private List<Field> fields = new List<Field>();
+        public List<Field> Fields { get; }
 
         // Generates a new tag
-        public Tag(string tagName)
+        public Tag(string tagName, List<Field> fields)
         {
-            this.tagName = tagName;
+            this.Name = tagName;
+            this.Fields = fields;
         }
 
-        // Add a dependent Field
-        public void addFields(List<Field> fields)
-        {
-            this.fields = fields;
-        }
     }
 
     /* Represents the structure for tags for this application
@@ -61,10 +59,10 @@ namespace tag_h
         // Takes a XmlNode of tag and returns the tag
         Tag parseTag(XmlNode node)
         {
-            Tag tag = new Tag(node.Attributes["name"].Value);
-
-            // Add the dependent fields in this tag
-            tag.addFields(parseFields(node.ChildNodes));
+            Tag tag = new Tag(
+                    node.Attributes["name"].Value,
+                    parseFields(node.ChildNodes)
+                );
 
             return tag;
 
@@ -86,10 +84,10 @@ namespace tag_h
         // Takes a single XMLNode of field and returns 
         Field parseField(XmlNode node)
         {
-            Field field = new Field(node.Attributes["name"].Value);
-
-            // Add tags in field
-            field.addTags(parseTags(node.ChildNodes));
+            Field field = new Field(
+                    node.Attributes["name"].Value,
+                    parseTags(node.ChildNodes)
+                );
 
             return field;
 
@@ -109,14 +107,53 @@ namespace tag_h
             return fields;
         }
 
+        // Generate a Tagstructure from file
         public TagStructure(string fileLocation)
         {
             XmlDocument tagFile = new XmlDocument();
             tagFile.Load(fileLocation);
-            var roots = parseFields(tagFile.ChildNodes[1].ChildNodes);
-            
+            this.roots = parseFields(tagFile.ChildNodes[1].ChildNodes);
         }
 
+        // Specifies this field and its children is not selected
+        private void markFieldNotSelected(Field field)
+        {
+            field.IsActive = false;
+            foreach (Tag tag in field.Tags)
+            {
+                tag.IsSelected = false;
+                tag.Fields.ForEach(subField => markFieldNotSelected(subField));
 
+            }
+        }
+
+        // Applies list of tags to this field
+        private void markField(List<string> tags, Field field)
+        {
+            field.IsActive = true;
+            foreach (Tag tag in field.Tags)
+            {
+                if (tags.Contains(tag.Name))
+                {
+                    // Set this tag as selected
+                    tag.IsSelected = true;
+                    // Propogate tag forward
+                    tag.Fields.ForEach(subField => markField(tags, subField));
+                }
+                else
+                {
+                    // Set this tag as not selected
+                    tag.IsSelected = false;
+                    // Propogate no tag forward
+                    tag.Fields.ForEach(subField => markFieldNotSelected(subField));
+                }
+            }
+        }
+
+        // Marks this TagStructure with a given list of tags
+        private void markWithTags(List<string> tags)
+        {
+            this.roots.ForEach(field => markField(tags, field));
+        }
     }
 }
