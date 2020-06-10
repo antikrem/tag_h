@@ -35,18 +35,41 @@
                 Margin="0,0,40,0"
                 Click="restoreButtonPress" />
         </Grid>
-        
-        <Button Content="Next" 
-                HorizontalAlignment="Right" VerticalAlignment="Center" 
-                Height="60" Width="60"
-                Margin="0,0,0,0"
-                Click="displayNextImageInQueue"/>
 
         <Button Content="Last" 
-                HorizontalAlignment="Left" VerticalAlignment="Center" 
+            HorizontalAlignment="Left" VerticalAlignment="Center" 
+            Height="60" Width="60"
+            Margin="0,0,0,0"
+            Click="displayPreviousImageInQueue"/>
+        <Grid HorizontalAlignment="Right" VerticalAlignment="Center" 
+            Width="60" Height="100" 
+            Margin="0,269,0,228">
+
+            <Button Content="Next" 
+                HorizontalAlignment="Right" VerticalAlignment="Top" 
                 Height="60" Width="60"
-                Margin="0,0,0,0"
-                Click="displayPreviousImageInQueue"/>
+                Click="displayNextImageInQueue"/>
+
+            <Button Content="Queue" 
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" 
+                Height="40" Width="60"/>
+
+        </Grid>
+
+        <Label x:Name="TagBar"  
+            HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+            Height="8" Width="180"
+            Background="#FFE0E0E0"
+            MouseEnter="showTagDock"/>
+
+        <StackPanel x:Name="TagDock"
+            VerticalAlignment="Bottom" 
+            Height="150" 
+            Background="#FFE0E0E0"
+            Opacity="0.25"
+            Visibility ="Hidden"/>
+
 
     </Grid>
+    
 </Window>

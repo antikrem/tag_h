@@ -284,6 +284,13 @@ namespace tag_h
             }
         }
 
+        // Handle showing Tagdock on bar hover
+        public void showTagDock(object sender, MouseEventArgs e)
+        {
+            TagDock.Visibility = Visibility.Visible;
+            TagBar.Visibility = Visibility.Hidden;
+        }
+
     }
 
     
