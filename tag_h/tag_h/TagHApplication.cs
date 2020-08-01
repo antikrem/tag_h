@@ -26,7 +26,7 @@ namespace tag_h
         List<HImage> imageList = new List<HImage>();
 
         // Current tag structure used by application
-        public TagStructure TagStructure = null;
+        public TagStructure TagStructure { get; set; } = null;
 
         // Private constructor
         private TagHApplication()
@@ -106,9 +106,9 @@ namespace tag_h
         }
 
         // Gets root field of 
-        public Field getRootField()
+        public List<Field> getRootFields()
         {
-            return TagStructure.getRoots()[0];
+            return TagStructure.getRoots();
         }
     }
 
