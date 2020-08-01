@@ -8,7 +8,7 @@ using System.Xml;
 namespace tag_h
 {
     /* Represents a field, which is a combination of tags */
-    class Field
+    public class Field
     {
         // Set to true if this field is active
         public bool IsActive { get; set; }
@@ -29,7 +29,7 @@ namespace tag_h
     }
 
     /* Represents a tag, which is an element of a feild that can be active*/
-    class Tag
+    public class Tag
     {
         // Set to true if this tag is active
         public bool IsSelected { get; set; }
@@ -151,9 +151,15 @@ namespace tag_h
         }
 
         // Marks this TagStructure with a given list of tags
-        private void markWithTags(List<string> tags)
+        public void markWithTags(List<string> tags)
         {
             this.roots.ForEach(field => markField(tags, field));
+        }
+
+        // Gets roots
+        public List<Field> getRoots()
+        {
+            return roots;
         }
     }
 }

@@ -26,7 +26,7 @@ namespace tag_h
         List<HImage> imageList = new List<HImage>();
 
         // Current tag structure used by application
-        TagStructure tagStructure = null;
+        public TagStructure TagStructure = null;
 
         // Private constructor
         private TagHApplication()
@@ -37,7 +37,7 @@ namespace tag_h
             // Get all images
             updateHImageQueue();
 
-            this.tagStructure = new TagStructure("tags.xml");
+            this.TagStructure = new TagStructure("tags.xml");
         }
 
         // Singleton accessor
@@ -103,6 +103,12 @@ namespace tag_h
                 place = 0;
                 return null;
             }
+        }
+
+        // Gets root field of 
+        public Field getRootField()
+        {
+            return TagStructure.getRoots()[0];
         }
     }
 
