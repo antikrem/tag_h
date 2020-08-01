@@ -194,6 +194,38 @@ namespace tag_h
             cmd.ExecuteNonQuery();
         }
 
+        // Loads HImage tags from database
+        public void LoadHTags(HImage image)
+        {
+            string commandLine =
+                "SELECT Tags FROM dbo.Tags " +
+                "WHERE Id = @id;";
+            SqlCommand cmd = new SqlCommand(commandLine, dbConnection);
+            cmd.Parameters.AddWithValue("@id", image.getUUID());
+
+            using (SqlDataReader objReader = cmd.ExecuteReader())
+            {
+                if (objReader.Read() && !objReader.IsDBNull(0))
+                {
+                    var tagInDatabase = objReader.GetString(0);
+                    image.Tags = objReader.GetString(0).Split(',').ToList();
+                }
+            }
+        }
+
+        // Saves HImage back to database
+        public void SaveHTags(HImage image)
+        {
+            string commandLine =
+                "UPDATE dbo.Tags SET Tags = @tags " +
+                "WHERE Id = @id;";
+            SqlCommand cmd = new SqlCommand(commandLine, dbConnection);
+            cmd.Parameters.AddWithValue("@id", string.Join(",", image.getUUID()));
+            cmd.Parameters.AddWithValue("@tags", string.Join(",", image.Tags));
+
+            cmd.ExecuteNonQuery();
+        }
+
         // Get a HImage with a condition and offset
         // Returns null if offset is too bit
         public List<HImage> getHImageList()
@@ -208,6 +240,12 @@ namespace tag_h
                 {
                     hImages.Add(new HImage(objReader.GetInt32(0), objReader.GetString(1)));
                 }
+            }
+
+            // Load Tags for each hImage
+            foreach (var image in hImages)
+            {
+                this.LoadHTags(image);
             }
 
             return hImages;
