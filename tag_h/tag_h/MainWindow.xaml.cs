@@ -186,6 +186,9 @@ namespace tag_h
 
                 // Also center the image
                 centerImage();
+
+                // Draw Tag Dock
+                this.UpdateTagDock();
             }
         }
 
@@ -310,6 +313,12 @@ namespace tag_h
         // Updates dock with current tag structure
         public void UpdateTagDock()
         {
+            // Do not draw if tag dock is not shown
+            if (TagDock.Visibility == Visibility.Visible)
+            {
+                return;
+            }
+
             TagDock.Children.Clear();
 
             if (CurrentImage is null)
