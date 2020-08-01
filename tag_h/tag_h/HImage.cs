@@ -24,6 +24,24 @@ namespace tag_h
         // Underlying image bitmap
         BitmapImage image = null;
 
+        // List of tags
+        private List<string> _tags = new List<string>();
+        public List<string> Tags
+        {
+            set
+            {
+                _tags = value;
+                for (int i = 0; i < _tags.Count; i++)
+                {
+                    _tags[i] = _tags[i].Trim();
+                }
+            }
+            get
+            {
+                return _tags;
+            }
+        }
+
         // Creates a HImage 
         public HImage(int UUID, string location)
         {
