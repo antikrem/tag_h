@@ -60,14 +60,19 @@
             HorizontalAlignment="Center" VerticalAlignment="Bottom" 
             Height="8" Width="180"
             Background="#FFE0E0E0"
-            MouseEnter="showTagDock"/>
+            MouseEnter="ShowTagDock"/>
 
         <StackPanel x:Name="TagDock"
             VerticalAlignment="Bottom" 
             Height="150" 
             Background="#FFE0E0E0"
             Opacity="0.25"
-            Visibility ="Hidden"/>
+            Visibility ="Hidden"
+            Orientation="Horizontal">
+            
+            
+
+        </StackPanel>
 
 
     </Grid>

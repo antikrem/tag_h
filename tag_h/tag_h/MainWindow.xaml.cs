@@ -17,10 +17,23 @@ using static ColorStyling;
 
 namespace tag_h
 {
-    /* *
-     * Manages window and front end responsiveness
+    public static class StackExtensions {
+
+        // Extends a 
+        public static void Extend<T>(this Stack<T> stack, IEnumerable<T> extension)
+        {
+            foreach (var x in extension)
+            {
+                stack.Push(x);
+            }
+        }
+    }
+    
+
+
+    /* Manages window and front end responsiveness
      * Application logic in TagHApplication 
-     * */
+     */
     public partial class MainWindow : Window
     {
 
@@ -34,7 +47,7 @@ namespace tag_h
         private double restoredHeight = 600;
 
         // Current image being drawn
-        HImage currentImage = null;
+        HImage CurrentImage = null;
 
         // Image 100% zoom size
         double imageDefaultWidth = 0;
@@ -122,8 +135,8 @@ namespace tag_h
         // Sets center image to show full iamge, and not scale smaller images
         private void updateCenterImageView()
         {
-            double imageWidth = currentImage.getPixelWidth();
-            double imageHeight = currentImage.getPixelHeight();
+            double imageWidth = CurrentImage.getPixelWidth();
+            double imageHeight = CurrentImage.getPixelHeight();
 
             if (imageHeight > this.Height)
             {
@@ -157,16 +170,16 @@ namespace tag_h
             if (nextImage != null)
             {
                 // If theres a current image, dispose it
-                if (currentImage != null)
+                if (CurrentImage != null)
                 {
-                    currentImage.deloadBitmap();
+                    CurrentImage.deloadBitmap();
                 }
 
                 // New image is the current image
-                currentImage = nextImage;
+                CurrentImage = nextImage;
 
                 // Set new image
-                CenterImage.Source = currentImage.getBitmap();
+                CenterImage.Source = CurrentImage.getBitmap();
 
                 // Set CenterImage to be correct size
                 updateCenterImageView();
@@ -285,12 +298,46 @@ namespace tag_h
         }
 
         // Handle showing Tagdock on bar hover
-        public void showTagDock(object sender, MouseEventArgs e)
+        public void ShowTagDock(object sender, MouseEventArgs e)
         {
             TagDock.Visibility = Visibility.Visible;
             TagBar.Visibility = Visibility.Hidden;
+
+            // Draw Tag Dock
+            this.UpdateTagDock();
         }
 
+        // Updates dock with current tag structure
+        public void UpdateTagDock()
+        {
+            TagDock.Children.Clear();
+
+            if (CurrentImage is null)
+            {
+                return;
+            }
+
+            // Update tag structure with tags
+            TagHApplication.Get().TagStructure.markWithTags(CurrentImage.Tags);
+
+            // Stack of fields to pass
+            Stack <Field> fields = new Stack<Field>();
+            fields.Extend(TagHApplication.Get().TagStructure.getRoots());
+
+            while (fields.Count > 0)
+            {
+                var field = fields.Pop();
+                TagDock.Children.Add(new TagPanel(field));
+                foreach (var tag in field.Tags)
+                {
+                    if (tag.IsSelected)
+                    {
+                        fields.Extend(tag.Fields);
+                    }
+                }
+            }
+            
+        }
     }
 
     
