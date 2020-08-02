@@ -23,15 +23,16 @@
                Grid.Row="0" Grid.Column="0"/>
         
         <StackPanel x:Name ="TagSelector" 
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Top" 
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch" 
                     Grid.Row="1" Grid.Column="0"/>
 
         <StackPanel x:Name ="TagPanelChildren" 
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Top" 
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch" 
                     Grid.Row="0" Grid.Column="1"
-                    Grid.RowSpan="2"/>
+                    Grid.RowSpan="2"
+                    Orientation="Horizontal"/>
 
     </Grid>
 </UserControl>
