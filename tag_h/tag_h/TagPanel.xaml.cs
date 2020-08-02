@@ -38,15 +38,40 @@ namespace tag_h
                     IsChecked = i.IsSelected
                 };
                 button.Checked += OnTagBoxCheck;
+                button.Unchecked += OnTagBoxUncheck;
                 TagSelector.Children.Add(button);
+
+                if (i.IsSelected)
+                {
+                    foreach (Field subField in i.Fields)
+                    {
+                        TagPanelChildren.Children.Add(
+                            new TagPanel(subField)
+                        );
+                    }
+                    
+                }
             }
         }
 
-        // Call back for check boxes
+        // Call back for check box press
         public void OnTagBoxCheck(object sender, RoutedEventArgs e)
         {
             // Mark the appropiate tag
             field.MarkWithTag(
+                    (string)((CheckBox)sender).Content
+                );
+
+            // Update iamge tags and redraw tag dock
+            TagHApplication.Get().PushTagStructureToImage();
+            TagHApplication.Get().MainWindow.UpdateTagDock();
+        }
+
+        // Call back for check box unpress
+        public void OnTagBoxUncheck(object sender, RoutedEventArgs e)
+        {
+            // Mark the appropiate tag
+            field.UnmarkWithTag(
                     (string)((CheckBox)sender).Content
                 );
 

@@ -17,9 +17,18 @@ using static ColorStyling;
 
 namespace tag_h
 {
-    public static class StackExtensions {
+    public static class ContainerExtensions {
 
-        // Extends a 
+        // Extends a queue by an enumerable
+        public static void Extend<T>(this Queue<T> queue, IEnumerable<T> extension)
+        {
+            foreach (var x in extension)
+            {
+                queue.Enqueue(x);
+            }
+        }
+
+        // Extends a stack by an enumerable
         public static void Extend<T>(this Stack<T> stack, IEnumerable<T> extension)
         {
             foreach (var x in extension)
@@ -328,24 +337,7 @@ namespace tag_h
 
             // Update tag structure with tags
             TagHApplication.Get().TagStructure.markWithTags(CurrentImage.Tags);
-
-            // Stack of fields to pass
-            Stack <Field> fields = new Stack<Field>();
-            fields.Extend(TagHApplication.Get().TagStructure.getRoots());
-
-            while (fields.Count > 0)
-            {
-                var field = fields.Pop();
-                TagDock.Children.Add(new TagPanel(field));
-                foreach (var tag in field.Tags)
-                {
-                    if (tag.IsSelected)
-                    {
-                        fields.Extend(tag.Fields);
-                    }
-                }
-            }
-            
+            TagHApplication.Get().TagStructure.getRoots().ForEach(x => TagDock.Children.Add(new TagPanel(x)));
         }
     }
 

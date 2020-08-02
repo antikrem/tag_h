@@ -37,6 +37,13 @@ namespace tag_h
             // If this field is exclusive, set already tagged fields to false
             Tags.ForEach(tag => tag.IsSelected = (tag.IsSelected && !Exclusive) || tag.Name == tagger);
         }
+
+        // Unmarks this field with a single tag
+        public void UnmarkWithTag(string tagger)
+        {
+            // If this field is exclusive, set already tagged fields to false
+            Tags.ForEach(tag => tag.IsSelected = tag.IsSelected && tag.Name != tagger);
+        }
     }
 
     /* Represents a tag, which is an element of a feild that can be active*/
