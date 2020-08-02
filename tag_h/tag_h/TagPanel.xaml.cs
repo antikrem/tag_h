@@ -22,12 +22,17 @@ namespace tag_h
     {
         Field field;
 
-        public TagPanel(Field field)
+        public TagPanel(Field field, int depth)
         {
             InitializeComponent();
             this.field = field;
 
             FieldLabel.Content = field.Name;
+
+            // Set colour absed on depth
+            this.Background = new SolidColorBrush(
+                    ColorStyling.getTagPanelColour(depth)
+                );
 
             // Add radio button
             foreach (Tag i in field.Tags)
@@ -46,12 +51,13 @@ namespace tag_h
                     foreach (Field subField in i.Fields)
                     {
                         TagPanelChildren.Children.Add(
-                            new TagPanel(subField)
+                            new TagPanel(subField, depth+1)
                         );
                     }
                     
                 }
             }
+
         }
 
         // Call back for check box press

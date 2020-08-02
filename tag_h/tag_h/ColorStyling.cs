@@ -18,4 +18,10 @@ public class ColorStyling
         return System.Windows.Media.Color.FromArgb(100, 52, 52, 52);
     }
 
+    // Function for converting level to colour for tag panel
+    public static System.Windows.Media.Color getTagPanelColour(int depth)
+    {
+        return System.Windows.Media.Color.FromArgb(100, (byte)(150 - 10 * depth), (byte)(150 - 10 * depth), (byte)(150 - 10 * depth));
+    }
+
 }
