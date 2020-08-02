@@ -314,7 +314,7 @@ namespace tag_h
         public void UpdateTagDock()
         {
             // Do not draw if tag dock is not shown
-            if (TagDock.Visibility == Visibility.Visible)
+            if (TagDock.Visibility != Visibility.Visible)
             {
                 return;
             }
