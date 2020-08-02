@@ -22,8 +22,6 @@ namespace tag_h
     {
         Field field;
 
-
-
         public TagPanel(Field field)
         {
             InitializeComponent();
@@ -34,8 +32,12 @@ namespace tag_h
             // Add radio button
             foreach (Tag i in field.Tags)
             {
-                RadioButton button = new RadioButton();
-                button.Content = i.Name;
+                CheckBox button = new CheckBox
+                {
+                    Content = i.Name,
+                    IsChecked = i.IsSelected
+                };
+
                 TagSelector.Children.Add(button);
             }
         }
