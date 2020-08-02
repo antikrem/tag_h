@@ -16,21 +16,26 @@ namespace tag_h
         // Name of this field
         public string Name { get; }
 
+        // An exclusive field can only have one tag active
+        public bool Exclusive { get; }
+
         // List of tags that are associated with this field
         public List<Tag> Tags { get; }
 
         // Generates a new tfield
-        public Field(string fieldName, List<Tag> tags)
+        public Field(string fieldName, List<Tag> tags, bool exclusive)
         {
             this.Name = fieldName;
             this.Tags = tags;
+            this.Exclusive = exclusive;
         }
 
 
-        // Marks this field with a single tag which does not propogate
+        // Marks this field with a single tag
         public void MarkWithTag(string tagger)
         {
-            Tags.ForEach(tag => tag.IsSelected = tag.IsSelected || tag.Name == tagger);
+            // If this field is exclusive, set already tagged fields to false
+            Tags.ForEach(tag => tag.IsSelected = (tag.IsSelected && !Exclusive) || tag.Name == tagger);
         }
     }
 
@@ -92,7 +97,8 @@ namespace tag_h
         {
             Field field = new Field(
                     node.Attributes["name"].Value,
-                    parseTags(node.ChildNodes)
+                    parseTags(node.ChildNodes),
+                    node.Attributes["exclusive"].Value == "true"
                 );
 
             return field;
@@ -191,9 +197,6 @@ namespace tag_h
 
             return tags;
         }
-        
-        
-
-            
+ 
     }
 }
