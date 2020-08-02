@@ -175,30 +175,33 @@ namespace tag_h
         // Frees old image
         private void setNewImage(HImage nextImage)
         {
-            // If there is a next image, do something
-            if (nextImage != null)
+            // If there is no next image, do nothing
+            if (nextImage is null)
             {
-                // If theres a current image, dispose it
-                if (CurrentImage != null)
-                {
-                    CurrentImage.deloadBitmap();
-                }
-
-                // New image is the current image
-                CurrentImage = nextImage;
-
-                // Set new image
-                CenterImage.Source = CurrentImage.getBitmap();
-
-                // Set CenterImage to be correct size
-                updateCenterImageView();
-
-                // Also center the image
-                centerImage();
-
-                // Draw Tag Dock
-                this.UpdateTagDock();
+                return;
             }
+            
+            // If theres a current image, save tags and dispose it
+            if (CurrentImage != null)
+            {
+                TagHApplication.Get().ImageDataBase.SaveHTags(CurrentImage);
+                CurrentImage.deloadBitmap();
+            }
+
+            // New image is the current image
+            CurrentImage = nextImage;
+
+            // Set new image
+            CenterImage.Source = CurrentImage.getBitmap();
+
+            // Set CenterImage to be correct size
+            updateCenterImageView();
+
+            // Also center the image
+            centerImage();
+
+            // Draw Tag Dock
+            this.UpdateTagDock();
         }
 
         // Sets next image in the queue to be source

@@ -20,7 +20,7 @@ namespace tag_h
         public MainWindow MainWindow = null;
 
         // Store of all images
-        ImageDatabase imageDataBase = null;
+        public ImageDatabase ImageDataBase { get; } = null;
 
         // Place in imageList, -1 indicates start before list
         int place = -1;
@@ -35,7 +35,7 @@ namespace tag_h
         private TagHApplication()
         {
             // Initialise database
-            this.imageDataBase = new ImageDatabase();
+            this.ImageDataBase = new ImageDatabase();
 
             // Get all images
             updateHImageQueue();
@@ -56,7 +56,7 @@ namespace tag_h
         // Close the database
         private void closeDatabase()
         {
-            this.imageDataBase.Close();
+            this.ImageDataBase.Close();
         }
 
         // Closes application
@@ -69,7 +69,7 @@ namespace tag_h
         // Updates queue of HImages
         public void updateHImageQueue()
         {
-            this.imageList = this.imageDataBase.getHImageList();
+            this.imageList = this.ImageDataBase.getHImageList();
         }
 
         // Gets next image in the queue
@@ -81,7 +81,7 @@ namespace tag_h
             {
                 var image = imageList[place];
                 image.loadBitmap();
-                imageDataBase.markImageAsViewed(image);
+                ImageDataBase.markImageAsViewed(image);
                 return image;
             } else
             {
