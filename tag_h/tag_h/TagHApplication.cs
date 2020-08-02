@@ -16,6 +16,9 @@ namespace tag_h
         // Singleton isntance
         private static TagHApplication instance = null;
 
+        // Main Window reference
+        public MainWindow MainWindow = null;
+
         // Store of all images
         ImageDatabase imageDataBase = null;
 
@@ -105,10 +108,16 @@ namespace tag_h
             }
         }
 
-        // Gets root field of 
+        // Gets root field of tag structure
         public List<Field> getRootFields()
         {
             return TagStructure.getRoots();
+        }
+
+        // Move tags in tag structure to current image
+        public void PushTagStructureToImage()
+        {
+            MainWindow.CurrentImage.Tags = TagStructure.GetTagString();
         }
     }
 

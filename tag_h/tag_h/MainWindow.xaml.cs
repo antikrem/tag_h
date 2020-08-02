@@ -47,7 +47,7 @@ namespace tag_h
         private double restoredHeight = 600;
 
         // Current image being drawn
-        HImage CurrentImage = null;
+        public HImage CurrentImage = null;
 
         // Image 100% zoom size
         double imageDefaultWidth = 0;
@@ -76,7 +76,7 @@ namespace tag_h
             InitializeComponent();
 
             // Initialise TagHApplication, the "backend"
-            TagHApplication.Get();
+            TagHApplication.Get().MainWindow = this;
 
             // Maximise the window
             maximiseWindow();

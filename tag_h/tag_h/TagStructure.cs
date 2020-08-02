@@ -26,6 +26,12 @@ namespace tag_h
             this.Tags = tags;
         }
 
+
+        // Marks this field with a single tag which does not propogate
+        public void MarkWithTag(string tagger)
+        {
+            Tags.ForEach(tag => tag.IsSelected = tag.IsSelected || tag.Name == tagger);
+        }
     }
 
     /* Represents a tag, which is an element of a feild that can be active*/
@@ -161,5 +167,33 @@ namespace tag_h
         {
             return roots;
         }
+
+
+        // Gets tag as a list of strings
+        public List<string> GetTagString()
+        {
+            Stack<Field> fields = new Stack<Field>();
+            roots.ForEach(x => fields.Push(x));
+            List<string> tags = new List<string>();
+
+            while (fields.Count > 0)
+            {
+                var field = fields.Pop();
+                foreach (var tag in field.Tags)
+                {
+                    if (tag.IsSelected)
+                    {
+                        tags.Add(tag.Name);
+                        fields.Extend(tag.Fields);
+                    }
+                }
+            }
+
+            return tags;
+        }
+        
+        
+
+            
     }
 }

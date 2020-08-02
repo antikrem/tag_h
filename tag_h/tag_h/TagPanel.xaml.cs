@@ -37,9 +37,22 @@ namespace tag_h
                     Content = i.Name,
                     IsChecked = i.IsSelected
                 };
-
+                button.Checked += OnTagBoxCheck;
                 TagSelector.Children.Add(button);
             }
+        }
+
+        // Call back for check boxes
+        public void OnTagBoxCheck(object sender, RoutedEventArgs e)
+        {
+            // Mark the appropiate tag
+            field.MarkWithTag(
+                    (string)((CheckBox)sender).Content
+                );
+
+            // Update iamge tags and redraw tag dock
+            TagHApplication.Get().PushTagStructureToImage();
+            TagHApplication.Get().MainWindow.UpdateTagDock();
         }
     }
 }

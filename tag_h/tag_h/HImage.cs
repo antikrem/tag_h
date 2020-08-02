@@ -10,7 +10,7 @@ namespace tag_h
 {
     /* Stores an entire image
      */
-    class HImage
+    public class HImage
     {
         // Unique ID assigned to each HImage
         private int UUID;
