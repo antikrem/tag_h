@@ -13,7 +13,7 @@ namespace tag_h
     public class HImage
     {
         // Unique ID assigned to each HImage
-        public int UUID { get; set; }
+        public int UUID { get; }
         
         // Static stream used for background loading
         Stream stream = null;
