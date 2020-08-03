@@ -189,7 +189,7 @@ namespace tag_h
                 "UPDATE dbo.Tags SET Viewed = 1, New = 0 " +
                 "WHERE Id = @id;";
             SqlCommand cmd = new SqlCommand(commandLine, dbConnection);
-            cmd.Parameters.AddWithValue("@id", image.getUUID());
+            cmd.Parameters.AddWithValue("@id", image.UUID);
 
             cmd.ExecuteNonQuery();
         }
@@ -201,7 +201,7 @@ namespace tag_h
                 "SELECT Tags FROM dbo.Tags " +
                 "WHERE Id = @id;";
             SqlCommand cmd = new SqlCommand(commandLine, dbConnection);
-            cmd.Parameters.AddWithValue("@id", image.getUUID());
+            cmd.Parameters.AddWithValue("@id", image.UUID);
 
             using (SqlDataReader objReader = cmd.ExecuteReader())
             {
@@ -220,7 +220,7 @@ namespace tag_h
                 "UPDATE dbo.Tags SET Tags = @tags " +
                 "WHERE Id = @id;";
             SqlCommand cmd = new SqlCommand(commandLine, dbConnection);
-            cmd.Parameters.AddWithValue("@id", string.Join(",", image.getUUID()));
+            cmd.Parameters.AddWithValue("@id", string.Join(",", image.UUID));
             cmd.Parameters.AddWithValue("@tags", string.Join(",", image.Tags));
 
             cmd.ExecuteNonQuery();

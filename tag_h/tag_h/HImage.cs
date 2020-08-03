@@ -13,7 +13,7 @@ namespace tag_h
     public class HImage
     {
         // Unique ID assigned to each HImage
-        private int UUID;
+        public int UUID { get; set; }
         
         // Static stream used for background loading
         Stream stream = null;
@@ -47,12 +47,6 @@ namespace tag_h
         {
             this.UUID = UUID;
             this.location = location;
-        }
-
-        // Gets id of image
-        public int getUUID()
-        {
-            return this.UUID;
         }
 
         // Returns if the HImage is loaded onto memory
