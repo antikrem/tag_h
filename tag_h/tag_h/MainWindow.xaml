@@ -16,10 +16,10 @@
         <Image x:Name="CenterImage" 
                Stretch="Uniform" 
                RenderOptions.BitmapScalingMode="HighQuality" 
-               MouseDown ="centerImageMouseDown"
-               MouseUp ="centerImageMouseDragStop"
-               MouseLeave ="centerImageMouseDragStop"
-               MouseMove ="centerImageMouseMove"
+               MouseDown ="MainWindow_CenterImageMouseDown"
+               MouseUp ="MainWindow_CenterImageMouseDragStop"
+               MouseLeave ="MainWindow_CenterImageMouseDragStop"
+               MouseMove ="MainWindow_CenterImageMouseMove"
                HorizontalAlignment="Left"
                VerticalAlignment="Top"/>
         <Grid HorizontalAlignment="Right" VerticalAlignment="Top" 
@@ -28,19 +28,19 @@
             <Button Content="Close" 
                 HorizontalAlignment="Right" VerticalAlignment="Top" 
                 Width="40" Height="40" 
-                Click="closeApplication"/>
+                Click="MainWindow_CloseWindow"/>
             <Button Content="Max" 
                 HorizontalAlignment="Right" VerticalAlignment="Top" 
                 Width="40" Height="40" 
                 Margin="0,0,40,0"
-                Click="restoreButtonPress" />
+                Click="MainWindow_RestoreButtonPress" />
         </Grid>
 
         <Button Content="Last" 
             HorizontalAlignment="Left" VerticalAlignment="Center" 
             Height="60" Width="60"
             Margin="0,0,0,0"
-            Click="displayPreviousImageInQueue"/>
+            Click="MainWindow_DisplayPreviousImageInQueue"/>
         <Grid HorizontalAlignment="Right" VerticalAlignment="Center" 
             Width="60" Height="100" 
             Margin="0,269,0,228">
@@ -48,7 +48,7 @@
             <Button Content="Next" 
                 HorizontalAlignment="Right" VerticalAlignment="Top" 
                 Height="60" Width="60"
-                Click="displayNextImageInQueue"/>
+                Click="MainWindow_DisplayNextImageInQueue"/>
 
             <Button Content="Queue" 
                 HorizontalAlignment="Right" VerticalAlignment="Bottom" 
@@ -60,7 +60,7 @@
             HorizontalAlignment="Center" VerticalAlignment="Bottom" 
             Height="8" Width="180"
             Background="#FFE0E0E0"
-            MouseEnter="ShowTagDock"/>
+            MouseEnter="MainWindow_ShowTagDock"/>
 
         <StackPanel x:Name="TagDock"
             VerticalAlignment="Bottom" 

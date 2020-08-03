@@ -94,17 +94,17 @@ namespace tag_h
             this.Background = new SolidColorBrush(ColorStyling.getBackgroundColour());
 
             // Set an image
-            this.displayNextImageInQueue(null, null);
+            this.MainWindow_DisplayNextImageInQueue(null, null);
         }
 
         // Closes application
-        public void closeApplication(object sender, RoutedEventArgs e)
+        public void MainWindow_CloseWindow(object sender, RoutedEventArgs e)
         {
             TagHApplication.Close();
         }
 
         // Handle restore button (top right, one right) button press
-        public void restoreButtonPress(object sender, RoutedEventArgs e)
+        public void MainWindow_RestoreButtonPress(object sender, RoutedEventArgs e)
         {
             if (this.isMaximised)
             {
@@ -206,7 +206,7 @@ namespace tag_h
 
         // Sets next image in the queue to be source
         // Does nothing if queue is empty
-        public void displayNextImageInQueue(object sender, RoutedEventArgs e)
+        public void MainWindow_DisplayNextImageInQueue(object sender, RoutedEventArgs e)
         {
             setNewImage(TagHApplication.Get().getNextImage());
 
@@ -214,7 +214,7 @@ namespace tag_h
 
         // Sets last image in the queue to be source
         // Does nothing if queue is empty
-        public void displayPreviousImageInQueue(object sender, RoutedEventArgs e)
+        public void MainWindow_DisplayPreviousImageInQueue(object sender, RoutedEventArgs e)
         {
             setNewImage(TagHApplication.Get().getPreviousImage());
 
@@ -254,7 +254,7 @@ namespace tag_h
 
 
         // Handle for image mouse down, which could be a number of events
-        public void centerImageMouseDown(object sender, MouseButtonEventArgs e)
+        public void MainWindow_CenterImageMouseDown(object sender, MouseButtonEventArgs e)
         {
             // Handle a double click
             if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2) {
@@ -285,14 +285,14 @@ namespace tag_h
         }
 
         // Handle for image mouse up, which resets mouse drag
-        public void centerImageMouseDragStop(object sender, RoutedEventArgs e)
+        public void MainWindow_CenterImageMouseDragStop(object sender, RoutedEventArgs e)
         {
             mouseIsDragging = false;
             dragCount = 0;
         }
 
         // Handle event of mouse moving over image
-        public void centerImageMouseMove(object sender, MouseEventArgs e)
+        public void MainWindow_CenterImageMouseMove(object sender, MouseEventArgs e)
         {
             if (mouseIsDragging)
             {
@@ -313,7 +313,7 @@ namespace tag_h
         }
 
         // Handle showing Tagdock on bar hover
-        public void ShowTagDock(object sender, MouseEventArgs e)
+        public void MainWindow_ShowTagDock(object sender, MouseEventArgs e)
         {
             TagDock.Visibility = Visibility.Visible;
             TagBar.Visibility = Visibility.Hidden;
