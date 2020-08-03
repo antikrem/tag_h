@@ -72,17 +72,17 @@ namespace tag_h
     class TagStructure
     {
         // List of root fields
-        private List<Field> roots = new List<Field>();
+        public List<Field> Roots { get; } = new List<Field>();
 
         // Location of underlying tag xml
         public string FileLocation { get; }
 
         // Takes a XmlNode of tag and returns the tag
-        Tag parseTag(XmlNode node)
+        Tag ParseTag(XmlNode node)
         {
             Tag tag = new Tag(
                     node.Attributes["name"].Value,
-                    parseFields(node.ChildNodes)
+                    ParseFields(node.ChildNodes)
                 );
 
             return tag;
@@ -90,24 +90,24 @@ namespace tag_h
         }
 
         // Takes ChildNodeList of tags and returns a list of tags
-        List<Tag> parseTags(XmlNodeList nodes)
+        List<Tag> ParseTags(XmlNodeList nodes)
         {
             List<Tag> tags = new List<Tag>();
 
             foreach (XmlNode tagNode in nodes)
             {
-                tags.Add(parseTag(tagNode));
+                tags.Add(ParseTag(tagNode));
             }
 
             return tags;
         }
 
         // Takes a single XMLNode of field and returns 
-        Field parseField(XmlNode node)
+        Field ParseField(XmlNode node)
         {
             Field field = new Field(
                     node.Attributes["name"].Value,
-                    parseTags(node.ChildNodes),
+                    ParseTags(node.ChildNodes),
                     node.Attributes["exclusive"].Value == "true"
                 );
 
@@ -117,13 +117,13 @@ namespace tag_h
 
         // Takes a ChildNodeList of fields
         // And creates a List of these fields
-        List<Field> parseFields(XmlNodeList nodes)
+        List<Field> ParseFields(XmlNodeList nodes)
         {
             List<Field> fields = new List<Field>();
 
             foreach (XmlNode fieldNode in nodes)
             {
-                fields.Add(parseField(fieldNode));
+                fields.Add(ParseField(fieldNode));
             }
 
             return fields;
@@ -134,7 +134,7 @@ namespace tag_h
         {
             XmlDocument tagFile = new XmlDocument();
             tagFile.Load(fileLocation);
-            this.roots = parseFields(tagFile.ChildNodes[1].ChildNodes);
+            this.Roots = ParseFields(tagFile.ChildNodes[1].ChildNodes);
 
             this.FileLocation = fileLocation;
         }
@@ -176,26 +176,26 @@ namespace tag_h
             writer.WriteStartDocument();
             writer.WriteStartElement("roots");
 
-            roots.ForEach(field => SaveField(writer, field));
+            Roots.ForEach(field => SaveField(writer, field));
 
             writer.WriteEndDocument();
             writer.Close();
         }
 
         // Specifies this field and its children is not selected
-        private void markFieldNotSelected(Field field)
+        private void MarkFieldNotSelected(Field field)
         {
             field.IsActive = false;
             foreach (Tag tag in field.Tags)
             {
                 tag.IsSelected = false;
-                tag.Fields.ForEach(subField => markFieldNotSelected(subField));
+                tag.Fields.ForEach(subField => MarkFieldNotSelected(subField));
 
             }
         }
 
         // Applies list of tags to this field
-        private void markField(List<string> tags, Field field)
+        private void MarkField(List<string> tags, Field field)
         {
             field.IsActive = true;
             foreach (Tag tag in field.Tags)
@@ -205,35 +205,29 @@ namespace tag_h
                     // Set this tag as selected
                     tag.IsSelected = true;
                     // Propogate tag forward
-                    tag.Fields.ForEach(subField => markField(tags, subField));
+                    tag.Fields.ForEach(subField => MarkField(tags, subField));
                 }
                 else
                 {
                     // Set this tag as not selected
                     tag.IsSelected = false;
                     // Propogate no tag forward
-                    tag.Fields.ForEach(subField => markFieldNotSelected(subField));
+                    tag.Fields.ForEach(subField => MarkFieldNotSelected(subField));
                 }
             }
         }
 
         // Marks this TagStructure with a given list of tags
-        public void markWithTags(List<string> tags)
+        public void MarkWithTags(List<string> tags)
         {
-            this.roots.ForEach(field => markField(tags, field));
-        }
-
-        // Gets roots
-        public List<Field> getRoots()
-        {
-            return roots;
+            this.Roots.ForEach(field => MarkField(tags, field));
         }
         
         // Gets tag as a list of strings
         public List<string> GetTagString()
         {
             Stack<Field> fields = new Stack<Field>();
-            roots.ForEach(x => fields.Push(x));
+            Roots.ForEach(x => fields.Push(x));
             List<string> tags = new List<string>();
 
             while (fields.Count > 0)

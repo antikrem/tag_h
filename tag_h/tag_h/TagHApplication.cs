@@ -112,7 +112,7 @@ namespace tag_h
         // Gets root field of tag structure
         public List<Field> getRootFields()
         {
-            return TagStructure.getRoots();
+            return TagStructure.Roots;
         }
 
         // Move tags in tag structure to current image
