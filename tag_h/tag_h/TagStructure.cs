@@ -71,8 +71,11 @@ namespace tag_h
      * This is dynamic and can be modified by user */
     class TagStructure
     {
-        //  List of root fields
+        // List of root fields
         private List<Field> roots = new List<Field>();
+
+        // Location of underlying tag xml
+        public string FileLocation { get; }
 
         // Takes a XmlNode of tag and returns the tag
         Tag parseTag(XmlNode node)
@@ -132,6 +135,51 @@ namespace tag_h
             XmlDocument tagFile = new XmlDocument();
             tagFile.Load(fileLocation);
             this.roots = parseFields(tagFile.ChildNodes[1].ChildNodes);
+
+            this.FileLocation = fileLocation;
+        }
+
+        // Recursivly adds a new field to current xml field
+        public void SaveField(XmlWriter writer, Field field)
+        {
+            if (field is null)
+            {
+                return;
+            }
+
+            writer.WriteStartElement("field");
+            writer.WriteAttributeString("name", field.Name);
+            writer.WriteAttributeString("exclusive", field.Exclusive ? "true" : "false");
+
+            foreach (Tag tag in field.Tags)
+            {
+                writer.WriteStartElement("tag");
+                writer.WriteAttributeString("name", tag.Name);
+                tag.Fields.ForEach(subField => SaveField(writer, subField));
+                writer.WriteEndElement();
+            }
+
+            writer.WriteEndElement();
+        }
+
+        // Saves tag structure to 
+        public void SaveTagStructure()
+        {
+            XmlWriterSettings xmlWriterSettings = new XmlWriterSettings()
+            {
+                Indent = true,
+                IndentChars = "\t"
+            };
+
+            XmlWriter writer = XmlWriter.Create(FileLocation, xmlWriterSettings);
+
+            writer.WriteStartDocument();
+            writer.WriteStartElement("roots");
+
+            roots.ForEach(field => SaveField(writer, field));
+
+            writer.WriteEndDocument();
+            writer.Close();
         }
 
         // Specifies this field and its children is not selected
@@ -180,8 +228,7 @@ namespace tag_h
         {
             return roots;
         }
-
-
+        
         // Gets tag as a list of strings
         public List<string> GetTagString()
         {

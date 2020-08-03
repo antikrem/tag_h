@@ -64,6 +64,7 @@ namespace tag_h
         {
             System.Windows.Application.Current.Shutdown();
             TagHApplication.Get().closeDatabase();
+            TagHApplication.Get().TagStructure.SaveTagStructure();
         }
 
         // Updates queue of HImages
