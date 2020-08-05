@@ -20,7 +20,7 @@ namespace tag_h
 
         // Database connect string to local database storing tags
         private string dbConnectionString 
-                = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\dbTags.mdf;Integrated Security = True";
+                = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=$wd$\dbTags.mdf;Integrated Security = True";
 
         // Local file storing all images
         private static readonly string imageFolder = "images//";
@@ -157,6 +157,7 @@ namespace tag_h
             setupFolders();
 
             // Initialise database
+            this.dbConnectionString = this.dbConnectionString.Replace("$wd$", ImageDatabase.workingDirectory);
             this.dbConnection = new SqlConnection(dbConnectionString);
             this.dbConnection.Open();
 
@@ -220,7 +221,7 @@ namespace tag_h
                 "UPDATE dbo.Tags SET Tags = @tags " +
                 "WHERE Id = @id;";
             SqlCommand cmd = new SqlCommand(commandLine, dbConnection);
-            cmd.Parameters.AddWithValue("@id", string.Join(",", image.UUID));
+            cmd.Parameters.AddWithValue("@id", image.UUID);
             cmd.Parameters.AddWithValue("@tags", string.Join(",", image.Tags));
 
             cmd.ExecuteNonQuery();
