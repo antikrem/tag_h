@@ -75,6 +75,9 @@
     </ApplicationDefinition>
     <Compile Include="HImage.cs" />
     <Compile Include="ImageDatabase.cs" />
+    <Compile Include="TagAddWindow.xaml.cs">
+      <DependentUpon>TagAddWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TagHApplication.cs" />
     <Compile Include="TagPanel.xaml.cs">
       <DependentUpon>TagPanel.xaml</DependentUpon>
@@ -93,6 +96,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="TagAddWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TagPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

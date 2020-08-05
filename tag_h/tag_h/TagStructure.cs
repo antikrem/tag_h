@@ -19,15 +19,19 @@ namespace tag_h
         // An exclusive field can only have one tag active
         public bool Exclusive { get; }
 
+        // Expandable fields can have tags added at run time
+        public bool Extendable { get; }
+
         // List of tags that are associated with this field
         public List<Tag> Tags { get; }
 
         // Generates a new tfield
-        public Field(string fieldName, List<Tag> tags, bool exclusive)
+        public Field(string fieldName, List<Tag> tags, bool exclusive, bool extendable)
         {
             this.Name = fieldName;
             this.Tags = tags;
             this.Exclusive = exclusive;
+            this.Extendable = extendable;
         }
 
 
@@ -108,7 +112,8 @@ namespace tag_h
             Field field = new Field(
                     node.Attributes["name"].Value,
                     ParseTags(node.ChildNodes),
-                    node.Attributes["exclusive"].Value == "true"
+                    node.Attributes["exclusive"].Value == "true",
+                    node.Attributes["extendable"].Value == "true"
                 );
 
             return field;
@@ -150,6 +155,7 @@ namespace tag_h
             writer.WriteStartElement("field");
             writer.WriteAttributeString("name", field.Name);
             writer.WriteAttributeString("exclusive", field.Exclusive ? "true" : "false");
+            writer.WriteAttributeString("extendable", field.Extendable ? "true" : "false");
 
             foreach (Tag tag in field.Tags)
             {

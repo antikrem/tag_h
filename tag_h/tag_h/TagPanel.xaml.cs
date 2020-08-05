@@ -29,10 +29,16 @@ namespace tag_h
 
             FieldLabel.Content = field.Name;
 
-            // Set colour absed on depth
+            // Set colour based on depth
             this.Background = new SolidColorBrush(
                     ColorStyling.getTagPanelColour(depth)
                 );
+
+            // Hide extendable button if not extendable
+            if (!field.Extendable)
+            {
+                ExtendableButton.Visibility = Visibility.Hidden;
+            }
 
             // Add radio button
             foreach (Tag i in field.Tags)
@@ -51,8 +57,8 @@ namespace tag_h
                     foreach (Field subField in i.Fields)
                     {
                         TagPanelChildren.Children.Add(
-                            new TagPanel(subField, depth+1)
-                        );
+                                new TagPanel(subField, depth+1)
+                            );
                     }
                     
                 }
@@ -85,5 +91,23 @@ namespace tag_h
             TagHApplication.Get().PushTagStructureToImage();
             TagHApplication.Get().MainWindow.UpdateTagDock();
         }
+
+        // Callback for pressing plus button
+        public void ExtendableButton_Click(object sender, RoutedEventArgs e)
+        {
+            TagAddWindow window = new TagAddWindow();
+            window.ShowDialog();
+
+            if (window.TagName != "")
+            {
+                field.Tags.Add(
+                        new Tag(window.TagName, new List<Field>())
+                    );
+            }
+
+            TagHApplication.Get().MainWindow.UpdateTagDock();
+        }
+
+
     }
 }

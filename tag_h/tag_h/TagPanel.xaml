@@ -20,7 +20,15 @@
         <Label x:Name ="FieldLabel" 
                Content="Field" 
                HorizontalAlignment="Center" 
+               VerticalAlignment="Center"
                Grid.Row="0" Grid.Column="0"/>
+        <Button x:Name ="ExtendableButton" 
+                Click="ExtendableButton_Click"
+                Content="+" 
+                Height="20"
+                HorizontalAlignment="Right" 
+                Margin="0,0,4,0"
+                Grid.Row="0" Grid.Column="0"/>
         
         <StackPanel x:Name ="TagSelector" 
                     HorizontalAlignment="Stretch" 
