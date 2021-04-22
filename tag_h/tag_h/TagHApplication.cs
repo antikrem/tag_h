@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using tag_h.Persistence;
+
 namespace tag_h
 {
     // Represents the internal state of the application
@@ -34,6 +36,9 @@ namespace tag_h
         // Private constructor
         private TagHApplication()
         {
+
+            Persistence.ImageDatabase.Primary();
+
             // Initialise database
             this.ImageDataBase = new ImageDatabase();
 
