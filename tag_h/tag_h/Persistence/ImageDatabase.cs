@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace tag_h.Persistence
 {
-    class ImageDatabase
+    class ImageDatabase : IDisposable
     {
 
         private ImageDatabaseConnection _connection;
@@ -17,43 +17,40 @@ namespace tag_h.Persistence
             _connection = new ImageDatabaseConnection();
         }
 
+        public void Dispose()
+        {
+            _connection.Dispose();
+        }
+
         public void AddNewImage(string fileName)
         {
             using (var command = _connection.CreateCommand())
             {
                 command.CommandText
                     = @"INSERT INTO Images (fileName, tags, viewed) 
-                    VALUES (@fileName, NULL, 0);";
+                        VALUES (@fileName, NULL, 0);";
                 command.Parameters.AddWithValue("@fileName", fileName);
                 command.ExecuteNonQuery();
             }
         }
 
-        static public void Primary()
+        public void Hydrate(HImage image)
         {
-            SQLiteConnection sqlite_conn;
-            sqlite_conn = CreateConnection();
-            CreateTable(sqlite_conn);
-            InsertData(sqlite_conn);
-            ReadData(sqlite_conn);
+
         }
 
-        static SQLiteConnection CreateConnection()
+        public void SaveImage(HImage image)
         {
-
-            SQLiteConnection sqlite_conn;
-            // Create a new database connection:
-            sqlite_conn = new SQLiteConnection("Data Source=database.db; Version = 3; New = True; Compress = True; ");
-            // Open the connection:
-            try
+            using (var command = _connection.CreateCommand())
             {
-                sqlite_conn.Open();
+                command.CommandText
+                    = @"UPDATE Images
+                        SET tags = @tags
+                        
+                        id = @id;";
+                command.Parameters.AddWithValue("@id", image.UUID);
+                command.ExecuteNonQuery();
             }
-            catch (Exception ex)
-            {
-
-            }
-            return sqlite_conn;
         }
 
         static void CreateTable(SQLiteConnection conn)
@@ -102,5 +99,6 @@ namespace tag_h.Persistence
             }
             conn.Close();
         }
+
     }
 }
