@@ -45,9 +45,10 @@ namespace tag_h.Persistence
             {
                 command.CommandText
                     = @"UPDATE Images
-                        SET tags = @tags
-                        
-                        id = @id;";
+                        SET fileName = @fileName
+                            tags = @tags,
+                            viewed = @views
+                        WHERE id = @id;";
                 command.Parameters.AddWithValue("@id", image.UUID);
                 command.ExecuteNonQuery();
             }
