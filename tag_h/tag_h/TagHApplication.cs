@@ -37,7 +37,8 @@ namespace tag_h
         private TagHApplication()
         {
 
-            Persistence.ImageDatabase.Primary();
+            Persistence.ImageDatabase a = new Persistence.ImageDatabase();
+
 
             // Initialise database
             this.ImageDataBase = new ImageDatabase();

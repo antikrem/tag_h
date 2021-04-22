@@ -12,16 +12,21 @@ namespace tag_h.Persistence
 
         private ImageDatabaseConnection _connection;
 
-        ImageDatabase()
+        public ImageDatabase()
         {
             _connection = new ImageDatabaseConnection();
         }
 
-        void AddImage(HImage image)
+        public void AddNewImage(string fileName)
         {
-            var command = _connection.CreateCommand();
-
-
+            using (var command = _connection.CreateCommand())
+            {
+                command.CommandText
+                    = @"INSERT INTO Images (fileName, tags, viewed) 
+                    VALUES (@fileName, NULL, 0);";
+                command.Parameters.AddWithValue("@fileName", fileName);
+                command.ExecuteNonQuery();
+            }
         }
 
         static public void Primary()
