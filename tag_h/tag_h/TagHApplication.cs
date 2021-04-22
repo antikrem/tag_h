@@ -38,6 +38,8 @@ namespace tag_h
         {
 
             Persistence.ImageDatabase a = new Persistence.ImageDatabase();
+            a.AddNewImage("nice.txt");
+            a.AddNewImage("niceasd.txt");
 
 
             // Initialise database

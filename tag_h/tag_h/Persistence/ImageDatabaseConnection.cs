@@ -18,7 +18,13 @@ namespace tag_h.Persistence
 
         private void CreateIfNotExistent()
         {
-            string imageDBQuery = "CREATE TABLE if not exists Images (fileName STRING, tags STRING, viewed INT)";
+            string imageDBQuery =
+                @"CREATE TABLE if not exists Images (
+                        id INTEGER PRIMARY KEY ASC,
+                        fileName STRING NOT NULL, 
+                        tags STRING, 
+                        viewed INTEGER
+                    );";
             using (var command = CreateCommand())
             {
                 command.CommandText = imageDBQuery;
