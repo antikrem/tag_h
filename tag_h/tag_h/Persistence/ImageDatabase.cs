@@ -34,11 +34,6 @@ namespace tag_h.Persistence
             }
         }
 
-        public void Hydrate(HImage image)
-        {
-
-        }
-
         public void SaveImage(HImage image)
         {
             using (var command = _connection.CreateCommand())
@@ -54,51 +49,34 @@ namespace tag_h.Persistence
             }
         }
 
-        static void CreateTable(SQLiteConnection conn)
+        public List<HImage> GetImageFromTag()
         {
+            List<HImage> images = new List<HImage>();
 
-            SQLiteCommand sqlite_cmd;
-            string Createsql = "CREATE TABLE SampleTable (Col1 VARCHAR(20), Col2 INT)";
-            string Createsql1 = "CREATE TABLE SampleTable1 (Col1 VARCHAR(20), Col2 INT)";
-            sqlite_cmd = conn.CreateCommand();
-            sqlite_cmd.CommandText = Createsql;
-            sqlite_cmd.ExecuteNonQuery();
-            sqlite_cmd.CommandText = Createsql1;
-            sqlite_cmd.ExecuteNonQuery();
 
+
+            return images;
         }
 
-        static void InsertData(SQLiteConnection conn)
+        public List<HImage> FetchAllImages()
         {
-            SQLiteCommand sqlite_cmd;
-            sqlite_cmd = conn.CreateCommand();
-            sqlite_cmd.CommandText = "INSERT INTO SampleTable (Col1, Col2) VALUES('Test Text ', 1); ";
-            sqlite_cmd.ExecuteNonQuery();
-            sqlite_cmd.CommandText = "INSERT INTO SampleTable (Col1, Col2) VALUES('Test1 Text1 ', 2); ";
-            sqlite_cmd.ExecuteNonQuery();
-            sqlite_cmd.CommandText = "INSERT INTO SampleTable (Col1, Col2) VALUES('Test2 Text2 ', 3); ";
-            sqlite_cmd.ExecuteNonQuery();
+            List<HImage> images = new List<HImage>();
 
-
-            sqlite_cmd.CommandText = "INSERT INTO SampleTable1 (Col1, Col2) VALUES('Test3 Text3 ', 3); ";
-            sqlite_cmd.ExecuteNonQuery();
-
-        }
-
-        static void ReadData(SQLiteConnection conn)
-        {
-            SQLiteDataReader sqlite_datareader;
-            SQLiteCommand sqlite_cmd;
-            sqlite_cmd = conn.CreateCommand();
-            sqlite_cmd.CommandText = "SELECT * FROM SampleTable";
-
-            sqlite_datareader = sqlite_cmd.ExecuteReader();
-            while (sqlite_datareader.Read())
+            using (var command = _connection.CreateCommand())
             {
-                string myreader = sqlite_datareader.GetString(0);
-                Console.WriteLine(myreader);
+                command.CommandText
+                    = @"SELECT * FROM Images;";
+
+                var dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    images.Add(
+                            new HImage(dataReader.GetInt32(0), dataReader.GetString(1))
+                        );
+                }
             }
-            conn.Close();
+
+            return images;
         }
 
     }
