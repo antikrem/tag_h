@@ -19,7 +19,7 @@ namespace tag_h
         Stream stream = null;
 
         // String to location of file 
-        private string location;
+        public string Location { get; }
 
         // Underlying image bitmap
         BitmapImage image = null;
@@ -46,7 +46,7 @@ namespace tag_h
         public HImage(int UUID, string location)
         {
             this.UUID = UUID;
-            this.location = location;
+            Location = location;
         }
 
         // Returns if the HImage is loaded onto memory
@@ -70,7 +70,7 @@ namespace tag_h
                 stream.Close();
                 stream.Dispose();
             }
-            stream = File.OpenRead(location);
+            stream = File.OpenRead(Location);
 
             // Create bitmap image
             image = new BitmapImage();
