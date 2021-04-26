@@ -25,6 +25,8 @@ namespace tag_h
         // Store of all images
         public ImageDatabase ImageDataBase { get; } = null;
 
+        private TaskRunner _taskRunner;
+
         // Place in imageList, -1 indicates start before list
         int place = -1;
 
@@ -37,16 +39,15 @@ namespace tag_h
         // Private constructor
         private TagHApplication()
         {
-
-
             // Initialise database
             this.ImageDataBase = new ImageDatabase();
 
+            _taskRunner = new TaskRunner(ImageDataBase);
 
-            new SynchronisePersistence().Execute(ImageDataBase);
+            _taskRunner.Submit(new SynchronisePersistence());
 
             // Get all images
-            updateHImageQueue();
+            UpdateHImageQueue();
 
         //    this.TagStructure = new TagStructure("tags.xml");
         }
@@ -62,21 +63,23 @@ namespace tag_h
         }
         
         // Close the database
-        private void closeDatabase()
+        private void End()
         {
             this.ImageDataBase.Dispose();
+            _taskRunner.Stop();
+            TagStructure.SaveTagStructure();
         }
 
         // Closes application
         public static void Close()
         {
             System.Windows.Application.Current.Shutdown();
-            TagHApplication.Get().closeDatabase();
-            TagHApplication.Get().TagStructure.SaveTagStructure();
+
+            TagHApplication.Get().End();
         }
 
         // Updates queue of HImages
-        public void updateHImageQueue()
+        private void UpdateHImageQueue()
         {
             this.imageList = this.ImageDataBase.FetchAllImages();
         }
