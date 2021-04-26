@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -31,7 +32,12 @@ namespace tag_h.Tasks
             ITask task;
             while ((task = _taskQueue.Take()) != null)
             {
+                Stopwatch stopWatch = Stopwatch.StartNew();
+
                 task.Execute(_database);
+
+                stopWatch.Stop();
+                Console.WriteLine($"Taken time: {stopWatch.Elapsed}");
             }
         }
 
