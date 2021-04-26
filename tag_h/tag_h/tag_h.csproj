@@ -93,7 +93,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="HImage.cs" />
-    <Compile Include="ImageDatabase.cs" />
     <Compile Include="Persistence\ImageDatabase.cs" />
     <Compile Include="Persistence\ImageDatabaseConnection.cs" />
     <Compile Include="Persistence\Query\Query.cs" />

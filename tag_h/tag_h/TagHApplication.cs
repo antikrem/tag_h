@@ -23,7 +23,7 @@ namespace tag_h
         public MainWindow MainWindow = null;
 
         // Store of all images
-        public Persistence.ImageDatabase ImageDataBase { get; } = null;
+        public ImageDatabase ImageDataBase { get; } = null;
 
         // Place in imageList, -1 indicates start before list
         int place = -1;
@@ -40,10 +40,10 @@ namespace tag_h
 
 
             // Initialise database
-            this.ImageDataBase = new Persistence.ImageDatabase();
+            this.ImageDataBase = new ImageDatabase();
 
 
-            new SynchronisePersistence(ImageDataBase).Execute();
+            new SynchronisePersistence().Execute(ImageDataBase);
 
             // Get all images
             updateHImageQueue();
