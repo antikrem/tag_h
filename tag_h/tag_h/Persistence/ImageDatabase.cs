@@ -92,5 +92,16 @@ namespace tag_h.Persistence
             return images;
         }
 
+        public void DeleteImage(HImage image)
+        {
+            using (var command = _connection.CreateCommand())
+            {
+                command.CommandText
+                    = @"DELETE FROM Images where id = @id;";
+
+                command.Parameters.AddWithValue("@id", image.UUID);
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }
