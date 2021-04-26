@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,18 @@ namespace tag_h.Persistence
     {
 
         private ImageDatabaseConnection _connection;
+
+        public DirectoryInfo ImageFolder {
+            get
+            {
+                if (!Directory.Exists("Images/"))
+                {
+                    Directory.CreateDirectory("Images/");
+                }
+                return new DirectoryInfo("Images/");
+            }
+        }
+        
 
         public ImageDatabase()
         {
