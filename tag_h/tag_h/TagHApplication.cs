@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using tag_h.Persistence;
+using tag_h.Tasks;
 
 namespace tag_h
 {
@@ -22,7 +23,7 @@ namespace tag_h
         public MainWindow MainWindow = null;
 
         // Store of all images
-        public ImageDatabase ImageDataBase { get; } = null;
+        public Persistence.ImageDatabase ImageDataBase { get; } = null;
 
         // Place in imageList, -1 indicates start before list
         int place = -1;
@@ -37,18 +38,17 @@ namespace tag_h
         private TagHApplication()
         {
 
-            Persistence.ImageDatabase a = new Persistence.ImageDatabase();
-            a.AddNewImage("nice.txt");
-            a.AddNewImage("niceasd.txt");
-
 
             // Initialise database
-            this.ImageDataBase = new ImageDatabase();
+            this.ImageDataBase = new Persistence.ImageDatabase();
+
+
+            new SynchronisePersistence(ImageDataBase).Execute();
 
             // Get all images
             updateHImageQueue();
 
-            this.TagStructure = new TagStructure("tags.xml");
+        //    this.TagStructure = new TagStructure("tags.xml");
         }
 
         // Singleton accessor
@@ -64,7 +64,7 @@ namespace tag_h
         // Close the database
         private void closeDatabase()
         {
-            this.ImageDataBase.Close();
+            this.ImageDataBase.Dispose();
         }
 
         // Closes application
@@ -78,7 +78,7 @@ namespace tag_h
         // Updates queue of HImages
         public void updateHImageQueue()
         {
-            this.imageList = this.ImageDataBase.getHImageList();
+            this.imageList = this.ImageDataBase.FetchAllImages();
         }
 
         // Gets next image in the queue
@@ -90,7 +90,6 @@ namespace tag_h
             {
                 var image = imageList[place];
                 image.loadBitmap();
-                ImageDataBase.markImageAsViewed(image);
                 return image;
             } else
             {
