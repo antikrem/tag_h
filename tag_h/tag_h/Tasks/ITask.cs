@@ -8,6 +8,8 @@ namespace tag_h.Tasks
 {
     interface ITask
     {
+        string TaskName { get; }
+
         void Execute(Persistence.ImageDatabase database);
     }
 }

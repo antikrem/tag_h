@@ -37,7 +37,7 @@ namespace tag_h.Tasks
                 task.Execute(_database);
 
                 stopWatch.Stop();
-                Console.WriteLine($"Taken time: {stopWatch.Elapsed}");
+                Console.WriteLine($"TASK: {task.TaskName}, which took time {stopWatch.Elapsed}");
             }
         }
 
