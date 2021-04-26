@@ -73,9 +73,8 @@ namespace tag_h
         // Closes application
         public static void Close()
         {
-            System.Windows.Application.Current.Shutdown();
-
             TagHApplication.Get().End();
+            System.Windows.Application.Current.Shutdown();
         }
 
         // Updates queue of HImages
