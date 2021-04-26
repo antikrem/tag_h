@@ -1,17 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1062
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tag_h", "tag_h\tag_h.csproj", "{0793A63A-3DBC-4C2B-B7F9-313F85AD246D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8E70DA44-B7F1-4111-8562-896AF6000E18}"
-	ProjectSection(SolutionItems) = preProject
-		tag_h\ColorStyling.cs = tag_h\ColorStyling.cs
-		tag_h\HImage.cs = tag_h\HImage.cs
-		tag_h\ImageDatabase.cs = tag_h\ImageDatabase.cs
-		tag_h\TagHApplication.cs = tag_h\TagHApplication.cs
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

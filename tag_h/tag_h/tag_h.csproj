@@ -96,6 +96,7 @@
     <Compile Include="ImageDatabase.cs" />
     <Compile Include="Persistence\ImageDatabase.cs" />
     <Compile Include="Persistence\ImageDatabaseConnection.cs" />
+    <Compile Include="Persistence\Query\Query.cs" />
     <Compile Include="TagAddWindow.xaml.cs">
       <DependentUpon>TagAddWindow.xaml</DependentUpon>
     </Compile>
@@ -104,6 +105,8 @@
       <DependentUpon>TagPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="TagStructure.cs" />
+    <Compile Include="Tasks\ITask.cs" />
+    <Compile Include="Tasks\SynchronisePersistence.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
