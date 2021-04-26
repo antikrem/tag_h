@@ -11,7 +11,7 @@ namespace tag_h.Persistence
     class ImageDatabase : IDisposable
     {
 
-        private ImageDatabaseConnection _connection;
+        private DatabaseConnection _connection;
 
         public DirectoryInfo ImageFolder {
             get
@@ -27,7 +27,7 @@ namespace tag_h.Persistence
 
         public ImageDatabase()
         {
-            _connection = new ImageDatabaseConnection();
+            _connection = new DatabaseConnection();
         }
 
         public void Dispose()

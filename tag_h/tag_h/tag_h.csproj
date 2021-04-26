@@ -94,7 +94,7 @@
     </ApplicationDefinition>
     <Compile Include="HImage.cs" />
     <Compile Include="Persistence\ImageDatabase.cs" />
-    <Compile Include="Persistence\ImageDatabaseConnection.cs" />
+    <Compile Include="Persistence\DatabaseConnection.cs" />
     <Compile Include="Persistence\Query\Query.cs" />
     <Compile Include="TagAddWindow.xaml.cs">
       <DependentUpon>TagAddWindow.xaml</DependentUpon>

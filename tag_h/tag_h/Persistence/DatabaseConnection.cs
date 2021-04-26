@@ -3,12 +3,12 @@ using System.Data.SQLite;
 
 namespace tag_h.Persistence
 {
-    internal class ImageDatabaseConnection : IDisposable
+    internal class DatabaseConnection : IDisposable
     {
 
         private readonly SQLiteConnection _connection;
 
-        public ImageDatabaseConnection()
+        public DatabaseConnection()
         {
             _connection = new SQLiteConnection("Data Source=database.db; Version = 3; New = True; Compress = True;");
             _connection.Open();
@@ -16,19 +16,26 @@ namespace tag_h.Persistence
             CreateIfNotExistent();
         }
 
+        private readonly string[] _initialiserScripts = new string[]
+        {
+            @"CREATE TABLE if not exists Images (
+                    id INTEGER PRIMARY KEY ASC,
+                    fileName STRING NOT NULL, 
+                    tags STRING, 
+                    viewed INTEGER
+                );"
+        };
+
+
         private void CreateIfNotExistent()
         {
-            string imageDBQuery =
-                @"CREATE TABLE if not exists Images (
-                        id INTEGER PRIMARY KEY ASC,
-                        fileName STRING NOT NULL, 
-                        tags STRING, 
-                        viewed INTEGER
-                    );";
-            using (var command = CreateCommand())
+            foreach (string query in _initialiserScripts)
             {
-                command.CommandText = imageDBQuery;
-                command.ExecuteNonQuery();
+                using (var command = CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.ExecuteNonQuery();
+                }
             }
                 
         }
