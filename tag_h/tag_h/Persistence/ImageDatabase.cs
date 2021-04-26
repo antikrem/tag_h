@@ -55,9 +55,13 @@ namespace tag_h.Persistence
                     = @"UPDATE Images
                         SET fileName = @fileName
                             tags = @tags,
-                            viewed = @views
+                            viewed = 1
                         WHERE id = @id;";
                 command.Parameters.AddWithValue("@id", image.UUID);
+
+                command.Parameters.AddWithValue("@fileName", image.Location);
+                command.Parameters.AddWithValue("@tags", image.Tags);
+
                 command.ExecuteNonQuery();
             }
         }

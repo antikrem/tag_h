@@ -184,7 +184,7 @@ namespace tag_h
             // If theres a current image, save tags and dispose it
             if (CurrentImage != null)
             {
-                TagHApplication.Get().ImageDataBase.SaveHTags(CurrentImage);
+                TagHApplication.Get().ImageDataBase.SaveImage(CurrentImage);
                 CurrentImage.deloadBitmap();
             }
 
