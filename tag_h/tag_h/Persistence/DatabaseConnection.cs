@@ -23,6 +23,9 @@ namespace tag_h.Persistence
                     fileName STRING NOT NULL, 
                     tags STRING, 
                     viewed INTEGER
+                );",
+            @"CREATE TABLE if not exists Tags (
+                    tag STRING NOT NULL PRIMARY KEY
                 );"
         };
 
