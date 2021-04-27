@@ -40,8 +40,8 @@ namespace tag_h.Persistence
             using (var command = _connection.CreateCommand())
             {
                 command.CommandText
-                    = @"INSERT INTO Images (fileName, tags, viewed) 
-                        VALUES (@fileName, NULL, 0);";
+                    = @"INSERT INTO Images (fileName, tags, viewed, deleted) 
+                        VALUES (@fileName, NULL, 0, 0);";
                 command.Parameters.AddWithValue("@fileName", fileName);
                 command.ExecuteNonQuery();
             }
@@ -101,10 +101,19 @@ namespace tag_h.Persistence
             using (var command = _connection.CreateCommand())
             {
                 command.CommandText
-                    = @"DELETE FROM Images where id = @id;";
+                    = @"UPDATE Images
+                        SET delete = 1
+                        WHERE id = @id;";
 
                 command.Parameters.AddWithValue("@id", image.UUID);
                 command.ExecuteNonQuery();
+            }
+
+            var location = image.Location;
+
+            if (File.Exists(location))
+            {
+                File.Delete(location);
             }
         }
     }
