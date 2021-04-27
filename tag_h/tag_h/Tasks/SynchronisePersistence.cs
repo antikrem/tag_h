@@ -14,6 +14,9 @@ namespace tag_h.Tasks
 
         public void Execute(Persistence.ImageDatabase database)
         {
+
+            int deletedCount = database.ClearDeletedImages();
+
             var folder = database.ImageFolder;
 
             var physicalImages = new HashSet<FileInfo>(folder.GetFiles());

@@ -82,7 +82,9 @@ namespace tag_h.Persistence
             using (var command = _connection.CreateCommand())
             {
                 command.CommandText
-                    = @"SELECT * FROM Images;";
+                    = @"SELECT * 
+                        FROM Images 
+                        WHERE deleted = 0;";
 
                 var dataReader = command.ExecuteReader();
                 while (dataReader.Read())
@@ -102,19 +104,60 @@ namespace tag_h.Persistence
             {
                 command.CommandText
                     = @"UPDATE Images
-                        SET delete = 1
+                        SET deleted = 1
                         WHERE id = @id;";
 
                 command.Parameters.AddWithValue("@id", image.UUID);
                 command.ExecuteNonQuery();
             }
 
-            var location = image.Location;
+        }
 
-            if (File.Exists(location))
+        public int ClearDeletedImages()
+        {
+            var images = GetDeletedImages();
+
+            using (var command = _connection.CreateCommand())
             {
-                File.Delete(location);
+                command.CommandText
+                    = @"DELETE FROM Images
+                        WHERE deleted = 1;";
+
+                command.ExecuteNonQuery();
             }
+
+            foreach (var image in images)
+            {
+                if (File.Exists(image.Location))
+                {
+                    File.Delete(image.Location);
+                }
+            }
+
+            return images.Count();
+        }
+
+        private List<HImage> GetDeletedImages()
+        {
+            List<HImage> images = new List<HImage>();
+
+            using (var command = _connection.CreateCommand())
+            {
+                command.CommandText
+                    = @"SELECT * 
+                        FROM Images 
+                        WHERE deleted = 1;";
+
+                var dataReader = command.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    images.Add(
+                            new HImage(dataReader.GetInt32(0), dataReader.GetString(1))
+                        );
+                }
+            }
+
+            return images;
         }
     }
 }
