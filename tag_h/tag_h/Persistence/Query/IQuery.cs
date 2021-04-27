@@ -5,9 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace tag_h.Persistence.Query
-{
-
-    interface IQuery
+{    interface IQuery
     {
         void Execute(SQLiteCommand command);
     }
