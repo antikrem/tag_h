@@ -95,7 +95,13 @@
     <Compile Include="HImage.cs" />
     <Compile Include="Persistence\ImageDatabase.cs" />
     <Compile Include="Persistence\DatabaseConnection.cs" />
+    <Compile Include="Persistence\Query\AddNewImageQuery.cs" />
+    <Compile Include="Persistence\Query\ClearDeletedImagesQuery.cs" />
+    <Compile Include="Persistence\Query\DeleteImageQuery.cs" />
+    <Compile Include="Persistence\Query\FetchAllImagesQuery.cs" />
+    <Compile Include="Persistence\Query\FetchDeletedImagesQuery.cs" />
     <Compile Include="Persistence\Query\Query.cs" />
+    <Compile Include="Persistence\Query\SaveImageQuery.cs" />
     <Compile Include="TagAddWindow.xaml.cs">
       <DependentUpon>TagAddWindow.xaml</DependentUpon>
     </Compile>
