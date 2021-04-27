@@ -14,11 +14,6 @@ namespace tag_h.Persistence.Query
         void Execute(SQLiteCommand command);
     }
 
-    interface IWriteQuery
-    {
-        SQLiteDataReader Result { get; set; }
-    }
-
     class SaveImageQuery : IQuery
     {
         HImage _image;
