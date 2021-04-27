@@ -33,11 +33,12 @@ namespace tag_h.Tasks
             while ((task = _taskQueue.Take()) != null)
             {
                 Stopwatch stopWatch = Stopwatch.StartNew();
+                Console.WriteLine($"TASK: Starting task: {task.TaskName}");
 
                 task.Execute(_database);
 
                 stopWatch.Stop();
-                Console.WriteLine($"TASK: {task.TaskName}, which took time {stopWatch.Elapsed}");
+                Console.WriteLine($"TASK: Completed in {stopWatch.Elapsed}");
             }
         }
 

@@ -10,7 +10,7 @@ namespace tag_h.Tasks
 {
     class SynchronisePersistence : ITask
     {
-        public string TaskName => "Synchronised Database";
+        public string TaskName => "Synchronising Database";
 
         public void Execute(Persistence.ImageDatabase database)
         {
