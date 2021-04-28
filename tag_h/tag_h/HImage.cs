@@ -87,30 +87,15 @@ namespace tag_h
         {
             image = null;
         }
-        
 
-        // Get width of file
-        public double getWidth()
-        {
-            return image.Width;
-        }
+    //    public (double, double) Size
+     //   {
+      //      get => (image.PixelWidth, image.PixelHeight);
+      //  }
 
-        // Get height of file
-        public double getHeight()
+        public double Size
         {
-            return image.Height;
-        }
-
-        // Get pixel width of file
-        public double getPixelWidth()
-        {
-            return image.PixelWidth;
-        }
-
-        // Get pixel height of file
-        public double getPixelHeight()
-        {
-            return image.PixelHeight;
+            get => image.PixelWidth;
         }
     }
 }

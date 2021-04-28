@@ -144,8 +144,10 @@ namespace tag_h
         // Sets center image to show full iamge, and not scale smaller images
         private void updateCenterImageView()
         {
-            double imageWidth = CurrentImage.getPixelWidth();
-            double imageHeight = CurrentImage.getPixelHeight();
+            double imageWidth;
+            double imageHeight;
+
+            (imageWidth, imageHeight) = CurrentImage.Size;
 
             if (imageHeight > this.Height)
             {
