@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using tag_h.Persistence;
+
 using static ColorStyling;
 
 namespace tag_h

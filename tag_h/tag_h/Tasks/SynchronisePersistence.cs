@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using tag_h.Persistence;
+
 namespace tag_h.Tasks
 {
     class SynchronisePersistence : ITask
