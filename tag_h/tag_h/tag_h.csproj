@@ -98,6 +98,7 @@
     <Compile Include="HImage.cs" />
     <Compile Include="Persistence\ImageDatabase.cs" />
     <Compile Include="Persistence\DatabaseConnection.cs" />
+    <Compile Include="Persistence\ImageDatabaseExtension.cs" />
     <Compile Include="Persistence\Query\AddNewImageQuery.cs" />
     <Compile Include="Persistence\Query\ClearDeletedImagesQuery.cs" />
     <Compile Include="Persistence\Query\DeleteImageQuery.cs" />
