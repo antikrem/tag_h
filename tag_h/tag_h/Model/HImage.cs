@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.IO;
 
-namespace tag_h
+namespace tag_h.Model
 {
     /* Stores an entire image
      */
     public class HImage
     {
-        // Unique ID assigned to each HImage
+
         public int UUID { get; }
+
+        public bool Deleted { get; }
         
         // Static stream used for background loading
         Stream stream = null;
@@ -91,7 +93,7 @@ namespace tag_h
         public (double, double) Size
         {
             get => (image.PixelWidth, image.PixelHeight);
-       }
+        }
 
     }
 }

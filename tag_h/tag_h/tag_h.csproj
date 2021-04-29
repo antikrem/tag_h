@@ -95,7 +95,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="HImage.cs" />
+    <Compile Include="Model\HImage.cs" />
+    <Compile Include="HImageList.cs" />
     <Compile Include="Persistence\ImageDatabase.cs" />
     <Compile Include="Persistence\DatabaseConnection.cs" />
     <Compile Include="Persistence\ImageDatabaseExtension.cs" />

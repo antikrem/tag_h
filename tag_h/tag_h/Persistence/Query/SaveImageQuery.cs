@@ -1,4 +1,5 @@
 ﻿using System.Data.SQLite;
+using tag_h.Model;
 
 namespace tag_h.Persistence.Query
 {

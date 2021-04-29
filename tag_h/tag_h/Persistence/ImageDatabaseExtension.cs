@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using tag_h.Model;
 using tag_h.Persistence.Query;
 
 namespace tag_h.Persistence
