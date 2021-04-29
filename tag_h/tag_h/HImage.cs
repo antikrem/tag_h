@@ -88,14 +88,10 @@ namespace tag_h
             image = null;
         }
 
-    //    public (double, double) Size
-     //   {
-      //      get => (image.PixelWidth, image.PixelHeight);
-      //  }
-
-        public double Size
+        public (double, double) Size
         {
-            get => image.PixelWidth;
-        }
+            get => (image.PixelWidth, image.PixelHeight);
+       }
+
     }
 }
