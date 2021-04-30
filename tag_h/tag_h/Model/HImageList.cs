@@ -1,12 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace tag_h.Model
 {
-    class HImageList
+    class HImageList : IEnumerable<HImage>
     {
         private List<HImage> _images;
 
@@ -41,6 +39,16 @@ namespace tag_h.Model
         public bool AtEnd()
         {
             return pointer == _images.Count - 1;
+        }
+
+        public IEnumerator<HImage> GetEnumerator()
+        {
+            return _images.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _images.GetEnumerator();
         }
     }
 }
