@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using tag_h.Persistence;
+
 namespace tag_h.Tasks
 {
     interface ITask
     {
         string TaskName { get; }
 
-        void Execute(Persistence.ImageDatabase database);
+        void Execute(IImageDatabase database);
     }
 }

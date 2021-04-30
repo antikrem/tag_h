@@ -14,7 +14,7 @@ namespace tag_h.Tasks
     {
         public string TaskName => "Synchronising Database";
 
-        public void Execute(Persistence.ImageDatabase database)
+        public void Execute(IImageDatabase database)
         {
 
             database.ClearDeletedImages();

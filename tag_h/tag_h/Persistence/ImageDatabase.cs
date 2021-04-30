@@ -8,12 +8,20 @@ using tag_h.Persistence.Query;
 
 namespace tag_h.Persistence
 {
-    class ImageDatabase : IDisposable
+    interface IImageDatabase : IDisposable
+    {
+        DirectoryInfo ImageFolder { get; }
+
+        T ExecuteQuery<T>(T query) where T : IQuery;
+    }
+
+    class ImageDatabase : IImageDatabase
     {
 
         private DatabaseConnection _connection;
 
-        public DirectoryInfo ImageFolder {
+        public DirectoryInfo ImageFolder
+        {
             get
             {
                 if (!Directory.Exists("Images/"))
@@ -23,7 +31,7 @@ namespace tag_h.Persistence
                 return new DirectoryInfo("Images/");
             }
         }
-        
+
 
         public ImageDatabase()
         {

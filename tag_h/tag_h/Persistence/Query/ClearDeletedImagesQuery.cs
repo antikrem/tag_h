@@ -5,9 +5,9 @@ namespace tag_h.Persistence.Query
 {
     class ClearDeletedImagesQuery : IQuery
     {
-        private ImageDatabase _database;
+        private IImageDatabase _database;
 
-        public ClearDeletedImagesQuery(ImageDatabase database)
+        public ClearDeletedImagesQuery(IImageDatabase database)
         {
             _database = database;
         }

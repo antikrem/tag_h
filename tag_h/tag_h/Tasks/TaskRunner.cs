@@ -10,16 +10,23 @@ using tag_h.Persistence;
 
 namespace tag_h.Tasks
 {
-    class TaskRunner
+    interface ITaskRunner
+    {
+        void Stop();
+
+        void Submit(ITask task);
+    }
+
+    class TaskRunner : ITaskRunner
     {
         private readonly BlockingCollection<ITask> _taskQueue
                 = new BlockingCollection<ITask>(new ConcurrentQueue<ITask>());
 
         private readonly Thread _taskHandler;
 
-        private readonly ImageDatabase _database;
+        private readonly IImageDatabase _database;
 
-        public TaskRunner(ImageDatabase database)
+        public TaskRunner(IImageDatabase database)
         {
             _database = database;
 

@@ -11,7 +11,7 @@ namespace tag_h.Tasks
     {
         public string TaskName => "Deleting Duplicate";
 
-        public void Execute(ImageDatabase database)
+        public void Execute(IImageDatabase database)
         {
             var dbImages = database.FetchAllImages();
 

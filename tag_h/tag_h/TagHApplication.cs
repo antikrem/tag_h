@@ -20,9 +20,9 @@ namespace tag_h
         public MainWindow MainWindow = null;
 
         // Store of all images
-        public ImageDatabase ImageDataBase { get; } = null;
+        public IImageDatabase ImageDataBase { get; } = null;
 
-        private TaskRunner _taskRunner;
+        private ITaskRunner _taskRunner;
 
         HImageList imageList = new HImageList();
 

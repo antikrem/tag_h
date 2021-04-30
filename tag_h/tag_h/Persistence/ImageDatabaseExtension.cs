@@ -7,33 +7,33 @@ namespace tag_h.Persistence
     static class ImageDatabaseExtension
     {
 
-        static public void AddNewImage(this ImageDatabase database, string fileName)
+        static public void AddNewImage(this IImageDatabase database, string fileName)
         {
             database.ExecuteQuery(new AddNewImageQuery(fileName));
         }
 
-        static public void SaveImage(this ImageDatabase database, HImage image)
+        static public void SaveImage(this IImageDatabase database, HImage image)
         {
             database.ExecuteQuery(new SaveImageQuery(image));
         }
 
-        static public HImageList FetchAllImages(this ImageDatabase database)
+        static public HImageList FetchAllImages(this IImageDatabase database)
         {
             return database.ExecuteQuery(new FetchAllImagesQuery()).Result;
         }
 
-        static public void DeleteImage(this ImageDatabase database, HImage image)
+        static public void DeleteImage(this IImageDatabase database, HImage image)
         {
             database.ExecuteQuery(new DeleteImageQuery(image));
 
         }
 
-        static public void ClearDeletedImages(this ImageDatabase database)
+        static public void ClearDeletedImages(this IImageDatabase database)
         {
             database.ExecuteQuery(new ClearDeletedImagesQuery(database));
         }
 
-        static private HImageList GetDeletedImages(this ImageDatabase database)
+        static private HImageList GetDeletedImages(this IImageDatabase database)
         {
             return database.ExecuteQuery(new FetchDeletedImagesQuery()).Result;
         }
