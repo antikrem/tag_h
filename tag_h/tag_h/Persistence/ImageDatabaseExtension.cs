@@ -17,7 +17,7 @@ namespace tag_h.Persistence
             database.ExecuteQuery(new SaveImageQuery(image));
         }
 
-        static public List<HImage> FetchAllImages(this ImageDatabase database)
+        static public HImageList FetchAllImages(this ImageDatabase database)
         {
             return database.ExecuteQuery(new FetchAllImagesQuery()).Result;
         }
@@ -33,7 +33,7 @@ namespace tag_h.Persistence
             database.ExecuteQuery(new ClearDeletedImagesQuery(database));
         }
 
-        static private List<HImage> GetDeletedImages(this ImageDatabase database)
+        static private HImageList GetDeletedImages(this ImageDatabase database)
         {
             return database.ExecuteQuery(new FetchDeletedImagesQuery()).Result;
         }

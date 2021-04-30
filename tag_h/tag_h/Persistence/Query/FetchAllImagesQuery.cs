@@ -6,7 +6,7 @@ namespace tag_h.Persistence.Query
 {
     class FetchAllImagesQuery : IQuery
     {
-        public List<HImage> Result { get; private set; }
+        public HImageList Result { get; private set; }
 
         public void Execute(SQLiteCommand command)
         {
@@ -25,7 +25,7 @@ namespace tag_h.Persistence.Query
                     );
             }
 
-            Result = images;
+            Result = new HImageList(images);
         }
     }
 

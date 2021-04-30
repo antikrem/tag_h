@@ -15,9 +15,14 @@ namespace tag_h.Model
             _images = images;
         }
 
+        public HImageList()
+        {
+            _images = new List<HImage>();
+        }
+
         public HImage Get()
         {
-            return _images[pointer];
+            return _images.Count > 0 ? _images[pointer] : null;
         }
 
         public void MoveBack()

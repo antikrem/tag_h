@@ -24,11 +24,7 @@ namespace tag_h
 
         private TaskRunner _taskRunner;
 
-        // Place in imageList, -1 indicates start before list
-        int place = -1;
-
-        // List of all images, not loaded
-        List<HImage> imageList = new List<HImage>();
+        HImageList imageList = new HImageList();
 
         // Current tag structure used by application
         public TagStructure TagStructure { get; set; } = null;
@@ -84,35 +80,22 @@ namespace tag_h
         // Returns null on end
         public HImage getNextImage()
         {
-            place++;
-            if (place < imageList.Count)
+            if (!imageList.AtEnd())
             {
-                var image = imageList[place];
-                image.loadBitmap();
-                return image;
-            } else
-            {
-                place = imageList.Count - 1;
-                return null;
+                imageList.MoveForward();
             }
+            return imageList.Get();
         }
 
         // Gets previous image in the queue
         // Returns null on start
         public HImage getPreviousImage()
         {
-            place--;
-            if (place >= 0)
+            if (!imageList.AtStart())
             {
-                var image = imageList[place];
-                image.loadBitmap();
-                return image;
+                imageList.MoveBack();
             }
-            else
-            {
-                place = 0;
-                return null;
-            }
+            return imageList.Get();
         }
 
         // Gets root field of tag structure
