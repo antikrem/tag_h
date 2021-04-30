@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 using tag_h.Persistence;
 using tag_h.Tasks;
+using tag_h.Model;
 
 namespace tag_h
 {
