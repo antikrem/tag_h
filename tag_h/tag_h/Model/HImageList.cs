@@ -22,7 +22,12 @@ namespace tag_h.Model
 
         public HImage Get()
         {
-            return _images.Count > 0 ? _images[pointer] : null;
+            var image = _images.Count > 0 ? _images[pointer] : null;
+            if (!image.isImageLoaded())
+            {
+                image.loadBitmap();
+            }
+            return image;
         }
 
         public void MoveBack()

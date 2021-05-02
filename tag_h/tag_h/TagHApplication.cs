@@ -84,9 +84,7 @@ namespace tag_h
             {
                 imageList.MoveForward();
             }
-            var image = imageList.Get();
-            image.loadBitmap();
-            return image;
+            return imageList.Get();
         }
 
         // Gets previous image in the queue
@@ -97,9 +95,7 @@ namespace tag_h
             {
                 imageList.MoveBack();
             }
-            var image = imageList.Get();
-            image.loadBitmap();
-            return image;
+            return imageList.Get();
         }
 
         // Gets root field of tag structure
