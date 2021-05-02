@@ -5,13 +5,13 @@ using tag_h.Model;
 
 namespace tag_h.Persistence.Query
 {
-    class FetchSampleImageQuery : IQuery
+    class FetchSampleImagesQuerys : IQuery
     {
         public HImageList Result { get; private set; }
 
         private int _maxCount;
 
-        public FetchSampleImageQuery(int maxCount)
+        public FetchSampleImagesQuerys(int maxCount)
         {
             _maxCount = maxCount;
         }
