@@ -95,5 +95,9 @@ namespace tag_h.Model
             get => (image.PixelWidth, image.PixelHeight);
         }
 
+        public bool IsPhysicalExists()
+        {
+            return File.Exists(Location);
+        }
     }
 }
