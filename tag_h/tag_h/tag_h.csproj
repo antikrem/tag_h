@@ -105,6 +105,7 @@
     <Compile Include="Persistence\Query\DeleteImageQuery.cs" />
     <Compile Include="Persistence\Query\FetchAllImagesQuery.cs" />
     <Compile Include="Persistence\Query\FetchDeletedImagesQuery.cs" />
+    <Compile Include="Persistence\Query\FetchSampleImageQuery.cs" />
     <Compile Include="Persistence\Query\IQuery.cs" />
     <Compile Include="Persistence\Query\SaveImageQuery.cs" />
     <Compile Include="TagAddWindow.xaml.cs">
