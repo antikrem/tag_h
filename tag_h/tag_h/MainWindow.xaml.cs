@@ -138,6 +138,11 @@ namespace tag_h
             double imageWidth;
             double imageHeight;
 
+            if (CurrentImage is null)
+            {
+                return;
+            }
+
             (imageWidth, imageHeight) = CurrentImage.Size;
 
             if (imageHeight > this.Height)
