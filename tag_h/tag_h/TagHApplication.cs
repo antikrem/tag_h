@@ -73,7 +73,7 @@ namespace tag_h
         // Updates queue of HImages
         private void UpdateHImageQueue()
         {
-            this.imageList = this.ImageDataBase.FetchAllImages();
+            this.imageList = this.ImageDataBase.FetchSampleImageQueue(100);
         }
 
         // Gets next image in the queue
@@ -84,7 +84,9 @@ namespace tag_h
             {
                 imageList.MoveForward();
             }
-            return imageList.Get();
+            var image = imageList.Get();
+            image.loadBitmap();
+            return image;
         }
 
         // Gets previous image in the queue
@@ -95,7 +97,9 @@ namespace tag_h
             {
                 imageList.MoveBack();
             }
-            return imageList.Get();
+            var image = imageList.Get();
+            image.loadBitmap();
+            return image;
         }
 
         // Gets root field of tag structure
