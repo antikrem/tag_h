@@ -129,6 +129,8 @@
     <Compile Include="Model\HImage.cs" />
     <Compile Include="Model\HImageFormat.cs" />
     <Compile Include="Model\HImageList.cs" />
+    <Compile Include="Model\Tag.cs" />
+    <Compile Include="Model\TagSet.cs" />
     <Compile Include="Persistence\ImageDatabase.cs" />
     <Compile Include="Persistence\DatabaseConnection.cs" />
     <Compile Include="Persistence\ImageDatabaseExtension.cs" />
@@ -136,6 +138,7 @@
     <Compile Include="Persistence\Query\ClearDeletedImagesQuery.cs" />
     <Compile Include="Persistence\Query\DeleteImageQuery.cs" />
     <Compile Include="Persistence\Query\FetchAllImagesQuery.cs" />
+    <Compile Include="Persistence\Query\FetchAllTagsQuery.cs" />
     <Compile Include="Persistence\Query\FetchDeletedImagesQuery.cs" />
     <Compile Include="Persistence\Query\FetchSampleImagesQuerys.cs" />
     <Compile Include="Persistence\Query\IQuery.cs" />
