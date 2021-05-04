@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace tag_h.Model
 {
-    class TagSet : IEnumerable<Tag>
+    public class TagSet : IEnumerable<Tag>
     {
         private readonly ISet<Tag> _tags; 
 

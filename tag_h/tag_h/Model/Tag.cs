@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace tag_h.Model
 {
-    class Tag
+    public class Tag
     {
         public string Value { get; }
         

@@ -73,23 +73,8 @@ namespace tag_h.Model
         // Underlying image bitmap
         BitmapImage image = null;
 
-        // List of tags
-        private List<string> _tags = new List<string>();
-        public List<string> Tags
-        {
-            set
-            {
-                _tags = value;
-                for (int i = 0; i < _tags.Count; i++)
-                {
-                    _tags[i] = _tags[i].Trim();
-                }
-            }
-            get
-            {
-                return _tags;
-            }
-        }
+        public TagSet Tags { get; }
+
 
         //public HImage(int UUID, string location)
         //{
@@ -97,12 +82,13 @@ namespace tag_h.Model
         //    Location = location;
         //}
 
-        public HImage(int UUID, string location, ulong? hash)
+        public HImage(int UUID, string location, ulong? hash, TagSet tags )
         //    : this(UUID, location)
         {
             this.UUID = UUID;
             Location = location;
             _hash = hash;
+            tags = Tags;
         }
 
         // Returns if the HImage is loaded onto memory
