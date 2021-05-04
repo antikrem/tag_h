@@ -37,8 +37,8 @@ namespace tag_h
 
             _taskRunner = new TaskRunner(ImageDataBase);
 
-        //    _taskRunner.Submit(new SynchronisePersistence());
-        //    _taskRunner.Submit(new DeleteDuplicates());
+            _taskRunner.Submit(new SynchronisePersistence());
+            _taskRunner.Submit(new DeleteDuplicates());
 
             // Get all images
             UpdateHImageQueue();
