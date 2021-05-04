@@ -6,19 +6,34 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.IO;
 
+using CoenM.ImageHash;
+using CoenM.ImageHash.HashAlgorithms;
+
+using Workshell.FileFormats;
+
 namespace tag_h.Model
 {
     /* Stores an entire image
      */
-    public class HImage
+    public class HImage : IDisposable
     {
 
         public int UUID { get; }
 
         public bool Deleted { get; }
         
-        // Static stream used for background loading
-        Stream stream = null;
+        Stream _stream = null;
+        private Stream Stream
+        {
+            get
+            {
+                if (_stream is null)
+                {
+                    _stream = File.OpenRead(Location);
+                }
+                return _stream;
+            }
+        }
 
         // String to location of file 
         public string Location { get; }
@@ -66,20 +81,12 @@ namespace tag_h.Model
         // Loads internal bitmap from disk to memory
         public void loadBitmap()
         {
-            // Open stream to image
-            if (stream != null)
-            {
-                stream.Close();
-                stream.Dispose();
-            }
-            stream = File.OpenRead(Location);
-
             // Create bitmap image
             image = new BitmapImage();
 
             image.BeginInit();
             image.CacheOption = BitmapCacheOption.OnLoad;
-            image.StreamSource = stream;
+            image.StreamSource = Stream;
             image.EndInit();
         }
 
@@ -98,6 +105,15 @@ namespace tag_h.Model
         public bool IsPhysicalExists()
         {
             return File.Exists(Location);
+        }
+
+        public void Dispose()
+        {
+            if (_stream != null)
+            {
+                _stream.Dispose();
+                _stream = null;
+            }
         }
     }
 }
