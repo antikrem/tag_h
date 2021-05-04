@@ -30,7 +30,7 @@ namespace tag_h.Persistence.Query
             int runningCount = 0;
             while (dataReader.Read() && runningCount < _maxCount)
             {
-                var image = new HImage(dataReader.GetInt32(0), dataReader.GetString(1));
+                var image = dataReader.GetHImage();
                 if (image.IsPhysicalExists())
                 {
                     images.Add(image);

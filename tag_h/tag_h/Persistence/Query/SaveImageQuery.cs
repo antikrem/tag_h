@@ -1,5 +1,7 @@
 ﻿using System.Data.SQLite;
+
 using tag_h.Model;
+using tag_h.Helper.Extensions;
 
 namespace tag_h.Persistence.Query
 {
@@ -18,12 +20,14 @@ namespace tag_h.Persistence.Query
                     = @"UPDATE Images
                         SET fileName = @fileName,
                             tags = @tags,
+                            hash = @hash,
                             viewed = 1
                         WHERE id = @id;";
             command.Parameters.AddWithValue("@id", _image.UUID);
-
             command.Parameters.AddWithValue("@fileName", _image.Location);
             command.Parameters.AddWithValue("@tags", string.Join(", ", _image.Tags));
+            command.Parameters.AddWithValue("@hash", _image.Hash?.ToHexString());
+
 
             command.ExecuteNonQuery();
         }

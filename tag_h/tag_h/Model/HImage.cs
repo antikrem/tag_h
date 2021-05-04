@@ -20,6 +20,8 @@ namespace tag_h.Model
 
         public int UUID { get; }
 
+        public string Location { get; }
+
         public bool Deleted { get; }
         
         Stream _stream = null;
@@ -35,8 +37,38 @@ namespace tag_h.Model
             }
         }
 
-        // String to location of file 
-        public string Location { get; }
+        public FileFormat Format => _stream is null ? FileFormat.Get(Location) : FileFormat.Get(Stream);
+
+        public ulong? _hash;
+        // Null if hashing not supported
+        public ulong? Hash
+        {
+            get
+            {
+                if (HImageFormat.IsHashableFormat(this) && _hash is null) 
+                {
+                    // TODO: On SaveImageQuery, run GenerateHash on seperate task
+                    GenerateHash();  
+                }
+                return _hash;
+
+            }            
+        }
+
+        private void GenerateHash()
+        {
+            if (_stream is null)
+            {
+                using (var stream = File.OpenRead(Location))
+                {
+                    _hash = (new AverageHash()).Hash(stream);
+                }
+            }
+            else
+            {
+                _hash = (new AverageHash()).Hash(_stream);
+            }
+        }
 
         // Underlying image bitmap
         BitmapImage image = null;
@@ -59,11 +91,18 @@ namespace tag_h.Model
             }
         }
 
-        // Creates a HImage 
-        public HImage(int UUID, string location)
+        //public HImage(int UUID, string location)
+        //{
+        //    this.UUID = UUID;
+        //    Location = location;
+        //}
+
+        public HImage(int UUID, string location, ulong? hash)
+        //    : this(UUID, location)
         {
             this.UUID = UUID;
             Location = location;
+            _hash = hash;
         }
 
         // Returns if the HImage is loaded onto memory

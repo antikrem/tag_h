@@ -21,6 +21,7 @@ namespace tag_h.Persistence
             @"CREATE TABLE if not exists Images (
                     id INTEGER PRIMARY KEY ASC,
                     fileName STRING NOT NULL, 
+                    hash STRING,
                     tags STRING, 
                     viewed INTEGER,
                     deleted INTEGER

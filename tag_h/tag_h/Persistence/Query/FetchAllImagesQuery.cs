@@ -20,13 +20,12 @@ namespace tag_h.Persistence.Query
             var dataReader = command.ExecuteReader();
             while (dataReader.Read())
             {
-                images.Add(
-                        new HImage(dataReader.GetInt32(0), dataReader.GetString(1))
-                    );
+                images.Add(dataReader.GetHImage());
             }
 
             Result = new HImageList(images);
         }
+
     }
 
 }
