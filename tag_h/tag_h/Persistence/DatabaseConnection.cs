@@ -28,6 +28,11 @@ namespace tag_h.Persistence
                 );",
             @"CREATE TABLE if not exists Tags (
                     tag STRING NOT NULL PRIMARY KEY
+                );",
+            @"CREATE TABLE if not exists ImageTags (
+                    id INTEGER NOT NULL,
+                    tag STRING NOT NULL,
+                    PRIMARY KEY (id, tag)
                 );"
         };
 

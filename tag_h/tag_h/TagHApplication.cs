@@ -108,7 +108,7 @@ namespace tag_h
         // Move tags in tag structure to current image
         public void PushTagStructureToImage()
         {
-            MainWindow.CurrentImage.Tags = TagStructure.GetTagString();
+            //MainWindow.CurrentImage.Tags = TagStructure.GetTagString();
         }
     }
 

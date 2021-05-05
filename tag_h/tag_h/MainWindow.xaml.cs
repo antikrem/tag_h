@@ -337,8 +337,8 @@ namespace tag_h
             }
 
             // Update tag structure with tags
-            TagHApplication.Get().TagStructure.MarkWithTags(CurrentImage.Tags);
-            TagHApplication.Get().TagStructure.Roots.ForEach(x => TagDock.Children.Add(new TagPanel(x, 0)));
+            //TagHApplication.Get().TagStructure.MarkWithTags(CurrentImage.Tags);
+            //TagHApplication.Get().TagStructure.Roots.ForEach(x => TagDock.Children.Add(new TagPanel(x, 0)));
         }
     }
 
