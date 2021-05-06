@@ -73,7 +73,7 @@ namespace tag_h.Model
         // Underlying image bitmap
         BitmapImage image = null;
 
-        public TagSet Tags { get; }
+        public TagSet Tags { set; get; }
 
 
         //public HImage(int UUID, string location)

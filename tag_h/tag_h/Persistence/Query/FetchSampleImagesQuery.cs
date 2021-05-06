@@ -5,15 +5,17 @@ using tag_h.Model;
 
 namespace tag_h.Persistence.Query
 {
-    class FetchSampleImagesQuerys : IQuery
+    class FetchSampleImagesQuery : IQuery
     {
         public HImageList Result { get; private set; }
 
         private int _maxCount;
+        private readonly IImageDatabase _imageDatabase;
 
-        public FetchSampleImagesQuerys(int maxCount)
+        public FetchSampleImagesQuery(int maxCount, IImageDatabase imageDatabase)
         {
             _maxCount = maxCount;
+            _imageDatabase = imageDatabase;
         }
 
         public void Execute(SQLiteCommand command)
@@ -35,6 +37,11 @@ namespace tag_h.Persistence.Query
                 {
                     images.Add(image);
                 }
+            }
+
+            foreach (var image in images)
+            {
+                image.Tags = _imageDatabase.GetTagsForImage(image);
             }
 
             Result = new HImageList(images);

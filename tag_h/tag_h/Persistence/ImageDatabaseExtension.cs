@@ -24,13 +24,18 @@ namespace tag_h.Persistence
 
         static public HImageList FetchSampleImageQueue(this IImageDatabase database, int maxCount)
         {
-            return database.ExecuteQuery(new FetchSampleImagesQuerys(maxCount)).Result;
+            return database.ExecuteQuery(new FetchSampleImagesQuery(maxCount, database)).Result;
         }
 
         static public void DeleteImage(this IImageDatabase database, HImage image)
         {
             database.ExecuteQuery(new DeleteImageQuery(image));
 
+        }
+
+        static public TagSet GetTagsForImage(this IImageDatabase database, HImage image)
+        {
+            return database.ExecuteQuery(new FetchTagsForImageQuery(image)).Result;
         }
 
         static public void ClearDeletedImages(this IImageDatabase database)

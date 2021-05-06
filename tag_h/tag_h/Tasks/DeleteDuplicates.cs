@@ -15,26 +15,21 @@ namespace tag_h.Tasks
             var hashes = new Dictionary<ulong, string>();
             var duplicates = new List<(string, string)>();
 
-            var dbImages 
-                = database.FetchAllImages()
-                .Where(x => x.IsHashableFormat()) ;
+            var dbImages = database.FetchAllImages()
+                .Where(x => x.IsHashableFormat())
+                .Select(image => (image, image.Hash))
+                .Where(y => y.Hash != null)
+                .Select(y => (y.image, y.Hash.Value));
 
-            foreach (var image in dbImages)
+            foreach (var (image, hash) in dbImages)
             {
-                var hash = image.Hash;
-
-                if (hash is null)
+                if (hashes.ContainsKey(hash))
                 {
-                    continue;
-                }
-
-                if (hashes.ContainsKey(hash.Value))
-                {
-                    duplicates.Add((hashes[hash.Value], image.Location));
+                    duplicates.Add((hashes[hash], image.Location));
                 }
                 else
                 {
-                    hashes[hash.Value] = image.Location;
+                    hashes[hash] = image.Location;
                 }
             }
 
