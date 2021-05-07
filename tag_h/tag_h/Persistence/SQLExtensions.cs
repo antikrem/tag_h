@@ -17,9 +17,9 @@ namespace tag_h.Persistence
                 );
         }
 
-        public static Model.Tag GetTag(this SQLiteDataReader dataReader)
+        public static Tag GetTag(this SQLiteDataReader dataReader)
         {
-            return new Model.Tag(dataReader.GetString(0));
+            return new Tag(dataReader.GetString(0));
         }
     }
 }

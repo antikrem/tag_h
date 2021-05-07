@@ -23,7 +23,7 @@ namespace tag_h
     {
         private TagSet _tags;
 
-        public TagPanel(Model.TagSet tags)
+        public TagPanel(TagSet tags)
         {
             InitializeComponent();
             _tags = tags;

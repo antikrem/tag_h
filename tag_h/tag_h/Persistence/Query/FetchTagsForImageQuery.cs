@@ -18,7 +18,7 @@ namespace tag_h.Persistence.Query
 
         public void Execute(SQLiteCommand command)
         {
-            ISet<Model.Tag> tags = new SortedSet<Model.Tag>();
+            ISet<Tag> tags = new SortedSet<Tag>();
 
             command.CommandText
                     = @"SELECT * 
