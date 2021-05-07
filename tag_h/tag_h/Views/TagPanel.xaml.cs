@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using tag_h.Model;
 
-namespace tag_h
+namespace tag_h.Views
 {
     /// <summary>
     /// Interaction logic for TagPanel.xaml

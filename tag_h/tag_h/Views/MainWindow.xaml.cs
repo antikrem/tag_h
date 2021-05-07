@@ -6,7 +6,7 @@ using System.Windows.Media;
 using tag_h.Model;
 using tag_h.Persistence;
 
-namespace tag_h
+namespace tag_h.Views
 {
     public static class ContainerExtensions {
 

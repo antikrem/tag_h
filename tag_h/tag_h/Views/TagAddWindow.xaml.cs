@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace tag_h
+namespace tag_h.Views
 {
     /// <summary>
     /// Interaction logic for TagAddWindow.xaml

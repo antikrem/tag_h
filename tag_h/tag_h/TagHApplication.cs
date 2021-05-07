@@ -3,6 +3,7 @@
 using tag_h.Persistence;
 using tag_h.Tasks;
 using tag_h.Model;
+using tag_h.Views;
 
 namespace tag_h
 {
