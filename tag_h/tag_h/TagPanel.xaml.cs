@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using tag_h.Model;
 
 namespace tag_h
 {
@@ -20,94 +21,53 @@ namespace tag_h
     /// </summary>
     public partial class TagPanel : UserControl
     {
-        Field field;
+        private TagSet _tags;
 
-        public TagPanel(Field field, int depth)
+        public TagPanel(Model.TagSet tags)
         {
             InitializeComponent();
-            this.field = field;
+            _tags = tags;
 
-            FieldLabel.Content = field.Name;
-
-            // Set colour based on depth
             this.Background = new SolidColorBrush(
-                    ColorStyling.getTagPanelColour(depth)
+                    ColorStyling.getTagPanelColour(1)
                 );
 
-            // Hide extendable button if not extendable
-            if (!field.Extendable)
-            {
-                ExtendableButton.Visibility = Visibility.Hidden;
-            }
-
-            // Add radio button
-            foreach (Tag i in field.Tags)
-            {
-                CheckBox button = new CheckBox
-                {
-                    Content = i.Name,
-                    IsChecked = i.IsSelected
-                };
-                button.Checked += OnTagBoxCheck;
-                button.Unchecked += OnTagBoxUncheck;
-                TagSelector.Children.Add(button);
-
-                if (i.IsSelected)
-                {
-                    foreach (Field subField in i.Fields)
-                    {
-                        TagPanelChildren.Children.Add(
-                                new TagPanel(subField, depth+1)
-                            );
-                    }
-                    
-                }
-            }
+            DrawTagDock();
 
         }
-
         // Call back for check box press
         public void OnTagBoxCheck(object sender, RoutedEventArgs e)
         {
-            // Mark the appropiate tag
-            field.MarkWithTag(
-                    (string)((CheckBox)sender).Content
-                );
-
-            // Update iamge tags and redraw tag dock
-            TagHApplication.Get().PushTagStructureToImage();
-            TagHApplication.Get().MainWindow.UpdateTagDock();
+            // TODO
         }
 
         // Call back for check box unpress
         public void OnTagBoxUncheck(object sender, RoutedEventArgs e)
         {
-            // Mark the appropiate tag
-            field.UnmarkWithTag(
-                    (string)((CheckBox)sender).Content
-                );
-
-            // Update iamge tags and redraw tag dock
-            TagHApplication.Get().PushTagStructureToImage();
             TagHApplication.Get().MainWindow.UpdateTagDock();
         }
 
         // Callback for pressing plus button
         public void ExtendableButton_Click(object sender, RoutedEventArgs e)
         {
-            TagAddWindow window = new TagAddWindow();
-            window.ShowDialog();
-
-            if (window.TagName != "")
-            {
-                field.Tags.Add(
-                        new Tag(window.TagName, new List<Field>())
-                    );
-            }
-
-            TagHApplication.Get().MainWindow.UpdateTagDock();
+            DrawTagDock();
         }
 
+        private void DrawTagDock()
+        {
+            TagSelector.Children.Clear();
+
+            foreach (Tag tag in _tags)
+            {
+                CheckBox button = new CheckBox
+                {
+                    Content = tag,
+                    IsChecked = true
+                };
+                TagSelector.Children.Add(button);
+            }
+
+        }
 
     }
 }

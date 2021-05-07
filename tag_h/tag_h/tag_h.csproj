@@ -152,7 +152,6 @@
     <Compile Include="TagPanel.xaml.cs">
       <DependentUpon>TagPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TagStructure.cs" />
     <Compile Include="Tasks\DeleteDuplicates.cs" />
     <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Tasks\SynchronisePersistence.cs" />

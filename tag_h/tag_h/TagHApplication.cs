@@ -26,9 +26,6 @@ namespace tag_h
 
         HImageList imageList = new HImageList();
 
-        // Current tag structure used by application
-        public TagStructure TagStructure { get; set; } = null;
-
         // Private constructor
         private TagHApplication()
         {
@@ -56,12 +53,10 @@ namespace tag_h
             return instance;
         }
         
-        // Close the database
         private void End()
         {
             this.ImageDataBase.Dispose();
             _taskRunner.Stop();
-            TagStructure?.SaveTagStructure();
         }
 
         // Closes application
@@ -99,17 +94,6 @@ namespace tag_h
             return imageList.Get();
         }
 
-        // Gets root field of tag structure
-        public List<Field> getRootFields()
-        {
-            return TagStructure.Roots;
-        }
-
-        // Move tags in tag structure to current image
-        public void PushTagStructureToImage()
-        {
-            //MainWindow.CurrentImage.Tags = TagStructure.GetTagString();
-        }
     }
 
 
