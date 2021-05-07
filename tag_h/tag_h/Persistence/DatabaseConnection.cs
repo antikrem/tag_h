@@ -3,7 +3,12 @@ using System.Data.SQLite;
 
 namespace tag_h.Persistence
 {
-    internal class DatabaseConnection : IDisposable
+    internal interface IDatabaseConnection : IDisposable
+    {
+        SQLiteCommand CreateCommand();
+    }
+
+    internal class DatabaseConnection : IDatabaseConnection
     {
 
         private readonly SQLiteConnection _connection;

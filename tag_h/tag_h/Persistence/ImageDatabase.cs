@@ -18,7 +18,7 @@ namespace tag_h.Persistence
     class ImageDatabase : IImageDatabase
     {
 
-        private DatabaseConnection _connection;
+        private IDatabaseConnection _connection;
 
         public DirectoryInfo ImageFolder
         {
