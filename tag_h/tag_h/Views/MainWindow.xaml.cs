@@ -48,6 +48,7 @@ namespace tag_h.Views
 
         // Current image being drawn
         public HImage CurrentImage = null;
+        private HImageList _hImageList;
 
         // Image 100% zoom size
         double imageDefaultWidth = 0;
@@ -71,12 +72,9 @@ namespace tag_h.Views
         // Constant that indicates the number of IFrames before mouse moves
         static int dragIFrames = 5;
 
-        public MainWindow()
+        public MainWindow(IImageDatabase imageDatabase)
         {
             InitializeComponent();
-
-            // Initialise TagHApplication, the "backend"
-            TagHApplication.Get().MainWindow = this;
 
             // Maximise the window
             maximiseWindow();
@@ -84,7 +82,7 @@ namespace tag_h.Views
             // Set background colour based on global styling settings
             this.Background = new SolidColorBrush(ColorStyling.getBackgroundColour());
 
-            // Set an image
+            _hImageList = imageDatabase.FetchSampleImageQueue(100);
             this.MainWindow_DisplayNextImageInQueue(null, null);
         }
 
@@ -205,7 +203,8 @@ namespace tag_h.Views
         // Does nothing if queue is empty
         public void MainWindow_DisplayNextImageInQueue(object sender, RoutedEventArgs e)
         {
-            setNewImage(TagHApplication.Get().getNextImage());
+            _hImageList.MoveForward();
+            setNewImage(_hImageList.Get());
 
         }
 
@@ -213,7 +212,8 @@ namespace tag_h.Views
         // Does nothing if queue is empty
         public void MainWindow_DisplayPreviousImageInQueue(object sender, RoutedEventArgs e)
         {
-            setNewImage(TagHApplication.Get().getPreviousImage());
+            _hImageList.MoveBack();
+            setNewImage(_hImageList.Get());
 
         }
 

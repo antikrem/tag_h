@@ -25,12 +25,9 @@ namespace tag_h
 
         private ITaskRunner _taskRunner;
 
-        HImageList imageList = new HImageList();
-
         // Private constructor
         private TagHApplication()
         {
-            // Initialise database
             this.ImageDataBase = new ImageDatabase();
 
             _taskRunner = new TaskRunner(ImageDataBase);
@@ -38,10 +35,8 @@ namespace tag_h
             _taskRunner.Submit(new SynchronisePersistence());
             _taskRunner.Submit(new DeleteDuplicates());
 
-            // Get all images
-            UpdateHImageQueue();
-
-        //    this.TagStructure = new TagStructure("tags.xml");
+            var window = new MainWindow(this.ImageDataBase);
+            window.Show();
         }
 
         // Singleton accessor
@@ -53,7 +48,7 @@ namespace tag_h
             }
             return instance;
         }
-        
+
         private void End()
         {
             this.ImageDataBase.Dispose();
@@ -67,35 +62,5 @@ namespace tag_h
             System.Windows.Application.Current.Shutdown();
         }
 
-        // Updates queue of HImages
-        private void UpdateHImageQueue()
-        {
-            this.imageList = this.ImageDataBase.FetchSampleImageQueue(100);
-        }
-
-        // Gets next image in the queue
-        // Returns null on end
-        public HImage getNextImage()
-        {
-            if (!imageList.AtEnd())
-            {
-                imageList.MoveForward();
-            }
-            return imageList.Get();
-        }
-
-        // Gets previous image in the queue
-        // Returns null on start
-        public HImage getPreviousImage()
-        {
-            if (!imageList.AtStart())
-            {
-                imageList.MoveBack();
-            }
-            return imageList.Get();
-        }
-
     }
-
-
 }
