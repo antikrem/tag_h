@@ -8,14 +8,14 @@ using tag_h.Persistence.Query;
 
 namespace tag_h.Persistence
 {
-    interface IImageDatabase : IDisposable
+    public interface IImageDatabase : IDisposable
     {
         DirectoryInfo ImageFolder { get; }
 
         T ExecuteQuery<T>(T query) where T : IQuery;
     }
 
-    class ImageDatabase : IImageDatabase
+    public class ImageDatabase : IImageDatabase
     {
 
         private IDatabaseConnection _connection;
