@@ -21,8 +21,8 @@ namespace tag_h.Persistence.Query
             ISet<Tag> tags = new SortedSet<Tag>();
 
             command.CommandText
-                    = @"SELECT * 
-                        FROM Tags
+                    = @"SELECT tag 
+                        FROM ImageTags
                         where id = @id;";
             command.Parameters.AddWithValue("@id", _image.UUID);
 
