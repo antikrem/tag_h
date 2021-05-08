@@ -179,11 +179,10 @@ namespace tag_h.Views
                 return;
             }
             
-            // If theres a current image, save tags and dispose it
+            // If theres a current image, save tags
             if (CurrentImage != null)
             {
                 TagHApplication.Get().ImageDataBase.SaveImage(CurrentImage);
-                CurrentImage.deloadBitmap();
             }
 
             // New image is the current image
