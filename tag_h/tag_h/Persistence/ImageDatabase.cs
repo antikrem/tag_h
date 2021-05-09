@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Data.SQLite;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using tag_h.Helper.Injection;
 using tag_h.Persistence.Query;
 
 namespace tag_h.Persistence
 {
+    [Injectable]
     public interface IImageDatabase : IDisposable
     {
         DirectoryInfo ImageFolder { get; }
@@ -33,14 +32,14 @@ namespace tag_h.Persistence
         }
 
 
-        public ImageDatabase()
+        public ImageDatabase(IDatabaseConnection connection)
         {
-            _connection = new DatabaseConnection();
+            _connection = connection;
         }
 
         public void Dispose()
         {
-            _connection.Dispose();
+            
         }
 
         public T ExecuteQuery<T>(T query) where T : IQuery

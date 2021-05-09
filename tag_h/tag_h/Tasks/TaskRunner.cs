@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+
+using tag_h.Helper.Injection;
 using tag_h.Persistence;
 
 namespace tag_h.Tasks
 {
-    interface ITaskRunner
-    {
-        void Stop();
+    [Injectable]
 
+    public interface ITaskRunner : IStopOnDejection
+    {
         void Submit(ITask task);
     }
 
-    class TaskRunner : ITaskRunner
+    public class TaskRunner : ITaskRunner
     {
         private readonly BlockingCollection<ITask> _taskQueue
                 = new BlockingCollection<ITask>(new ConcurrentQueue<ITask>());
@@ -59,6 +57,5 @@ namespace tag_h.Tasks
             _taskQueue.Add(null);
             _taskHandler.Join();
         }
-
     }
 }

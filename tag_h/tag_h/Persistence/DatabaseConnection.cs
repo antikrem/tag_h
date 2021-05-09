@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Data.SQLite;
 
+using tag_h.Helper.Injection;
+
 namespace tag_h.Persistence
 {
-    internal interface IDatabaseConnection : IDisposable
+    [Injectable]
+    public interface IDatabaseConnection : IDisposable
     {
         SQLiteCommand CreateCommand();
     }

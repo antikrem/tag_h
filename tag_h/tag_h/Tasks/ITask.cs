@@ -8,7 +8,7 @@ using tag_h.Persistence;
 
 namespace tag_h.Tasks
 {
-    interface ITask
+    public interface ITask
     {
         string TaskName { get; }
 
