@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
 using tag_h.Persistence;
 using tag_h.Tasks;
@@ -7,10 +7,13 @@ using tag_h.Views;
 
 namespace tag_h
 {
-    public class TagHApplication
+    public interface ITagHApplication
     {
+        void Close();
+    }
 
-
+    public class TagHApplication : ITagHApplication
+    {
         public IImageDatabase ImageDataBase { get; } = null;
         private ITaskRunner _taskRunner;
 
@@ -28,7 +31,6 @@ namespace tag_h
             var window = new MainWindow(this.ImageDataBase, this);
             window.Show();
         }
-
 
         public void Close()
         {

@@ -38,7 +38,7 @@ namespace tag_h.Views
     {
 
         private IImageDatabase _imageDatabase;
-        private readonly TagHApplication _tagHApplication;
+        private readonly ITagHApplication _tagHApplication;
 
         // Set to true when window is maximised
         private bool isMaximised = false;
@@ -75,7 +75,7 @@ namespace tag_h.Views
         // Constant that indicates the number of IFrames before mouse moves
         static int dragIFrames = 5;
 
-        public MainWindow(IImageDatabase imageDatabase, TagHApplication tagHApplication)
+        public MainWindow(IImageDatabase imageDatabase, ITagHApplication tagHApplication)
         {
             InitializeComponent();
 
@@ -101,7 +101,7 @@ namespace tag_h.Views
         // Handle restore button (top right, one right) button press
         public void MainWindow_RestoreButtonPress(object sender, RoutedEventArgs e)
         {
-            if (this.isMaximised)
+            if (isMaximised)
             {
                 restoreWindow();
             }
