@@ -44,7 +44,7 @@ namespace tag_h.Views
         // Call back for check box unpress
         public void OnTagBoxUncheck(object sender, RoutedEventArgs e)
         {
-            TagHApplication.Get().MainWindow.UpdateTagDock();
+            //TagHApplication.Get().MainWindow.UpdateTagDock();
         }
 
         // Callback for pressing plus button

@@ -37,6 +37,9 @@ namespace tag_h.Views
     public partial class MainWindow : Window
     {
 
+        private IImageDatabase _imageDatabase;
+        private readonly TagHApplication _tagHApplication;
+
         // Set to true when window is maximised
         private bool isMaximised = false;
 
@@ -46,15 +49,15 @@ namespace tag_h.Views
         private double restoredWidth = 800;
         private double restoredHeight = 600;
 
-        // Current image being drawn
-        public HImage CurrentImage = null;
-        private HImageList _hImageList;
-
         // Image 100% zoom size
         double imageDefaultWidth = 0;
         double imageDefaultHeight = 0;
 
         // Offset zoom
+        // Current image being drawn
+        public HImage CurrentImage = null;
+        private HImageList _hImageList;
+
         double zoom = 1;
 
         // Current center focus
@@ -72,7 +75,7 @@ namespace tag_h.Views
         // Constant that indicates the number of IFrames before mouse moves
         static int dragIFrames = 5;
 
-        public MainWindow(IImageDatabase imageDatabase)
+        public MainWindow(IImageDatabase imageDatabase, TagHApplication tagHApplication)
         {
             InitializeComponent();
 
@@ -82,14 +85,17 @@ namespace tag_h.Views
             // Set background colour based on global styling settings
             this.Background = new SolidColorBrush(ColorStyling.getBackgroundColour());
 
+            _imageDatabase = imageDatabase;
+            _tagHApplication = tagHApplication;
             _hImageList = imageDatabase.FetchSampleImageQueue(100);
-            this.MainWindow_DisplayNextImageInQueue(null, null);
+            
+            MainWindow_DisplayNextImageInQueue(null, null);
         }
 
         // Closes application
         public void MainWindow_CloseWindow(object sender, RoutedEventArgs e)
         {
-            TagHApplication.Close();
+            _tagHApplication.Close();
         }
 
         // Handle restore button (top right, one right) button press
@@ -180,7 +186,7 @@ namespace tag_h.Views
             // If theres a current image, save tags
             if (CurrentImage != null)
             {
-                TagHApplication.Get().ImageDataBase.SaveImage(CurrentImage);
+                _imageDatabase.SaveImage(CurrentImage);
             }
 
             // New image is the current image

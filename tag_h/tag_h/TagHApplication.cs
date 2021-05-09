@@ -7,26 +7,16 @@ using tag_h.Views;
 
 namespace tag_h
 {
-    // Represents the internal state of the application
-    // Uses a singleton pattern
-    class TagHApplication
+    public class TagHApplication
     {
-        // Maximum number of HImages in queue
-        private const int MAXIMUM_LOADED_IMAGE = 8;
 
-        // Singleton isntance
-        private static TagHApplication instance = null;
 
-        // Main Window reference
-        public MainWindow MainWindow = null;
-
-        // Store of all images
         public IImageDatabase ImageDataBase { get; } = null;
-
         private ITaskRunner _taskRunner;
 
-        // Private constructor
-        private TagHApplication()
+        public MainWindow MainWindow = null;
+
+        public TagHApplication()
         {
             this.ImageDataBase = new ImageDatabase();
 
@@ -35,32 +25,21 @@ namespace tag_h
             _taskRunner.Submit(new SynchronisePersistence());
             _taskRunner.Submit(new DeleteDuplicates());
 
-            var window = new MainWindow(this.ImageDataBase);
+            var window = new MainWindow(this.ImageDataBase, this);
             window.Show();
         }
 
-        // Singleton accessor
-        public static TagHApplication Get()
+
+        public void Close()
         {
-            if (TagHApplication.instance == null)
-            {
-                TagHApplication.instance = new TagHApplication();
-            }
-            return instance;
+            End();
+            System.Windows.Application.Current.Shutdown();
         }
 
         private void End()
         {
-            this.ImageDataBase.Dispose();
             _taskRunner.Stop();
+            this.ImageDataBase.Dispose();
         }
-
-        // Closes application
-        public static void Close()
-        {
-            TagHApplication.Get().End();
-            System.Windows.Application.Current.Shutdown();
-        }
-
     }
 }
