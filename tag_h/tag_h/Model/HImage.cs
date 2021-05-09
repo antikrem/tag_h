@@ -76,19 +76,17 @@ namespace tag_h.Model
         public TagSet Tags { set; get; }
 
 
-        //public HImage(int UUID, string location)
-        //{
-        //    this.UUID = UUID;
-        //    Location = location;
-        //}
-
-        public HImage(int UUID, string location, ulong? hash, TagSet tags )
-        //    : this(UUID, location)
+        public HImage(int UUID, string location)
         {
             this.UUID = UUID;
             Location = location;
+        }
+
+        public HImage(int UUID, string location, ulong? hash, TagSet tags)
+            : this(UUID, location)
+        {
             _hash = hash;
-            tags = Tags;
+            Tags = tags;
         }
 
         // Returns if the HImage is loaded onto memory
