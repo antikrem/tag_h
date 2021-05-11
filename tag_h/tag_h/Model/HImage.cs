@@ -21,8 +21,6 @@ namespace tag_h.Model
         public int UUID { get; }
 
         public string Location { get; }
-
-        public bool Deleted { get; }
         
         Stream _stream = null;
         private Stream Stream
@@ -37,7 +35,9 @@ namespace tag_h.Model
             }
         }
 
-        public FileFormat Format => _stream is null ? FileFormat.Get(Location) : FileFormat.Get(Stream);
+        public bool FileExists => File.Exists(Location);
+
+        public FileFormat Format => _stream is null ? (FileExists ? FileFormat.Get(Location) : null) : FileFormat.Get(Stream);
 
         public ulong? _hash;
         // Null if hashing not supported
