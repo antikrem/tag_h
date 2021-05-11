@@ -12,6 +12,6 @@ namespace tag_h.Tasks
     {
         string TaskName { get; }
 
-        void Execute(IImageDatabase database);
+        void Execute(IHImageRepository imageRepository);
     }
 }

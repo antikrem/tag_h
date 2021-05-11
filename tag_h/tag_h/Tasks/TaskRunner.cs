@@ -22,12 +22,11 @@ namespace tag_h.Tasks
 
         private readonly Thread _taskHandler;
 
-        private readonly IImageDatabase _database;
+        private readonly IHImageRepository _imageRepository;
 
-        public TaskRunner(IImageDatabase database)
+        public TaskRunner(IHImageRepository imageRepository)
         {
-            _database = database;
-
+            _imageRepository = imageRepository;
             _taskHandler = new Thread(this.ExecuteHandling);
             _taskHandler.Start();
         }
@@ -40,7 +39,7 @@ namespace tag_h.Tasks
                 Stopwatch stopWatch = Stopwatch.StartNew();
                 Console.WriteLine($"TASK: Starting task: {task.TaskName}");
 
-                task.Execute(_database);
+                task.Execute(_imageRepository);
 
                 stopWatch.Stop();
                 Console.WriteLine($"TASK: Completed in {stopWatch.Elapsed}");

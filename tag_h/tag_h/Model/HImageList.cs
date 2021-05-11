@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace tag_h.Model
 {
-    class HImageList : IEnumerable<HImage>
+    public class HImageList : IEnumerable<HImage>
     {
         private List<HImage> _images;
 

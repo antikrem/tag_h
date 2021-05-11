@@ -38,6 +38,7 @@ namespace tag_h
             container.RegisterType<ImageDatabase>().As<IImageDatabase>().SingleInstance();
             container.RegisterType<TaskRunner>().As<ITaskRunner>().SingleInstance();
             container.RegisterType<TagHApplication>().As<ITagHApplication>().SingleInstance();
+            container.RegisterType<HImageRepository>().As<IHImageRepository>().SingleInstance();
 
             return container.Build();
         }

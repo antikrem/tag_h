@@ -14,16 +14,16 @@ namespace tag_h
 
     public class TagHApplication : ITagHApplication
     {
-        private  IImageDatabase _imageDataBase;
+        private IHImageRepository _imageRepository;
         private ITaskRunner _taskRunner;
 
         private MainWindow _mainWindow;
 
         public MainWindow MainWindow = null;
 
-        public TagHApplication(IImageDatabase imageDatabase, ITaskRunner taskRunner)
+        public TagHApplication(IHImageRepository imageRepository, ITaskRunner taskRunner)
         {
-            _imageDataBase = imageDatabase;
+            _imageRepository = imageRepository;
 
             _taskRunner = taskRunner;
 
@@ -33,7 +33,7 @@ namespace tag_h
 
         public void Show()
         {
-            _mainWindow = new MainWindow(_imageDataBase, this);
+            _mainWindow = new MainWindow(_imageRepository, this);
             _mainWindow.ShowDialog();
         }
 
