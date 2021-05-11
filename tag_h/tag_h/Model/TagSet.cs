@@ -30,5 +30,7 @@ namespace tag_h.Model
         {
             return _tags.GetEnumerator();
         }
+
+        static public TagSet Empty => new TagSet();
     }
 }
