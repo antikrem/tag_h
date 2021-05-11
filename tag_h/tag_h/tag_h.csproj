@@ -145,6 +145,7 @@
     <Compile Include="Model\HImageList.cs" />
     <Compile Include="Model\Tag.cs" />
     <Compile Include="Model\TagSet.cs" />
+    <Compile Include="Persistence\HImageRepository.cs" />
     <Compile Include="Persistence\ImageDatabase.cs" />
     <Compile Include="Persistence\DatabaseConnection.cs" />
     <Compile Include="Persistence\ImageDatabaseExtension.cs" />

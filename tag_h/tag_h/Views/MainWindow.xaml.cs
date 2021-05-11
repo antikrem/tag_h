@@ -37,7 +37,7 @@ namespace tag_h.Views
     public partial class MainWindow : Window
     {
 
-        private IImageDatabase _imageDatabase;
+        private IHImageRepository _imageRepository;
         private readonly ITagHApplication _tagHApplication;
 
         // Set to true when window is maximised
@@ -75,7 +75,7 @@ namespace tag_h.Views
         // Constant that indicates the number of IFrames before mouse moves
         static int dragIFrames = 5;
 
-        public MainWindow(IImageDatabase imageDatabase, ITagHApplication tagHApplication)
+        public MainWindow(IHImageRepository imageRepository, ITagHApplication tagHApplication)
         {
             InitializeComponent();
 
@@ -85,9 +85,9 @@ namespace tag_h.Views
             // Set background colour based on global styling settings
             this.Background = new SolidColorBrush(ColorStyling.getBackgroundColour());
 
-            _imageDatabase = imageDatabase;
+            _imageRepository = imageRepository;
             _tagHApplication = tagHApplication;
-            _hImageList = imageDatabase.FetchSampleImageQueue(100);
+            _hImageList = imageRepository.FetchSampleHImages(100);
             
             MainWindow_DisplayNextImageInQueue(null, null);
         }
@@ -183,12 +183,6 @@ namespace tag_h.Views
                 return;
             }
             
-            // If theres a current image, save tags
-            if (CurrentImage != null)
-            {
-                _imageDatabase.SaveImage(CurrentImage);
-            }
-
             // New image is the current image
             CurrentImage = nextImage;
 

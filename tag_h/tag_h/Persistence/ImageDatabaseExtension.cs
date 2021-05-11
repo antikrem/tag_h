@@ -30,7 +30,6 @@ namespace tag_h.Persistence
         static public void DeleteImage(this IImageDatabase database, HImage image)
         {
             database.ExecuteQuery(new DeleteImageQuery(image));
-
         }
 
         static public TagSet GetTagsForImage(this IImageDatabase database, HImage image)

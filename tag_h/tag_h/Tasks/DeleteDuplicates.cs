@@ -10,12 +10,12 @@ namespace tag_h.Tasks
     {
         public string TaskName => "Deleting Duplicate";
 
-        public void Execute(IImageDatabase database)
+        public void Execute(IHImageRepository imageRepository)
         {
             var hashes = new Dictionary<ulong, string>();
             var duplicates = new List<(string, string)>();
 
-            var dbImages = database.FetchAllImages()
+            var dbImages = imageRepository.FetchAllImages()
                 .Where(x => x.IsHashableFormat())
                 .Select(image => (image, image.Hash))
                 .Where(y => y.Hash != null)
