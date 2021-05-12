@@ -10,12 +10,12 @@ namespace tag_h.Persistence.Query
         public HImageList Result { get; private set; }
 
         private int _maxCount;
-        private readonly IImageDatabase _imageDatabase;
+        private readonly IHImageRepository _imageRepository;
 
-        public FetchSampleImagesQuery(int maxCount, IImageDatabase imageDatabase)
+        public FetchSampleImagesQuery(int maxCount, IHImageRepository imageRepository)
         {
             _maxCount = maxCount;
-            _imageDatabase = imageDatabase;
+            _imageRepository = imageRepository;
         }
 
         public void Execute(SQLiteCommand command)
@@ -41,10 +41,11 @@ namespace tag_h.Persistence.Query
 
             foreach (var image in images)
             {
-                image.Tags = _imageDatabase.GetTagsForImage(image);
+            //    TODO
+            //    image.Tags = _imageDatabase.GetTagsForImage(image);
             }
 
-            Result = new HImageList(images);
+            Result = new HImageList(_imageRepository, images);
         }
     }
 }

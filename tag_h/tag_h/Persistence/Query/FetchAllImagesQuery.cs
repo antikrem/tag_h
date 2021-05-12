@@ -6,7 +6,14 @@ namespace tag_h.Persistence.Query
 {
     class FetchAllImagesQuery : IQuery
     {
+        private readonly IHImageRepository _imageRepository;
+
         public HImageList Result { get; private set; }
+
+        public FetchAllImagesQuery(IHImageRepository imageRepository)
+        {
+            _imageRepository = imageRepository;
+        }
 
         public void Execute(SQLiteCommand command)
         {
@@ -23,7 +30,7 @@ namespace tag_h.Persistence.Query
                 images.Add(dataReader.GetHImage());
             }
 
-            Result = new HImageList(images);
+            Result = new HImageList(_imageRepository, images);
         }
 
     }

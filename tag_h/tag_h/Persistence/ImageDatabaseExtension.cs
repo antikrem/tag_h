@@ -17,14 +17,14 @@ namespace tag_h.Persistence
             database.ExecuteQuery(new SaveImageQuery(image));
         }
 
-        static public HImageList FetchAllImages(this IImageDatabase database)
+        static public HImageList FetchAllImages(this IImageDatabase database, IHImageRepository imageRepository)
         {
-            return database.ExecuteQuery(new FetchAllImagesQuery()).Result;
+            return database.ExecuteQuery(new FetchAllImagesQuery(imageRepository)).Result;
         }
 
-        static public HImageList FetchSampleImageQueue(this IImageDatabase database, int maxCount)
+        static public HImageList FetchSampleImageQueue(this IImageDatabase database, IHImageRepository imageRepository, int maxCount)
         {
-            return database.ExecuteQuery(new FetchSampleImagesQuery(maxCount, database)).Result;
+            return database.ExecuteQuery(new FetchSampleImagesQuery(maxCount, imageRepository)).Result;
         }
 
         static public void DeleteImage(this IImageDatabase database, HImage image)
@@ -37,14 +37,14 @@ namespace tag_h.Persistence
             return database.ExecuteQuery(new FetchTagsForImageQuery(image)).Result;
         }
 
-        static public void ClearDeletedImages(this IImageDatabase database)
+        static public void ClearDeletedImages(this IImageDatabase database, IHImageRepository imageRepository)
         {
-            database.ExecuteQuery(new ClearDeletedImagesQuery(database));
+            database.ExecuteQuery(new ClearDeletedImagesQuery(imageRepository));
         }
 
-        static private HImageList GetDeletedImages(this IImageDatabase database)
+        static public HImageList GetDeletedImages(this IImageDatabase database, IHImageRepository imageRepository)
         {
-            return database.ExecuteQuery(new FetchDeletedImagesQuery()).Result;
+            return database.ExecuteQuery(new FetchDeletedImagesQuery(imageRepository)).Result;
         }
     }
 }

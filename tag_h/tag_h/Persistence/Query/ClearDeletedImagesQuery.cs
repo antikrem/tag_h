@@ -5,16 +5,16 @@ namespace tag_h.Persistence.Query
 {
     class ClearDeletedImagesQuery : IQuery
     {
-        private IImageDatabase _database;
+        private IHImageRepository _imageRepository;
 
-        public ClearDeletedImagesQuery(IImageDatabase database)
+        public ClearDeletedImagesQuery(IHImageRepository imageRepository)
         {
-            _database = database;
+            _imageRepository = imageRepository;
         }
 
         public void Execute(SQLiteCommand command)
         {
-            var images = _database.ExecuteQuery(new FetchDeletedImagesQuery()).Result;
+            var images = _imageRepository.FetchAllDeletedImages();
 
             command.CommandText
                     = @"DELETE FROM Images
