@@ -16,20 +16,34 @@ namespace tag_h.Persistence.Query
 
         public void Execute(SQLiteCommand command)
         {
-            command.CommandText
-                    = @"UPDATE Images
-                        SET fileName = @fileName,
-                            tags = @tags,
-                            hash = @hash,
-                            viewed = 1
-                        WHERE id = @id;";
+            command.CommandText = CreateCommand(command);
             command.Parameters.AddWithValue("@id", _image.UUID);
             command.Parameters.AddWithValue("@fileName", _image.Location);
-            command.Parameters.AddWithValue("@tags", string.Join(", ", _image.Tags));
-            command.Parameters.AddWithValue("@hash", _image.Hash?.ToHexString());
-
+            command.Parameters.AddWithValue("@tags", _image.Tags == null ? "NULL" : string.Join(", ", _image.Tags)); // TODO remove
 
             command.ExecuteNonQuery();
+        }
+
+        private string CreateCommand(SQLiteCommand command)
+        {
+            var body = @"UPDATE Images
+                        SET fileName = @fileName,
+                            tags = @tags,
+                            $hash$
+                            viewed = 1
+                        WHERE id = @id;";
+
+            if (_image.Hash != null)
+            {
+                body = body.Replace("$hash$", "hash = @hash,");
+                command.Parameters.AddWithValue("@hash", _image.Hash?.ToHexString());
+            }
+            else
+            {
+                body = body.Replace("$hash$", "");
+            }
+
+            return body;
         }
     }
 
