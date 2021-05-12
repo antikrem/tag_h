@@ -5,7 +5,11 @@ using tag_h.Persistence;
 
 namespace tag_h.Model
 {
+<<<<<<< HEAD
     public class HImageList : IEnumerable<HImage>, IDisposable
+=======
+    public class HImageList : IEnumerable<HImage>
+>>>>>>> ad0a6bc57e0cadeb477dd20cdda30b51ab3cf09b
     {
         private List<HImage> _images;
 
