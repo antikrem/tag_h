@@ -6,14 +6,8 @@ namespace tag_h.Persistence.Query
 {
     class FetchDeletedImagesQuery : IQuery
     {
-        private readonly IHImageRepository _imageRepository;
 
-        public HImageList Result { get; private set; }
-
-        public FetchDeletedImagesQuery(IHImageRepository imageRepository)
-        {
-            _imageRepository = imageRepository;
-        }
+        public List<HImage> Result { get; private set; }
 
         public void Execute(SQLiteCommand command)
         {
@@ -30,7 +24,7 @@ namespace tag_h.Persistence.Query
                 images.Add(dataReader.GetHImage());
             }
 
-            Result = new HImageList(_imageRepository, images);
+            Result = images;
         }
     }
 

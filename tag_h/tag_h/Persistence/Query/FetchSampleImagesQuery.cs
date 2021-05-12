@@ -7,15 +7,13 @@ namespace tag_h.Persistence.Query
 {
     class FetchSampleImagesQuery : IQuery
     {
-        public HImageList Result { get; private set; }
+        public List<HImage> Result { get; private set; }
 
         private int _maxCount;
-        private readonly IHImageRepository _imageRepository;
 
-        public FetchSampleImagesQuery(int maxCount, IHImageRepository imageRepository)
+        public FetchSampleImagesQuery(int maxCount)
         {
             _maxCount = maxCount;
-            _imageRepository = imageRepository;
         }
 
         public void Execute(SQLiteCommand command)
@@ -45,7 +43,7 @@ namespace tag_h.Persistence.Query
             //    image.Tags = _imageDatabase.GetTagsForImage(image);
             }
 
-            Result = new HImageList(_imageRepository, images);
+            Result = images;
         }
     }
 }

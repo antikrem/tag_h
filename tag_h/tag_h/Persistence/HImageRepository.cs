@@ -57,17 +57,17 @@ namespace tag_h.Persistence
 
         public HImageList FetchAllImages()
         {
-            return _imageDatabase.FetchAllImages(this);
+            return new HImageList(this, _imageDatabase.FetchAllImages());
         }
 
         public HImageList FetchAllDeletedImages()
         {
-            return _imageDatabase.GetDeletedImages(this);
+            return new HImageList(this, _imageDatabase.GetDeletedImages());
         }
 
         public HImageList FetchSampleHImages(int max)
         {
-            return _imageDatabase.FetchSampleImageQueue(this, max);
+            return new HImageList(this, _imageDatabase.FetchSampleImageQueue(max));
         }
 
 

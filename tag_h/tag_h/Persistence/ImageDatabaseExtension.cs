@@ -17,14 +17,14 @@ namespace tag_h.Persistence
             database.ExecuteQuery(new SaveImageQuery(image));
         }
 
-        static public HImageList FetchAllImages(this IImageDatabase database, IHImageRepository imageRepository)
+        static public List<HImage> FetchAllImages(this IImageDatabase database)
         {
-            return database.ExecuteQuery(new FetchAllImagesQuery(imageRepository)).Result;
+            return database.ExecuteQuery(new FetchAllImagesQuery()).Result;
         }
 
-        static public HImageList FetchSampleImageQueue(this IImageDatabase database, IHImageRepository imageRepository, int maxCount)
+        static public List<HImage> FetchSampleImageQueue(this IImageDatabase database, int maxCount)
         {
-            return database.ExecuteQuery(new FetchSampleImagesQuery(maxCount, imageRepository)).Result;
+            return database.ExecuteQuery(new FetchSampleImagesQuery(maxCount)).Result;
         }
 
         static public void DeleteImage(this IImageDatabase database, HImage image)
@@ -42,9 +42,9 @@ namespace tag_h.Persistence
             database.ExecuteQuery(new ClearDeletedImagesQuery(imageRepository));
         }
 
-        static public HImageList GetDeletedImages(this IImageDatabase database, IHImageRepository imageRepository)
+        static public List<HImage> GetDeletedImages(this IImageDatabase database)
         {
-            return database.ExecuteQuery(new FetchDeletedImagesQuery(imageRepository)).Result;
+            return database.ExecuteQuery(new FetchDeletedImagesQuery()).Result;
         }
     }
 }
