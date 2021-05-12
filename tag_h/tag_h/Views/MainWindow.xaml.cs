@@ -70,6 +70,7 @@ namespace tag_h.Views
         // Closes application
         public void MainWindow_CloseWindow(object sender, RoutedEventArgs e)
         {
+            _hImageList.Dispose();
             _tagHApplication.Close();
         }
 

@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using tag_h.Persistence;
 
 namespace tag_h.Model
 {
-    public class HImageList : IEnumerable<HImage>
+    public class HImageList : IEnumerable<HImage>, IDisposable
     {
         private List<HImage> _images;
 
         private int pointer = 0;
 
-        public HImageList(List<HImage> images)
+        private IHImageRepository _imageRepository;
+
+        public HImageList(IHImageRepository imageRepository, List<HImage> images)
         {
             _images = images;
+            _imageRepository = imageRepository;
         }
 
         public HImageList()
@@ -67,6 +71,11 @@ namespace tag_h.Model
         IEnumerator IEnumerable.GetEnumerator()
         {
             return _images.GetEnumerator();
+        }
+
+        public void Dispose()
+        {
+            _images.ForEach(_imageRepository.SaveImage);
         }
     }
 }
