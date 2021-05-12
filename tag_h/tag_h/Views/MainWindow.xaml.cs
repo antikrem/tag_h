@@ -8,32 +8,7 @@ using tag_h.Persistence;
 
 namespace tag_h.Views
 {
-    public static class ContainerExtensions {
-
-        // Extends a queue by an enumerable
-        public static void Extend<T>(this Queue<T> queue, IEnumerable<T> extension)
-        {
-            foreach (var x in extension)
-            {
-                queue.Enqueue(x);
-            }
-        }
-
-        // Extends a stack by an enumerable
-        public static void Extend<T>(this Stack<T> stack, IEnumerable<T> extension)
-        {
-            foreach (var x in extension)
-            {
-                stack.Push(x);
-            }
-        }
-    }
-    
-
-
-    /* Manages window and front end responsiveness
-     * Application logic in TagHApplication 
-     */
+  
     public partial class MainWindow : Window
     {
 
