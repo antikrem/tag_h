@@ -19,8 +19,6 @@ namespace tag_h.Persistence.Query
             command.CommandText = CreateCommand(command);
             command.Parameters.AddWithValue("@id", _image.UUID);
             command.Parameters.AddWithValue("@fileName", _image.Location);
-            command.Parameters.AddWithValue("@tags", _image.Tags == null ? "NULL" : string.Join(", ", _image.Tags)); // TODO remove
-
             command.ExecuteNonQuery();
         }
 
@@ -28,7 +26,6 @@ namespace tag_h.Persistence.Query
         {
             var body = @"UPDATE Images
                         SET fileName = @fileName,
-                            tags = @tags,
                             $hash$
                             viewed = 1
                         WHERE id = @id;";
