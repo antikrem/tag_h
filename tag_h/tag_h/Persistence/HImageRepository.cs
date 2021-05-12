@@ -1,5 +1,6 @@
 ﻿using System.IO;
-
+using System.Linq;
+using tag_h.Helper.Extensions;
 using tag_h.Model;
 
 namespace tag_h.Persistence
@@ -37,7 +38,12 @@ namespace tag_h.Persistence
 
         public void ApplyDeletions()
         {
-            _imageDatabase.ClearDeletedImages(this);
+            var deletedImages = _imageDatabase.GetDeletedImages();
+            _imageDatabase.DeleteImageRecordFromDatabase(deletedImages);
+            deletedImages
+                .Select(x => x.Location)
+                .Where(File.Exists)
+                .ForEach(File.Delete);
         }
 
         public void AddNewImage(string fileName)
