@@ -13,13 +13,15 @@ namespace tag_h.Persistence
 
         void AddNewImage(string fileName);
         
+        void SaveImage(HImage image);
+
+        void DeleteImage(HImage image);
+
         HImageList FetchAllImages();
         
         HImageList FetchSampleHImages(int max);
 
         HImageList FetchAllDeletedImages();
-
-        void SaveImage(HImage image);
     }
 
     public class HImageRepository : IHImageRepository
@@ -46,6 +48,11 @@ namespace tag_h.Persistence
         public void SaveImage(HImage image)
         {
             _imageDatabase.SaveImage(image);
+        }
+
+        public void DeleteImage(HImage image)
+        {
+            _imageDatabase.DeleteImage(image);
         }
 
         public HImageList FetchAllImages()
