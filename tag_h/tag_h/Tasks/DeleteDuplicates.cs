@@ -35,7 +35,7 @@ namespace tag_h.Tasks
                     }
                 }
 
-                System.Console.WriteLine(duplicates);
+                System.Console.WriteLine($"Found {duplicates.Count} duplicate image/s");
             }
         }
     }
