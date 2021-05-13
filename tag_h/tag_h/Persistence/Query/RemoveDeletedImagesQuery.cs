@@ -5,16 +5,8 @@ using tag_h.Model;
 
 namespace tag_h.Persistence.Query
 {
-    class DeleteImageRecordFromDataBaseQuery : IQuery
+    class RemoveDeletedImagesQuery : IQuery
     {
-        private IHImageRepository _imageRepository;
-
-        private IEnumerable<HImage> _images;
-
-        public DeleteImageRecordFromDataBaseQuery(IEnumerable<HImage> images)
-        {
-            _images = images;
-        }
 
         public void Execute(SQLiteCommand command)
         {

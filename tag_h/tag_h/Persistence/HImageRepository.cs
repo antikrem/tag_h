@@ -39,7 +39,7 @@ namespace tag_h.Persistence
         public void ApplyDeletions()
         {
             var deletedImages = _imageDatabase.GetDeletedImages();
-            _imageDatabase.DeleteImageRecordFromDatabase(deletedImages);
+            _imageDatabase.DeleteImageRecordFromDatabase();
             deletedImages
                 .Select(x => x.Location)
                 .Where(File.Exists)

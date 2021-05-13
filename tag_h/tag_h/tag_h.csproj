@@ -151,7 +151,7 @@
     <Compile Include="Persistence\DatabaseConnection.cs" />
     <Compile Include="Persistence\ImageDatabaseExtension.cs" />
     <Compile Include="Persistence\Query\AddNewImageQuery.cs" />
-    <Compile Include="Persistence\Query\DeleteImageRecordFromDataBaseQuery.cs" />
+    <Compile Include="Persistence\Query\RemoveDeletedImagesQuery.cs" />
     <Compile Include="Persistence\Query\DeleteImageQuery.cs" />
     <Compile Include="Persistence\Query\FetchAllImagesQuery.cs" />
     <Compile Include="Persistence\Query\FetchAllTagsQuery.cs" />

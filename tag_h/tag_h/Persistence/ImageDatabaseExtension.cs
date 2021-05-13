@@ -37,9 +37,9 @@ namespace tag_h.Persistence
             return database.ExecuteQuery(new FetchTagsForImageQuery(image)).Result;
         }
 
-        static public void DeleteImageRecordFromDatabase(this IImageDatabase database, IEnumerable<HImage> images)
+        static public void DeleteImageRecordFromDatabase(this IImageDatabase database)
         {
-            database.ExecuteQuery(new DeleteImageRecordFromDataBaseQuery(images));
+            database.ExecuteQuery(new RemoveDeletedImagesQuery());
         }
 
         static public List<HImage> GetDeletedImages(this IImageDatabase database)
