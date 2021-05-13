@@ -13,6 +13,8 @@ namespace tag_h.Persistence
         void ApplyDeletions();
 
         void AddNewImage(string fileName);
+
+        void PopulateImage(HImage image);
         
         void SaveImage(HImage image);
 
@@ -51,6 +53,11 @@ namespace tag_h.Persistence
             _imageDatabase.AddNewImage(fileName);
         }
 
+        public void PopulateImage(HImage image)
+        {
+            image.Tags = _imageDatabase.GetTagsForImage(image);
+        }
+
         public void SaveImage(HImage image)
         {
             _imageDatabase.SaveImage(image);
@@ -75,7 +82,5 @@ namespace tag_h.Persistence
         {
             return new HImageList(this, _imageDatabase.FetchSampleImageQueue(max));
         }
-
-
     }
 }
