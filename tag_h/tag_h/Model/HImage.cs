@@ -41,32 +41,18 @@ namespace tag_h.Model
 
         public ulong? _hash;
         // Null if hashing not supported
-        public ulong? Hash
-        {
+        public ulong? Hash {
             get
             {
-                if (HImageFormat.IsHashableFormat(this) && _hash is null) 
-                {
-                    // TODO: On SaveImageQuery, run GenerateHash on seperate task
-                    GenerateHash();  
-                }
                 return _hash;
-
             }            
         }
 
-        private void GenerateHash()
+        public void Index()
         {
-            if (_stream is null)
+            using (var stream = File.OpenRead(Location))
             {
-                using (var stream = File.OpenRead(Location))
-                {
-                    _hash = (new AverageHash()).Hash(stream);
-                }
-            }
-            else
-            {
-                _hash = (new AverageHash()).Hash(_stream);
+                _hash = (new AverageHash()).Hash(stream);
             }
         }
 

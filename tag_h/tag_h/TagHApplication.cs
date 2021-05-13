@@ -28,6 +28,7 @@ namespace tag_h
             _taskRunner = taskRunner;
 
             _taskRunner.Submit(new SynchronisePersistence());
+            _taskRunner.Submit(new IndexImages());
             _taskRunner.Submit(new DeleteDuplicates());
         }
 
