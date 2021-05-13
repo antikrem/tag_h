@@ -27,20 +27,13 @@ namespace tag_h.Persistence.Query
 
             var dataReader = command.ExecuteReader();
 
-            int runningCount = 0;
-            while (dataReader.Read() && runningCount < _maxCount)
+            while (dataReader.Read() && images.Count < _maxCount)
             {
                 var image = dataReader.GetHImage();
                 if (image.IsPhysicalExists())
                 {
                     images.Add(image);
                 }
-            }
-
-            foreach (var image in images)
-            {
-            //    TODO
-            //    image.Tags = _imageDatabase.GetTagsForImage(image);
             }
 
             Result = images;
