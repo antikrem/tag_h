@@ -23,8 +23,6 @@ namespace tag_h.Persistence
         HImageList FetchAllImages();
         
         HImageList FetchSampleHImages(int max);
-
-        HImageList FetchAllDeletedImages();
     }
 
     public class HImageRepository : IHImageRepository
@@ -71,11 +69,6 @@ namespace tag_h.Persistence
         public HImageList FetchAllImages()
         {
             return new HImageList(this, _imageDatabase.FetchAllImages());
-        }
-
-        public HImageList FetchAllDeletedImages()
-        {
-            return new HImageList(this, _imageDatabase.GetDeletedImages());
         }
 
         public HImageList FetchSampleHImages(int max)
