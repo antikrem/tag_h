@@ -1,10 +1,13 @@
 ﻿using System.IO;
 using System.Linq;
+
 using tag_h.Helper.Extensions;
+using tag_h.Helper.Injection;
 using tag_h.Model;
 
 namespace tag_h.Persistence
 {
+    [Injectable]
     public interface IHImageRepository
     {
         //TODO
