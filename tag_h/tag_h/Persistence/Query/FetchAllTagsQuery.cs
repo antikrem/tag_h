@@ -12,18 +12,11 @@ namespace tag_h.Persistence.Query
 
         public void Execute(SQLiteCommand command)
         {
-            ISet<Tag> tags = new SortedSet<Tag>();
 
             command.CommandText
                     = @"SELECT * FROM Tags;";
 
-            var dataReader = command.ExecuteReader();
-            while (dataReader.Read())
-            {
-                tags.Add(dataReader.GetTag());
-            }
-
-            Result = new TagSet(tags);
+            Result = command.ExecuteReader().GetTags();
         }
 
     }

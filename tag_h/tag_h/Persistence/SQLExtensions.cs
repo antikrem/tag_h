@@ -1,4 +1,6 @@
-﻿using System.Data.SQLite;
+﻿using System.Collections.Generic;
+using System.Data.SQLite;
+
 using tag_h.Helper.Extensions;
 using tag_h.Model;
 
@@ -19,6 +21,19 @@ namespace tag_h.Persistence
         public static Tag GetTag(this SQLiteDataReader dataReader)
         {
             return new Tag(dataReader.GetString(0));
+        }
+
+        private static IEnumerable<Tag> GetTagEnumeration(this SQLiteDataReader dataReader)
+        {
+            while (dataReader.Read())
+            {
+                yield return dataReader.GetTag();
+            }
+        }
+
+        public static TagSet GetTags(this SQLiteDataReader dataReader)
+        {
+            return new TagSet(dataReader.GetTagEnumeration());
         }
     }
 }

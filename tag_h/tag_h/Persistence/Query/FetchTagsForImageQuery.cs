@@ -26,13 +26,7 @@ namespace tag_h.Persistence.Query
                         where id = @id;";
             command.Parameters.AddWithValue("@id", _image.UUID);
 
-            var dataReader = command.ExecuteReader();
-            while (dataReader.Read())
-            {
-                tags.Add(dataReader.GetTag());
-            }
-
-            Result = new TagSet(tags);
+            Result = command.ExecuteReader().GetTags();
         }
     }
 }
