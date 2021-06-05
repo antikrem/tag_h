@@ -12,8 +12,7 @@ namespace tag_h.Persistence
             return new HImage(
                     dataReader.GetInt32(0), 
                     dataReader.GetString(1), 
-                    dataReader.IsDBNull(2) ? null : (ulong?)dataReader.GetString(2).ToHexULong(), 
-                    null
+                    dataReader.IsDBNull(2) ? null : (ulong?)dataReader.GetString(2).ToHexULong()
                 );
         }
 

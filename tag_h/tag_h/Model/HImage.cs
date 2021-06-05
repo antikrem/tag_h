@@ -59,20 +59,16 @@ namespace tag_h.Model
         // Underlying image bitmap
         BitmapImage image = null;
 
-        public TagSet Tags { set; get; }
-
-
         public HImage(int UUID, string location)
         {
             this.UUID = UUID;
             Location = location;
         }
 
-        public HImage(int UUID, string location, ulong? hash, TagSet tags)
+        public HImage(int UUID, string location, ulong? hash)
             : this(UUID, location)
         {
             _hash = hash;
-            Tags = tags;
         }
 
         // Returns if the HImage is loaded onto memory

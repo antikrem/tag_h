@@ -33,7 +33,6 @@ namespace tag_h.Model
                 {
                     image.loadBitmap();
                 }
-                _imageRepository.PopulateImage(image);
                 return image;
             }
             else
