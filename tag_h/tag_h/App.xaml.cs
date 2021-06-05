@@ -35,7 +35,7 @@ namespace tag_h
             var container = new ContainerBuilder();
 
             container.RegisterType<DatabaseConnection>().As<IDatabaseConnection>().SingleInstance();
-            container.RegisterType<ImageDatabase>().As<IImageDatabase>().SingleInstance();
+            container.RegisterType<Database>().As<IDatabase>().SingleInstance();
             container.RegisterType<TaskRunner>().As<ITaskRunner>().SingleInstance();
             container.RegisterType<TagHApplication>().As<ITagHApplication>().SingleInstance();
             container.RegisterType<HImageRepository>().As<IHImageRepository>().SingleInstance();

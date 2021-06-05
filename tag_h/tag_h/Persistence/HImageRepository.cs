@@ -28,19 +28,19 @@ namespace tag_h.Persistence
 
     public class HImageRepository : IHImageRepository
     {
-        private IImageDatabase _imageDatabase;
+        private IDatabase _database;
 
-        public DirectoryInfo ImageFolder => _imageDatabase.ImageFolder;
+        public DirectoryInfo ImageFolder => _database.ImageFolder;
 
-        public HImageRepository(IImageDatabase imageDatabase)
+        public HImageRepository(IDatabase database)
         {
-            _imageDatabase = imageDatabase;
+            _database = database;
         }
 
         public void ApplyDeletions()
         {
-            var deletedImages = _imageDatabase.GetDeletedImages();
-            _imageDatabase.RemoveDeletedImages();
+            var deletedImages = _database.GetDeletedImages();
+            _database.RemoveDeletedImages();
             deletedImages
                 .Select(x => x.Location)
                 .Where(File.Exists)
@@ -49,28 +49,28 @@ namespace tag_h.Persistence
 
         public void AddNewImage(string fileName)
         {
-            _imageDatabase.AddNewImage(fileName);
+            _database.AddNewImage(fileName);
         }
 
 
         public void SaveImage(HImage image)
         {
-            _imageDatabase.SaveImage(image);
+            _database.SaveImage(image);
         }
 
         public void DeleteImage(HImage image)
         {
-            _imageDatabase.DeleteImage(image);
+            _database.DeleteImage(image);
         }
 
         public HImageList FetchAllImages()
         {
-            return new HImageList(this, _imageDatabase.FetchAllImages());
+            return new HImageList(this, _database.FetchAllImages());
         }
 
         public HImageList FetchSampleHImages(int max)
         {
-            return new HImageList(this, _imageDatabase.FetchSampleImageQueue(max));
+            return new HImageList(this, _database.FetchSampleImageQueue(max));
         }
     }
 }

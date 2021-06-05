@@ -7,14 +7,14 @@ using tag_h.Persistence.Query;
 namespace tag_h.Persistence
 {
     [Injectable]
-    public interface IImageDatabase : IDisposable
+    public interface IDatabase : IDisposable
     {
         DirectoryInfo ImageFolder { get; }
 
         T ExecuteQuery<T>(T query) where T : IQuery;
     }
 
-    public class ImageDatabase : IImageDatabase
+    public class Database : IDatabase
     {
 
         private IDatabaseConnection _connection;
@@ -32,7 +32,7 @@ namespace tag_h.Persistence
         }
 
 
-        public ImageDatabase(IDatabaseConnection connection)
+        public Database(IDatabaseConnection connection)
         {
             _connection = connection;
         }
