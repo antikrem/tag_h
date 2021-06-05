@@ -149,16 +149,28 @@ namespace tag_h.Views
             centerImage();
         }
 
-        // Set new center image
-        // Frees old image
-        private void setNewImage(HImage nextImage)
+        public void MainWindow_DisplayNextImageInQueue(object sender, RoutedEventArgs e)
         {
-            // If there is no next image, do nothing
-            if (nextImage is null)
-            {
-                return;
-            }
-            
+            _hImageList.MoveForward();
+            LoadImage();
+        }
+
+        public void MainWindow_DisplayPreviousImageInQueue(object sender, RoutedEventArgs e)
+        {
+            _hImageList.MoveBack();
+            LoadImage();
+        }
+
+        private void LoadImage()
+        {
+            var nextImage = _hImageList.Get();
+            if (nextImage != null)
+                SetNewImage(nextImage);
+
+        }
+
+        private void SetNewImage(HImage nextImage)
+        {
             // New image is the current image
             CurrentImage = nextImage;
 
@@ -173,24 +185,6 @@ namespace tag_h.Views
 
             // Draw Tag Dock
             this.UpdateTagDock();
-        }
-
-        // Sets next image in the queue to be source
-        // Does nothing if queue is empty
-        public void MainWindow_DisplayNextImageInQueue(object sender, RoutedEventArgs e)
-        {
-            _hImageList.MoveForward();
-            setNewImage(_hImageList.Get());
-
-        }
-
-        // Sets last image in the queue to be source
-        // Does nothing if queue is empty
-        public void MainWindow_DisplayPreviousImageInQueue(object sender, RoutedEventArgs e)
-        {
-            _hImageList.MoveBack();
-            setNewImage(_hImageList.Get());
-
         }
 
         // Centers the image, such that the given pixel of the image
