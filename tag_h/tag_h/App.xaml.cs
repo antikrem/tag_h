@@ -39,6 +39,8 @@ namespace tag_h
             container.RegisterType<TaskRunner>().As<ITaskRunner>().SingleInstance();
             container.RegisterType<TagHApplication>().As<ITagHApplication>().SingleInstance();
             container.RegisterType<HImageRepository>().As<IHImageRepository>().SingleInstance();
+            container.RegisterType<TagRespository>().As<ITagRepository>().SingleInstance();
+
 
             return container.Build();
         }

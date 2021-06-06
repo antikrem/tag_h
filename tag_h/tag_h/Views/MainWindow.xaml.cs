@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
 using tag_h.Model;
+using tag_h.Helper.Extensions;
 using tag_h.Persistence;
 
 namespace tag_h.Views
@@ -13,6 +13,7 @@ namespace tag_h.Views
     {
 
         private IHImageRepository _imageRepository;
+        private readonly ITagRepository _tagRepository;
         private readonly ITagHApplication _tagHApplication;
 
         // Set to true when window is maximised
@@ -50,7 +51,7 @@ namespace tag_h.Views
         // Constant that indicates the number of IFrames before mouse moves
         static int dragIFrames = 5;
 
-        public MainWindow(IHImageRepository imageRepository, ITagHApplication tagHApplication)
+        public MainWindow(IHImageRepository imageRepository, ITagRepository tagRepository, ITagHApplication tagHApplication)
         {
             InitializeComponent();
 
@@ -61,6 +62,7 @@ namespace tag_h.Views
             this.Background = new SolidColorBrush(ColorStyling.getBackgroundColour());
 
             _imageRepository = imageRepository;
+            _tagRepository = tagRepository;
             _tagHApplication = tagHApplication;
             _hImageList = imageRepository.FetchSampleHImages(100);
             
@@ -293,21 +295,15 @@ namespace tag_h.Views
         public void UpdateTagDock()
         {
             // Do not draw if tag dock is not shown
-            if (TagDock.Visibility != Visibility.Visible)
+            if (TagDock.Visibility != Visibility.Visible || CurrentImage is null)
             {
                 return;
             }
 
             TagDock.Children.Clear();
 
-            if (CurrentImage is null)
-            {
-                return;
-            }
-
             // Update tag structure with tags
-            //TagHApplication.Get().TagStructure.MarkWithTags(CurrentImage.Tags);
-            //TagHApplication.Get().TagStructure.Roots.ForEach(x => TagDock.Children.Add(new TagPanel(x, 0)));
+            TagDock.Children.Add( new TagPanel(_tagRepository.GetAllTags()) );
         }
     }
 
