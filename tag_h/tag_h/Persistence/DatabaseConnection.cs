@@ -6,7 +6,7 @@ using tag_h.Helper.Injection;
 namespace tag_h.Persistence
 {
     [Injectable]
-    public interface IDatabaseConnection : IDisposable
+    public interface IDatabaseConnection : IStopOnDejection
     {
         SQLiteCommand CreateCommand();
     }
@@ -62,7 +62,7 @@ namespace tag_h.Persistence
             return _connection.CreateCommand();
         }
 
-        public void Dispose()
+        public void Stop()
         {
             _connection.Close();
         }
