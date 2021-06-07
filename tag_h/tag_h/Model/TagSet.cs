@@ -11,7 +11,7 @@ namespace tag_h.Model
     {
         private readonly ISet<Tag> _tags; 
 
-        public TagSet()
+        private TagSet()
         {
             _tags = new SortedSet<Tag>();
         }
