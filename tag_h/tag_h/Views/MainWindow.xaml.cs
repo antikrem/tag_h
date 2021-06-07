@@ -8,8 +8,12 @@ using tag_h.Persistence;
 
 namespace tag_h.Views
 {
-  
-    public partial class MainWindow : Window
+    public interface IMainWindow
+    {
+        void UIStart();
+    }
+
+    public partial class MainWindow : Window, IMainWindow
     {
 
         private IHImageRepository _imageRepository;
@@ -56,7 +60,7 @@ namespace tag_h.Views
             InitializeComponent();
 
             // Maximise the window
-            maximiseWindow();
+            MaximiseWindow();
 
             // Set background colour based on global styling settings
             this.Background = new SolidColorBrush(ColorStyling.getBackgroundColour());
@@ -65,8 +69,13 @@ namespace tag_h.Views
             _tagRepository = tagRepository;
             _tagHApplication = tagHApplication;
             _hImageList = imageRepository.FetchSampleHImages(100);
-            
+
             MainWindow_DisplayNextImageInQueue(null, null);
+        }
+
+        public void UIStart()
+        {
+            this.ShowDialog();
         }
 
         // Closes application
@@ -81,17 +90,17 @@ namespace tag_h.Views
         {
             if (isMaximised)
             {
-                restoreWindow();
+                RestoreWindow();
             }
             else
             {
-                maximiseWindow();
+                MaximiseWindow();
             }
-            updateCenterImageView();
+            UpdateCenterImageView();
         }
 
         // Maximises window to cover full screen less taskbar
-        public void maximiseWindow()
+        private void MaximiseWindow()
         {
             this.Width = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width;
             this.Height = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height;
@@ -103,7 +112,7 @@ namespace tag_h.Views
         }
 
         // Resizes window to be in non-maximised mode
-        public void restoreWindow()
+        private void RestoreWindow()
         {
             this.Width = this.restoredWidth;
             this.Height = this.restoredHeight;
@@ -115,7 +124,7 @@ namespace tag_h.Views
         }
 
         // Sets center image to show full iamge, and not scale smaller images
-        private void updateCenterImageView()
+        private void UpdateCenterImageView()
         {
             double imageWidth;
             double imageHeight;
@@ -138,7 +147,7 @@ namespace tag_h.Views
             {
                 imageHeight = (this.Width / imageWidth) * imageHeight;
                 imageWidth = this.Width;
-                
+
             }
 
             CenterImage.Width = imageWidth;
@@ -147,8 +156,8 @@ namespace tag_h.Views
             imageDefaultHeight = imageHeight;
 
             // zoom and center
-            zoomImage(1);
-            centerImage();
+            ZoomImage(1);
+            RepositionImageAtCenter();
         }
 
         public void MainWindow_DisplayNextImageInQueue(object sender, RoutedEventArgs e)
@@ -180,10 +189,10 @@ namespace tag_h.Views
             CenterImage.Source = CurrentImage.getBitmap();
 
             // Set CenterImage to be correct size
-            updateCenterImageView();
+            UpdateCenterImageView();
 
             // Also center the image
-            centerImage();
+            RepositionImageAtCenter();
 
             // Draw Tag Dock
             this.UpdateTagDock();
@@ -191,13 +200,13 @@ namespace tag_h.Views
 
         // Centers the image, such that the given pixel of the image
         // At the current resolution will be in the center of the image
-        public void centerImageAt(double x, double y)
+        public void CenterImageAt(double x, double y)
         {
             // Centering image by displacement of size
             CenterImage.Margin = new Thickness(
                 (this.Width / 2) - this.zoom * x,
-                (this.Height / 2)  - this.zoom * y, 
-                0, 
+                (this.Height / 2) - this.zoom * y,
+                0,
                 0
             );
             centerFocus = new Point(x, y);
@@ -205,16 +214,16 @@ namespace tag_h.Views
 
         // More generalise image center
         // Centers at the direct middle of image
-        public void centerImage()
+        private void RepositionImageAtCenter()
         {
-            centerImageAt(
+            CenterImageAt(
                 imageDefaultWidth / 2,
                 imageDefaultHeight / 2
             );
         }
 
         // Zooms image to given zoomOffset
-        public void zoomImage(double zoom)
+        private void ZoomImage(double zoom)
         {
             this.zoom = zoom;
             CenterImage.Width = this.zoom * imageDefaultWidth;
@@ -226,22 +235,23 @@ namespace tag_h.Views
         public void MainWindow_CenterImageMouseDown(object sender, MouseButtonEventArgs e)
         {
             // Handle a double click
-            if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2) {
+            if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2)
+            {
                 // Choose zoom depending if its already zoomed
                 if (zoom == 1)
                 {
-                    zoomImage(2);
+                    ZoomImage(2);
                     // Center image at mouse click position
                     Point clickPoint = e.GetPosition(CenterImage);
-                    centerImageAt(clickPoint.X, clickPoint.Y);
+                    CenterImageAt(clickPoint.X, clickPoint.Y);
                 }
                 else
                 {
-                    zoomImage(1);
+                    ZoomImage(1);
                     // Center image right in the middle
-                    centerImage();
+                    RepositionImageAtCenter();
                 }
-                
+
             }
 
             // set dragging as true at the current mouse drag position
@@ -275,9 +285,9 @@ namespace tag_h.Views
 
                     centerFocus.X = centerFocus.X + x;
                     centerFocus.Y = centerFocus.Y + y;
-                    centerImageAt(centerFocus.X, centerFocus.Y);
+                    CenterImageAt(centerFocus.X, centerFocus.Y);
                 }
-               
+
             }
         }
 
@@ -292,7 +302,7 @@ namespace tag_h.Views
         }
 
         // Updates dock with current tag structure
-        public void UpdateTagDock()
+        private void UpdateTagDock()
         {
             // Do not draw if tag dock is not shown
             if (TagDock.Visibility != Visibility.Visible || CurrentImage is null)
@@ -303,10 +313,10 @@ namespace tag_h.Views
             TagDock.Children.Clear();
 
             // Update tag structure with tags
-            TagDock.Children.Add( new TagPanel(_tagRepository.GetAllTags()) );
+            TagDock.Children.Add(new TagPanel(_tagRepository.GetAllTags()));
         }
     }
 
-    
+
 }
 
