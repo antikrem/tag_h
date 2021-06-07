@@ -6,6 +6,7 @@ using Autofac;
 using tag_h.Helper.Injection;
 using tag_h.Persistence;
 using tag_h.Tasks;
+using tag_h.Views;
 
 namespace tag_h
 {
@@ -40,6 +41,7 @@ namespace tag_h
             container.RegisterType<TagHApplication>().As<ITagHApplication>().SingleInstance();
             container.RegisterType<HImageRepository>().As<IHImageRepository>().SingleInstance();
             container.RegisterType<TagRespository>().As<ITagRepository>().SingleInstance();
+            container.RegisterType<MainWindow>().As<IMainWindow>().SingleInstance();
 
 
             return container.Build();

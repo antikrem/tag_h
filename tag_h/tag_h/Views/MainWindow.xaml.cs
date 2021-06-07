@@ -5,12 +5,16 @@ using System.Windows.Media;
 using tag_h.Model;
 using tag_h.Helper.Extensions;
 using tag_h.Persistence;
+using tag_h.Helper.Injection;
 
 namespace tag_h.Views
 {
+    [Injectable]
     public interface IMainWindow
     {
         void UIStart();
+
+        void UIEnd();
     }
 
     public partial class MainWindow : Window, IMainWindow
@@ -78,10 +82,15 @@ namespace tag_h.Views
             this.ShowDialog();
         }
 
+        public void UIEnd()
+        {
+            _hImageList.Dispose();
+            this.Close();
+        }
+
         // Closes application
         public void MainWindow_CloseWindow(object sender, RoutedEventArgs e)
         {
-            _hImageList.Dispose();
             _tagHApplication.Close();
         }
 
