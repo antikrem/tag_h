@@ -15,22 +15,18 @@ namespace tag_h
     public class TagHApplication : ITagHApplication
     {
         private readonly IMainWindow _mainWindow;
-        private IHImageRepository _imageRepository;
-        private readonly ITagRepository _tagRepository;
         private ITaskRunner _taskRunner;
 
         public MainWindow MainWindow = null;
 
         public TagHApplication(
                 IMainWindow mainWindow,
-                IHImageRepository imageRepository, 
-                ITagRepository tagRepository, 
                 ITaskRunner taskRunner
             )
         {
             _mainWindow = mainWindow;
-            _imageRepository = imageRepository;
-            _tagRepository = tagRepository;
+            _mainWindow.SetApplication(this);
+
             _taskRunner = taskRunner;
 
             _taskRunner.Submit(new SynchronisePersistence());

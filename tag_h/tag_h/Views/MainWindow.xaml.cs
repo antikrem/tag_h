@@ -15,14 +15,16 @@ namespace tag_h.Views
         void UIStart();
 
         void UIEnd();
+
+        void SetApplication(ITagHApplication tagHApplication);
     }
 
     public partial class MainWindow : Window, IMainWindow
     {
 
-        private IHImageRepository _imageRepository;
+        private readonly IHImageRepository _imageRepository;
         private readonly ITagRepository _tagRepository;
-        private readonly ITagHApplication _tagHApplication;
+        private ITagHApplication _tagHApplication;
 
         // Set to true when window is maximised
         private bool isMaximised = false;
@@ -59,7 +61,7 @@ namespace tag_h.Views
         // Constant that indicates the number of IFrames before mouse moves
         static int dragIFrames = 5;
 
-        public MainWindow(IHImageRepository imageRepository, ITagRepository tagRepository, ITagHApplication tagHApplication)
+        public MainWindow(IHImageRepository imageRepository, ITagRepository tagRepository)
         {
             InitializeComponent();
 
@@ -71,10 +73,15 @@ namespace tag_h.Views
 
             _imageRepository = imageRepository;
             _tagRepository = tagRepository;
-            _tagHApplication = tagHApplication;
             _hImageList = imageRepository.FetchSampleHImages(100);
 
             MainWindow_DisplayNextImageInQueue(null, null);
+        }
+
+        public void SetApplication(ITagHApplication tagHApplication)
+        {
+            _tagHApplication = tagHApplication;
+
         }
 
         public void UIStart()
