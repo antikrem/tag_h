@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Threading;
 
-using tag_h.Helper.Injection;
+using tag_h.Injection;
 using tag_h.Persistence;
 
 namespace tag_h.Tasks

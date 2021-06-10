@@ -3,7 +3,7 @@ using System.Linq;
 
 using Autofac;
 
-using tag_h.Helper.Injection;
+using tag_h.Injection;
 using tag_h.Persistence;
 using tag_h.Tasks;
 using tag_h.Views;

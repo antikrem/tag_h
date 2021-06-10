@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.SQLite;
 
-using tag_h.Helper.Injection;
+using tag_h.Injection;
 
 namespace tag_h.Persistence
 {

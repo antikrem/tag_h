@@ -1,6 +1,6 @@
 ﻿using System;
 
-using tag_h.Helper.Injection;
+using tag_h.Injection;
 using tag_h.Model;
 using tag_h.Persistence.Query;
 

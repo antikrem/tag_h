@@ -5,7 +5,7 @@ using System.Windows.Media;
 using tag_h.Model;
 using tag_h.Helper.Extensions;
 using tag_h.Persistence;
-using tag_h.Helper.Injection;
+using tag_h.Injection;
 
 namespace tag_h.Views
 {

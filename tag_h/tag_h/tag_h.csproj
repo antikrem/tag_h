@@ -139,8 +139,8 @@
     </ApplicationDefinition>
     <Compile Include="Helper\Extensions\CollectionExtensions.cs" />
     <Compile Include="Helper\Extensions\ValueExtensions.cs" />
-    <Compile Include="Helper\Injection\Injectable.cs" />
-    <Compile Include="Helper\Injection\StopOnDejection.cs" />
+    <Compile Include="Injection\Injectable.cs" />
+    <Compile Include="Injection\StopOnDejection.cs" />
     <Compile Include="Model\HImage.cs" />
     <Compile Include="Model\HImageFormat.cs" />
     <Compile Include="Model\HImageList.cs" />

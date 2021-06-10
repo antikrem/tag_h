@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-using tag_h.Helper.Injection;
+using tag_h.Injection;
 using tag_h.Persistence.Query;
 
 namespace tag_h.Persistence
