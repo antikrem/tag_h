@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
-using Workshell.FileFormats;
-using Workshell.FileFormats.Formats;
 using Workshell.FileFormats.Formats.Images;
 
-namespace tag_h.Model
+namespace tagh.Core.Model
 {
     static class HImageFormat
     {

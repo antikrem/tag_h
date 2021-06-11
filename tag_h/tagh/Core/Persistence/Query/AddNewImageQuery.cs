@@ -1,6 +1,6 @@
 ﻿using System.Data.SQLite;
 
-namespace tag_h.Persistence.Query
+namespace tagh.Core.Persistence.Query
 {
     class AddNewImageQuery : IQuery
     {

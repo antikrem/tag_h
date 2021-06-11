@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Data.SQLite;
+using tagh.Core.Injection;
 
-using tag_h.Injection;
-
-namespace tag_h.Persistence
+namespace tagh.Core.Persistence
 {
     [Injectable]
     public interface IDatabaseConnection : IStopOnDejection
@@ -54,7 +53,7 @@ namespace tag_h.Persistence
                     command.ExecuteNonQuery();
                 }
             }
-                
+
         }
 
         public SQLiteCommand CreateCommand()

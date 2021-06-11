@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tagh.Core.Persistence;
 
-using tag_h.Persistence;
-
-namespace tag_h.Tasks
+namespace tagh.Core.Tasks
 {
     public interface ITask
     {

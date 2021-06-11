@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace tag_h.TagRetriever
+namespace tagh.Core.TagRetriever
 {
     public interface ITagRetriever
     {

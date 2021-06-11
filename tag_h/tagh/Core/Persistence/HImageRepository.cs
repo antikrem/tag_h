@@ -1,11 +1,11 @@
 ﻿using System.IO;
 using System.Linq;
 
-using tag_h.Helper.Extensions;
-using tag_h.Injection;
-using tag_h.Model;
+using tagh.Core.Helper.Extensions;
+using tagh.Core.Injection;
+using tagh.Core.Model;
 
-namespace tag_h.Persistence
+namespace tagh.Core.Persistence
 {
     [Injectable]
     public interface IHImageRepository
@@ -16,13 +16,13 @@ namespace tag_h.Persistence
         void ApplyDeletions();
 
         void AddNewImage(string fileName);
-        
+
         void SaveImage(HImage image);
 
         void DeleteImage(HImage image);
 
         HImageList FetchAllImages();
-        
+
         HImageList FetchSampleHImages(int max);
     }
 

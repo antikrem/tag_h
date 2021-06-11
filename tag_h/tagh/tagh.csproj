@@ -12,8 +12,4 @@
     <PackageReference Include="Workshell.FileFormats" Version="3.2.0.100" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Core\" />
-  </ItemGroup>
-
 </Project>

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Data.SQLite;
-using tag_h.Model;
+using tagh.Core.Model;
 
-namespace tag_h.Persistence.Query
+namespace tagh.Core.Persistence.Query
 {
     class FetchDeletedImagesQuery : IQuery
     {

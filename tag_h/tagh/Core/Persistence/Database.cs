@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 
-using tag_h.Injection;
-using tag_h.Persistence.Query;
+using tagh.Core.Injection;
+using tagh.Core.Persistence.Query;
 
-namespace tag_h.Persistence
+namespace tagh.Core.Persistence
 {
     [Injectable]
     public interface IDatabase

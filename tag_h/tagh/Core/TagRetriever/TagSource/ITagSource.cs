@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using tag_h.Model;
+using tagh.Core.Model;
 
-namespace tag_h.TagRetriever.TagSource
+namespace tagh.Core.TagRetriever.TagSource
 {
-    
+
     public interface ITagSource
     {
 

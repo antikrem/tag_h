@@ -6,7 +6,7 @@ using CoenM.ImageHash.HashAlgorithms;
 
 using Workshell.FileFormats;
 
-namespace tag_h.Model
+namespace tagh.Core.Model
 {
     /* Stores an entire image
      */
@@ -16,7 +16,7 @@ namespace tag_h.Model
         public int UUID { get; }
 
         public string Location { get; }
-        
+
         Stream _stream = null;
         private Stream Stream
         {
@@ -32,22 +32,23 @@ namespace tag_h.Model
 
         public bool FileExists => File.Exists(Location);
 
-        public FileFormat Format => _stream is null ? (FileExists ? FileFormat.Get(Location) : null) : FileFormat.Get(Stream);
+        public FileFormat Format => _stream is null ? FileExists ? FileFormat.Get(Location) : null : FileFormat.Get(Stream);
 
         public ulong? _hash;
         // Null if hashing not supported
-        public ulong? Hash {
+        public ulong? Hash
+        {
             get
             {
                 return _hash;
-            }            
+            }
         }
 
         public void Index()
         {
             using (var stream = File.OpenRead(Location))
             {
-                _hash = (new AverageHash()).Hash(stream);
+                _hash = new AverageHash().Hash(stream);
             }
         }
 

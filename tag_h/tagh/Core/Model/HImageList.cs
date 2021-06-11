@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using tag_h.Persistence;
+using tagh.Core.Model;
+using tagh.Core.Persistence;
 
-namespace tag_h.Model
+namespace tagh.Core.Model
 {
     public class HImageList : IEnumerable<HImage>, IDisposable
     {

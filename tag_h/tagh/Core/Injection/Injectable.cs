@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace tag_h.Injection
+namespace tagh.Core.Injection
 {
     public class Injectable : Attribute
     {

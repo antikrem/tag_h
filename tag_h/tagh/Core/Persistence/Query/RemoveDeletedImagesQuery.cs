@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Data.SQLite;
-using System.IO;
-using tag_h.Model;
+﻿using System.Data.SQLite;
 
-namespace tag_h.Persistence.Query
+namespace tagh.Core.Persistence.Query
 {
     class RemoveDeletedImagesQuery : IQuery
     {

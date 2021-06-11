@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace tag_h.Model
+namespace tagh.Core.Model
 {
     public class TagSet : IEnumerable<Tag>
     {
-        private readonly ISet<Tag> _tags; 
+        private readonly ISet<Tag> _tags;
 
         private TagSet()
         {

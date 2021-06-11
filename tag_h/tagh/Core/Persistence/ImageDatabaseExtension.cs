@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using tag_h.Model;
-using tag_h.Persistence.Query;
 
-namespace tag_h.Persistence
+using tagh.Core.Persistence.Query;
+using tagh.Core.Model;
+
+namespace tagh.Core.Persistence
 {
     static class ImageDatabaseExtension
     {

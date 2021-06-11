@@ -2,11 +2,10 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Threading;
+using tagh.Core.Injection;
+using tagh.Core.Persistence;
 
-using tag_h.Injection;
-using tag_h.Persistence;
-
-namespace tag_h.Tasks
+namespace tagh.Core.Tasks
 {
     [Injectable]
 
@@ -27,7 +26,7 @@ namespace tag_h.Tasks
         public TaskRunner(IHImageRepository imageRepository)
         {
             _imageRepository = imageRepository;
-            _taskHandler = new Thread(this.ExecuteHandling);
+            _taskHandler = new Thread(ExecuteHandling);
             _taskHandler.Start();
         }
 

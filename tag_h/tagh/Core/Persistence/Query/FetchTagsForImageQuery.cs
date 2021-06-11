@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Data.SQLite;
+using tagh.Core.Model;
 
-using tag_h.Model;
-
-namespace tag_h.Persistence.Query
+namespace tagh.Core.Persistence.Query
 {
     class FetchTagsForImageQuery : IQuery
     {
         private readonly HImage _image;
-        
+
         public TagSet Result { get; private set; }
 
         public FetchTagsForImageQuery(HImage image)

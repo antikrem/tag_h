@@ -1,9 +1,9 @@
 ﻿using System.Data.SQLite;
 
-using tag_h.Model;
-using tag_h.Helper.Extensions;
+using tagh.Core.Helper.Extensions;
+using tagh.Core.Model;
 
-namespace tag_h.Persistence.Query
+namespace tagh.Core.Persistence.Query
 {
     class SaveImageQuery : IQuery
     {

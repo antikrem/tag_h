@@ -1,4 +1,4 @@
-﻿namespace tag_h.Injection
+﻿namespace tagh.Core.Injection
 {
     public interface IStopOnDejection
     {
