@@ -4,45 +4,18 @@ using System.Linq;
 using Autofac;
 
 using tag_h.Injection;
-using tag_h.Persistence;
-using tag_h.Tasks;
-using tag_h.Views;
+using System;
 
 namespace tag_h
 {
     public partial class App : Application
     {
-        //private IContainer GenerateContainer()
-        //{
-        //    var container = new ContainerBuilder();
-
-        //    var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-
-        //    var temp =
-        //        container.RegisterAssemblyTypes(assembly)
-        //        .Where(x => x.IsDefined(typeof(Injectable), false));
-
-        //    var injectables =
-        //        container.RegisterAssemblyTypes(assembly)
-        //        .Where(x => x.IsDefined(typeof(Injectable), false))
-        //        .AsImplementedInterfaces()
-        //        .InstancePerRequest();
-
-        //    return container.Build();
-        //}
-
         private IContainer GenerateContainer()
         {
             var container = new ContainerBuilder();
 
-            container.RegisterType<DatabaseConnection>().As<IDatabaseConnection>().SingleInstance();
-            container.RegisterType<Database>().As<IDatabase>().SingleInstance();
-            container.RegisterType<TaskRunner>().As<ITaskRunner>().SingleInstance();
-            container.RegisterType<TagHApplication>().As<ITagHApplication>().SingleInstance();
-            container.RegisterType<HImageRepository>().As<IHImageRepository>().SingleInstance();
-            container.RegisterType<TagRespository>().As<ITagRepository>().SingleInstance();
-            container.RegisterType<MainWindow>().As<IMainWindow>().SingleInstance();
-
+            foreach ((Type entry, Type service) in InjectionModule.GetInjectionDefinitions())
+                container.RegisterType(service).As(entry).SingleInstance();
 
             return container.Build();
         }
