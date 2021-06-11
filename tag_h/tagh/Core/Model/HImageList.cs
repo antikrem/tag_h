@@ -29,10 +29,10 @@ namespace tag_h.Model
             if  (_images.Count > 0)
             {
                 var image = _images[pointer];
-                if (!image.isImageLoaded())
-                {
-                    image.loadBitmap();
-                }
+                //if (!image.isImageLoaded())
+                //{
+                //    image.loadBitmap();
+                //}
                 return image;
             }
             else

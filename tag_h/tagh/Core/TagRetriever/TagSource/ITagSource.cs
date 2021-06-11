@@ -11,6 +11,6 @@ namespace tag_h.TagRetriever.TagSource
     public interface ITagSource
     {
 
-        async TagSet RetrieveTags();
+        Task<TagSet> RetrieveTags();
     }
 }
