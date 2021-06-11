@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 using System.IO;
 
 using CoenM.ImageHash;
@@ -56,9 +51,6 @@ namespace tag_h.Model
             }
         }
 
-        // Underlying image bitmap
-        BitmapImage image = null;
-
         public HImage(int UUID, string location)
         {
             this.UUID = UUID;
@@ -71,40 +63,11 @@ namespace tag_h.Model
             _hash = hash;
         }
 
-        // Returns if the HImage is loaded onto memory
-        public bool isImageLoaded()
-        {
-            return image != null;
-        }
-
-        // Gets underlying bitmap
-        public BitmapImage getBitmap()
-        {
-            return image;
-        }
-
-        // Loads internal bitmap from disk to memory
-        public void loadBitmap()
-        {
-            // Create bitmap image
-            image = new BitmapImage();
-
-            image.BeginInit();
-            image.CacheOption = BitmapCacheOption.OnLoad;
-            image.StreamSource = Stream;
-            image.EndInit();
-        }
-
-        // Deloads internal bitmap
-        // if no references to the internal bitmap is kept
-        public void deloadBitmap()
-        {
-            image = null;
-        }
-
         public (double, double) Size
         {
-            get => (image.PixelWidth, image.PixelHeight);
+            //get => (image.PixelWidth, image.PixelHeight);
+            get => (0, 0);
+
         }
 
         public bool IsPhysicalExists()
