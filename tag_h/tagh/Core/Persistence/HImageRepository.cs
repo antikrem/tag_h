@@ -21,9 +21,7 @@ namespace tagh.Core.Persistence
 
         void DeleteImage(HImage image);
 
-        HImageList FetchAllImages();
-
-        HImageList FetchSampleHImages(int max);
+        HImageList FetchImages(TagQuery query);
     }
 
     public class HImageRepository : IHImageRepository
@@ -63,14 +61,10 @@ namespace tagh.Core.Persistence
             _database.DeleteImage(image);
         }
 
-        public HImageList FetchAllImages()
+        public HImageList FetchImages(TagQuery query)
         {
-            return new HImageList(this, _database.FetchAllImages());
+            return new HImageList(this, _database.FetchAllImages(query));
         }
 
-        public HImageList FetchSampleHImages(int max)
-        {
-            return new HImageList(this, _database.FetchSampleImageQueue(max));
-        }
     }
 }

@@ -18,9 +18,9 @@ namespace tagh.Core.Persistence
             database.ExecuteQuery(new SaveImageQuery(image));
         }
 
-        static public List<HImage> FetchAllImages(this IDatabase database)
+        static public List<HImage> FetchAllImages(this IDatabase database, TagQuery query)
         {
-            return database.ExecuteQuery(new FetchAllImagesQuery()).Result;
+            return database.ExecuteQuery(new FetchImagesQuery(query)).Result;
         }
 
         static public List<HImage> FetchSampleImageQueue(this IDatabase database, int maxCount)

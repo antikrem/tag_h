@@ -13,7 +13,7 @@ namespace tagh.Core.Tasks
 
         public void Execute(IHImageRepository imageRepository)
         {
-            using (var images = imageRepository.FetchAllImages())
+            using (var images = imageRepository.FetchImages(TagQuery.All))
             {
                 var unhashedImages = images
                     .Where(x => x.IsHashableFormat())

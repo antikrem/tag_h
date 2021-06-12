@@ -5,18 +5,29 @@ using tagh.Core.Model;
 
 namespace tagh.Core.Persistence.Query
 {
-    class FetchAllImagesQuery : IQuery
+    class FetchImagesQuery : IQuery
     {
+        private readonly TagQuery _query;
+
         public List<HImage> Result { get; private set; }
+
+        public FetchImagesQuery(TagQuery query)
+        {
+            _query = query;
+        }
 
         public void Execute(SQLiteCommand command)
         {
             List<HImage> images = new List<HImage>();
 
-            command.CommandText
+            var commandText 
                     = @"SELECT * 
                         FROM Images 
-                        WHERE deleted = 0;";
+                        WHERE deleted = 0
+                        $LIMIT;";
+            commandText.Replace("$LIMIT", _query.Maximum != int.MaxValue ? $"LIMIT {_query.Maximum}" : "");
+
+            command.CommandText = commandText;
 
             var dataReader = command.ExecuteReader();
             while (dataReader.Read())

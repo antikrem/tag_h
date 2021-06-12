@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tagh.Core.Model;
 using tagh.Core.Persistence;
 
 namespace tagh.Core.Tasks
@@ -20,7 +21,7 @@ namespace tagh.Core.Tasks
             var folder = imageRepository.ImageFolder;
 
             var physicalImages = new HashSet<string>(folder.GetFiles().Select(x => x.FullName));
-            var dbImages = imageRepository.FetchAllImages();
+            var dbImages = imageRepository.FetchImages(TagQuery.All);
             var dbImageLocations = new HashSet<string>(dbImages.Select(x => x.Location));
 
             var newImages = physicalImages.ToList().Where(x => !dbImageLocations.Contains(x));

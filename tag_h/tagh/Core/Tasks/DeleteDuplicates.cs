@@ -14,7 +14,7 @@ namespace tagh.Core.Tasks
             var hashes = new Dictionary<ulong, string>();
             var duplicates = new List<(string, string)>();
 
-            using (var images = imageRepository.FetchAllImages())
+            using (var images = imageRepository.FetchImages(TagQuery.All))
             {
                 var dbImages = images
                     .Where(x => x.IsHashableFormat())
