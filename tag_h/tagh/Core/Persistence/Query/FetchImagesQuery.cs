@@ -25,7 +25,7 @@ namespace tagh.Core.Persistence.Query
                         FROM Images 
                         WHERE deleted = 0
                         $LIMIT;";
-            commandText.Replace("$LIMIT", _query.Maximum != int.MaxValue ? $"LIMIT {_query.Maximum}" : "");
+            commandText = commandText.Replace("$LIMIT", _query.Maximum != int.MaxValue ? $"LIMIT {_query.Maximum}" : "");
 
             command.CommandText = commandText;
 
