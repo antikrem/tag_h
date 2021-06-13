@@ -18,7 +18,7 @@ namespace tagh.Core.Model
 
         public static bool IsHashableFormat(this HImage image)
         {
-            return image.Format is JPEGImageFormat || image.Format is BitmapImageFormat || image.Format is GIFImageFormat || image.Format is PNGImageFormat;
+            return image.Format is JPEGImageFormat or BitmapImageFormat or GIFImageFormat or PNGImageFormat;
         }
     }
 }
