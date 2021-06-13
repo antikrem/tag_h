@@ -1,0 +1,52 @@
+using System.Linq;
+using System.Threading.Tasks;
+
+using tagh.Client.Model;
+using Microsoft.AspNetCore.Http;
+
+using tagh.Core.Model;
+using tagh.Core.Persistence;
+using Microsoft.AspNetCore.Mvc;
+
+namespace tagh.Middleware
+{
+    public class ServerImageProvider
+    {
+        private readonly RequestDelegate _next;
+        private readonly IHImageRepository _imageRepository;
+        private readonly IHImageClientDataBuilder _imageClientDataBuilder;
+
+        private static string SearchCondition => nameof(ServerImageProvider);
+
+        public ServerImageProvider(RequestDelegate next, IHImageRepository imageRepository, IHImageClientDataBuilder imageClientDataBuilder)
+        {
+            _next = next;
+            _imageRepository = imageRepository;
+            _imageClientDataBuilder = imageClientDataBuilder;
+        }
+
+        public async Task Invoke(HttpContext context)
+        {
+            try
+            {
+                if (!context.Request.Path.Value.Contains(SearchCondition))
+                {
+                    return;
+                }
+
+                var image = _imageClientDataBuilder.LoadImage(_imageRepository.FetchImages(TagQuery.All).First());
+
+                context.Response.ContentLength = image.Data.Length;
+                context.Response.ContentType = "image/" + image.Extension;
+                await context.Response.Body.WriteAsync(image.Data, 0, image.Data.Length);
+            }
+            finally
+            {
+                if (!context.Response.HasStarted)
+                    await _next(context);
+            }
+        }
+
+        public static string GetImage(IUrlHelper helper, int UUID) => helper.PageLink() + SearchCondition + helper.Action("Get", null, new { UUID = UUID });
+    }
+}
