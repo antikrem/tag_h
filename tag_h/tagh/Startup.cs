@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 
 using tagh.Core.Helper.Extensions;
 using tagh.Core.Injection;
+using tagh.Middleware;
 
 namespace tagh
 {
@@ -25,6 +26,7 @@ namespace tagh
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddHttpContextAccessor();
             InjectionModule
                 .GetInjectionDefinitions()
                 .ForEach(x => RegisterInjectionDefinition(services, x));
@@ -60,6 +62,8 @@ namespace tagh
             {
                 endpoints.MapRazorPages();
             });
+
+            app.UseMiddleware<ServerImageProvider>();
         }
     }
 }
