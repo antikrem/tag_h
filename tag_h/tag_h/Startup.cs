@@ -1,10 +1,15 @@
+using System;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
+using tag_h.Core.Helper.Extensions;
+using tag_h.Core.Injection;
+using tag_h.Middleware;
 
 namespace tag_h
 {
@@ -22,12 +27,22 @@ namespace tag_h
         {
 
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
+
+            InjectionModule
+                .GetInjectionDefinitions()
+                .ForEach(x => RegisterInjectionDefinition(services, x));
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
             });
+        }
+
+        private static void RegisterInjectionDefinition(IServiceCollection services, (Type, Type) injectionDefinition)
+        {
+            services.Add(new ServiceDescriptor(injectionDefinition.Item1, injectionDefinition.Item2, ServiceLifetime.Singleton));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,6 +81,8 @@ namespace tag_h
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+
+            app.UseMiddleware<ServerImageProvider>();
         }
     }
 }
