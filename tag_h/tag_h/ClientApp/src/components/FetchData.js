@@ -5,7 +5,7 @@ export class FetchData extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { forecasts: [], loading: true };
+    this.state = { images: [], loading: true };
   }
 
   componentDidMount() {
@@ -26,10 +26,7 @@ export class FetchData extends Component {
         <tbody>
           {forecasts.map(forecast =>
             <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
+              <td>{forecast.uuid}</td>
             </tr>
           )}
         </tbody>
@@ -40,7 +37,7 @@ export class FetchData extends Component {
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
+        : FetchData.renderForecastsTable(this.state.images);
 
     return (
       <div>
@@ -52,8 +49,9 @@ export class FetchData extends Component {
   }
 
   async populateWeatherData() {
-    const response = await fetch('weatherforecast');
-    const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
+    const response = await fetch('imagebrowse');
+      const data = await response.json();
+      console.log(data)
+    this.setState({ images: data, loading: false });
   }
 }
