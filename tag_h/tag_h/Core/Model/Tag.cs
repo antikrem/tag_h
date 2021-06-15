@@ -1,4 +1,4 @@
-﻿namespace tagh.Core.Model
+﻿namespace tag_h.Core.Model
 {
     public class Tag
     {

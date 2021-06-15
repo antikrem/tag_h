@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using tagh.Core.Persistence;
+﻿using tag_h.Core.Persistence;
 
-namespace tagh.Core.Tasks
+
+namespace tag_h.Core.Tasks
 {
     public interface ITask
     {

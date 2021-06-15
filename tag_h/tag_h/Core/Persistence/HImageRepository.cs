@@ -1,11 +1,12 @@
 ﻿using System.IO;
 using System.Linq;
 
-using tagh.Core.Helper.Extensions;
-using tagh.Core.Injection;
-using tagh.Core.Model;
+using tag_h.Core.Helper.Extensions;
+using tag_h.Core.Injection;
+using tag_h.Core.Model;
 
-namespace tagh.Core.Persistence
+
+namespace tag_h.Core.Persistence
 {
     [Injectable]
     public interface IHImageRepository

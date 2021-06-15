@@ -1,8 +1,9 @@
-﻿using System;
-using System.Data.SQLite;
-using tagh.Core.Injection;
+﻿using System.Data.SQLite;
 
-namespace tagh.Core.Persistence
+using tag_h.Core.Injection;
+
+
+namespace tag_h.Core.Persistence
 {
     [Injectable]
     public interface IDatabaseConnection : IStopOnDejection

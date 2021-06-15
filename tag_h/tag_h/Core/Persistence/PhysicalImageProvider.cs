@@ -1,9 +1,10 @@
 using System.IO;
 
-using tagh.Core.Injection;
-using tagh.Core.Model;
+using tag_h.Core.Injection;
+using tag_h.Core.Model;
 
-namespace tagh.Core.Persistence
+
+namespace tag_h.Core.Persistence
 {
     [Injectable]
     public interface IPhysicalImageProvider
@@ -13,7 +14,7 @@ namespace tagh.Core.Persistence
 
     public class PhysicalImageProvider : IPhysicalImageProvider
     {
-        
+
         public byte[] LoadImage(HImage image)
         {
             return File.ReadAllBytes(image.Location);

@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using tagh.Core.Model;
-using tagh.Core.Persistence;
 
-namespace tagh.Core.Tasks
+using tag_h.Core.Model;
+using tag_h.Core.Persistence;
+
+
+namespace tag_h.Core.Tasks
 {
     class DeleteDuplicates : ITask
     {

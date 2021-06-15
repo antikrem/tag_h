@@ -1,14 +1,15 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using tagh.Client.Model;
 using Microsoft.AspNetCore.Http;
-
-using tagh.Core.Model;
-using tagh.Core.Persistence;
 using Microsoft.AspNetCore.Mvc;
 
-namespace tagh.Middleware
+using tag_h.Core.Model;
+using tag_h.Core.Persistence;
+using tag_h.Middleware.Model;
+
+
+namespace tag_h.Middleware
 {
     public class ServerImageProvider
     {

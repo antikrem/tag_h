@@ -1,8 +1,9 @@
-using tagh.Core.Injection;
-using tagh.Core.Model;
-using tagh.Core.Persistence;
+using tag_h.Core.Model;
+using tag_h.Core.Persistence;
+using tag_h.Core.Injection;
 
-namespace tagh.Client.Model
+
+namespace tag_h.Middleware.Model
 {
     [Injectable]
     public interface IHImageClientDataBuilder

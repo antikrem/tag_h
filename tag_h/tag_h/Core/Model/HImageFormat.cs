@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 using Workshell.FileFormats.Formats.Images;
 
-namespace tagh.Core.Model
+
+namespace tag_h.Core.Model
 {
     static class HImageFormat
     {

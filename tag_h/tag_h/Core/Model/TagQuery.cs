@@ -1,6 +1,4 @@
-#nullable enable
-
-namespace tagh.Core.Model
+namespace tag_h.Core.Model
 {
     public record TagQuery
     {

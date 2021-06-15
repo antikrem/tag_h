@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace tagh.Core.Injection
+
+namespace tag_h.Core.Injection
 {
     class MultipleInjectionPointsFoundException : Exception { };
 

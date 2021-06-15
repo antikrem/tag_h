@@ -1,8 +1,9 @@
 ﻿using System.Data.SQLite;
 
-using tagh.Core.Model;
+using tag_h.Core.Model;
 
-namespace tagh.Core.Persistence.Query
+
+namespace tag_h.Core.Persistence.Query
 {
     class FetchAllTagsQuery : IQuery
     {

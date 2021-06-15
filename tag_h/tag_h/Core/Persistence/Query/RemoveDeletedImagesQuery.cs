@@ -1,6 +1,7 @@
 ﻿using System.Data.SQLite;
 
-namespace tagh.Core.Persistence.Query
+
+namespace tag_h.Core.Persistence.Query
 {
     class RemoveDeletedImagesQuery : IQuery
     {

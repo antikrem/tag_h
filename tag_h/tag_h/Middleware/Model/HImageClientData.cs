@@ -1,5 +1,4 @@
-
-namespace tagh.Client.Model
+namespace tag_h.Middleware.Model
 {
     public class HImageClientData
     {

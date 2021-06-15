@@ -6,7 +6,8 @@ using CoenM.ImageHash.HashAlgorithms;
 
 using Workshell.FileFormats;
 
-namespace tagh.Core.Model
+
+namespace tag_h.Core.Model
 {
     /* Stores an entire image
      */

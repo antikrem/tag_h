@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using tagh.Core.Model;
-using tagh.Core.Persistence;
 
-namespace tagh.Core.Model
+using tag_h.Core.Persistence;
+
+
+namespace tag_h.Core.Model
 {
     public class HImageList : IEnumerable<HImage>, IDisposable
     {
@@ -27,7 +28,7 @@ namespace tagh.Core.Model
 
         public HImage Get()
         {
-            if  (_images.Count > 0)
+            if (_images.Count > 0)
             {
                 var image = _images[pointer];
                 //if (!image.isImageLoaded())
@@ -40,7 +41,7 @@ namespace tagh.Core.Model
             {
                 return null;
             }
-            
+
         }
 
         public void MoveBack()

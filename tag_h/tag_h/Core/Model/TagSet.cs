@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace tagh.Core.Model
+
+namespace tag_h.Core.Model
 {
     public class TagSet : IEnumerable<Tag>
     {

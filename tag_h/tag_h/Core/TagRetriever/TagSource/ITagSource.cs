@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using tagh.Core.Model;
+﻿using System.Threading.Tasks;
 
-namespace tagh.Core.TagRetriever.TagSource
+using tag_h.Core.Model;
+
+
+namespace tag_h.Core.TagRetriever.TagSource
 {
 
     public interface ITagSource

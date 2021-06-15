@@ -1,10 +1,9 @@
-﻿using System;
+﻿using tag_h.Core.Model;
+using tag_h.Core.Injection;
+using tag_h.Core.Persistence.Query;
 
-using tagh.Core.Injection;
-using tagh.Core.Persistence.Query;
-using tagh.Core.Model;
 
-namespace tagh.Core.Persistence
+namespace tag_h.Core.Persistence
 {
     [Injectable]
     public interface ITagRepository

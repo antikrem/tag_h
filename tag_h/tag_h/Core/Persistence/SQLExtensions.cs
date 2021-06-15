@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Data.SQLite;
 
-using tagh.Core.Helper.Extensions;
-using tagh.Core.Model;
+using tag_h.Core.Helper.Extensions;
+using tag_h.Core.Model;
 
-namespace tagh.Core.Persistence
+
+namespace tag_h.Core.Persistence
 {
     static class SQLExtensions
     {
@@ -13,7 +14,7 @@ namespace tagh.Core.Persistence
             return new HImage(
                     dataReader.GetInt32(0),
                     dataReader.GetString(1),
-                    dataReader.IsDBNull(2) ? null : (ulong?)dataReader.GetString(2).ToHexULong()
+                    dataReader.IsDBNull(2) ? null : dataReader.GetString(2).ToHexULong()
                 );
         }
 

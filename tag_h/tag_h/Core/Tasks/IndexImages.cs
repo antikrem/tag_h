@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
-using tagh.Core.Helper.Extensions;
-using tagh.Core.Model;
-using tagh.Core.Persistence;
+using tag_h.Core.Helper.Extensions;
+using tag_h.Core.Model;
+using tag_h.Core.Persistence;
 
-namespace tagh.Core.Tasks
+
+namespace tag_h.Core.Tasks
 {
     class IndexImages : ITask
     {

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace tagh.Core.Helper.Extensions
+
+namespace tag_h.Core.Helper.Extensions
 {
     static class CollectionExtensions
     {

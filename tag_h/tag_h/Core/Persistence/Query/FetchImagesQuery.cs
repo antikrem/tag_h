@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Data.SQLite;
 
-using tagh.Core.Model;
+using tag_h.Core.Model;
 
-namespace tagh.Core.Persistence.Query
+
+namespace tag_h.Core.Persistence.Query
 {
     class FetchImagesQuery : IQuery
     {
@@ -20,7 +21,7 @@ namespace tagh.Core.Persistence.Query
         {
             List<HImage> images = new List<HImage>();
 
-            var commandText 
+            var commandText
                     = @"SELECT * 
                         FROM Images 
                         WHERE deleted = 0

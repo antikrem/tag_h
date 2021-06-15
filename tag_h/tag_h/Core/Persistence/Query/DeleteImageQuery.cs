@@ -1,7 +1,9 @@
 ﻿using System.Data.SQLite;
-using tagh.Core.Model;
 
-namespace tagh.Core.Persistence.Query
+using tag_h.Core.Model;
+
+
+namespace tag_h.Core.Persistence.Query
 {
     class DeleteImageQuery : IQuery
     {
