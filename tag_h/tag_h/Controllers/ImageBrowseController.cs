@@ -14,10 +14,10 @@ namespace tag_h.Controllers
     public class ImageBrowseController : ControllerBase
     {
 
-        private readonly ILogger<TestController> _logger;
+        private readonly ILogger<ImageBrowseController> _logger;
         private readonly IHImageRepository _imageRepository;
 
-        public ImageBrowseController(ILogger<TestController> logger, IHImageRepository imageRepository)
+        public ImageBrowseController(ILogger<ImageBrowseController> logger, IHImageRepository imageRepository)
         {
             _logger = logger;
             _imageRepository = imageRepository;
