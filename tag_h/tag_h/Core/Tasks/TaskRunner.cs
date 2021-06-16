@@ -3,9 +3,8 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Threading;
 
-using tag_h.Core.Injection;
 using tag_h.Core.Persistence;
-
+using tag_h.Injection;
 
 namespace tag_h.Core.Tasks
 {

@@ -1,8 +1,8 @@
 ﻿using System.IO;
 
-using tag_h.Core.Injection;
+using tag_h.Injection;
+using tag_h.Core.Persistence;
 using tag_h.Core.Persistence.Query;
-
 
 namespace tag_h.Core.Persistence
 {

@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using tag_h.Core.Helper.Extensions;
-using tag_h.Core.Injection;
+using tag_h.Injection;
 using tag_h.Middleware;
 
 namespace tag_h
@@ -29,9 +29,7 @@ namespace tag_h
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
 
-            InjectionModule
-                .GetInjectionDefinitions()
-                .ForEach(x => RegisterInjectionDefinition(services, x));
+            services.AddRegisteredInjections();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -40,10 +38,6 @@ namespace tag_h
             });
         }
 
-        private static void RegisterInjectionDefinition(IServiceCollection services, (Type, Type) injectionDefinition)
-        {
-            services.Add(new ServiceDescriptor(injectionDefinition.Item1, injectionDefinition.Item2, ServiceLifetime.Singleton));
-        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

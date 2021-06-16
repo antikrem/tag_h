@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using tag_h.Core.Helper.Extensions;
 
-
-namespace tag_h.Core.Injection
+namespace tag_h.Injection
 {
     class MultipleInjectionPointsFoundException : Exception { };
 
@@ -29,10 +30,23 @@ namespace tag_h.Core.Injection
             return implementations.First();
         }
 
-        public static IEnumerable<(Type, Type)> GetInjectionDefinitions()
+        public static IEnumerable<(Type service, Type implementation)> GetInjectionDefinitions()
         {
             return GetInjectableInterfaces()
                 .Select(parent => (parent, GetImplementation(parent)));
+        }
+
+        public static void AddRegisteredInjections(this IServiceCollection services)
+        {
+            GetInjectionDefinitions()
+                .ForEach(
+                        definition => services.Add(CreateServiceDescription(definition))
+                    );
+        }
+
+        private static ServiceDescriptor CreateServiceDescription((Type service, Type implementation) definition)
+        {
+            return new ServiceDescriptor(definition.service, definition.implementation, ServiceLifetime.Singleton);
         }
     }
 }

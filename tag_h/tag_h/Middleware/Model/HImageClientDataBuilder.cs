@@ -1,6 +1,6 @@
+using tag_h.Injection;
 using tag_h.Core.Model;
 using tag_h.Core.Persistence;
-using tag_h.Core.Injection;
 
 
 namespace tag_h.Middleware.Model

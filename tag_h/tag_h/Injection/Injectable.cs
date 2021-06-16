@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace tag_h.Core.Injection
+namespace tag_h.Injection
 {
     public class Injectable : Attribute
     {
