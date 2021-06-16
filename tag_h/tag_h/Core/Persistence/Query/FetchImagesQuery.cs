@@ -24,9 +24,10 @@ namespace tag_h.Core.Persistence.Query
             var commandText
                     = @"SELECT * 
                         FROM Images 
-                        WHERE deleted = 0
+                        WHERE deleted = 0 $EXTRA
                         $LIMIT;";
             commandText = commandText.Replace("$LIMIT", _query.Maximum != int.MaxValue ? $"LIMIT {_query.Maximum}" : "");
+            commandText = commandText.Replace("$EXTRA", _query.UUID > 0 ? $"AND id =  {_query.UUID}" : "");
 
             command.CommandText = commandText;
 
