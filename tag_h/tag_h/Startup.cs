@@ -48,6 +48,9 @@ namespace tag_h
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<ServerImageProvider>();
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -64,6 +67,7 @@ namespace tag_h
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+            app.UseAuthorization();  
 
             app.UseEndpoints(endpoints =>
             {
@@ -82,7 +86,6 @@ namespace tag_h
                 }
             });
 
-            app.UseMiddleware<ServerImageProvider>();
         }
     }
 }

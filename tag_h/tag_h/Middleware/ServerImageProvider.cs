@@ -30,12 +30,13 @@ namespace tag_h.Middleware
         {
             try
             {
-                if (!context.Request.Path.Value.Contains(SearchCondition))
+                if (!context.Request.Path.Value.Contains(SearchCondition) || !context.Request.Query.ContainsKey("Get"))
                 {
                     return;
                 }
 
-                var image = _imageClientDataBuilder.LoadImage(_imageRepository.FetchImages(TagQuery.All).First());
+                var uuid = int.Parse(context.Request.Query["Get"]);
+                var image = _imageClientDataBuilder.LoadImage(_imageRepository.FetchImages(TagQuery.All with { UUID = uuid }).First());
 
                 context.Response.ContentLength = image.Data.Length;
                 context.Response.ContentType = "image/" + image.Extension;
