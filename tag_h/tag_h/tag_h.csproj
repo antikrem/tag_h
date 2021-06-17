@@ -18,8 +18,12 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="Injection - Copy\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="Injection - Copy\**" />
+    <EmbeddedResource Remove="Injection - Copy\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="Injection - Copy\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 

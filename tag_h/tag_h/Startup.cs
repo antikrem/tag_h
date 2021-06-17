@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using tag_h.Core.Helper.Extensions;
 using tag_h.Injection;
 using tag_h.Middleware;
 
@@ -80,6 +79,7 @@ namespace tag_h
                 }
             });
 
+            app.UseMiddleware<ServerImageProvider>();
         }
     }
 }
