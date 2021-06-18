@@ -8,6 +8,7 @@ namespace tag_h.Core.SQLGeneration
 {
     public class QSelect : QClause, IEnumerable<QField>
     {
+        public int Order => 0;
 
         private List<QField> _fields = new();
 

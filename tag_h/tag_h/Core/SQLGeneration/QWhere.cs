@@ -13,6 +13,8 @@ namespace tag_h.Core.SQLGeneration
 
         public string Realise => _condition.Realise;
 
+        public int Order => 3;
+
         public QWhere(QConditional condition)
         {
             _condition = condition;

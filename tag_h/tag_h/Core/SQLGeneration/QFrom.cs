@@ -7,6 +7,8 @@ namespace tag_h.Core.SQLGeneration
 {
     public class QFrom : QClause
     {
+        public int Order => 2;
+
         private readonly QView _view;
 
         public QFrom(QView view)
