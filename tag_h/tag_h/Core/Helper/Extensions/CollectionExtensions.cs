@@ -13,5 +13,10 @@ namespace tag_h.Core.Helper.Extensions
                 action(t);
             }
         }
+
+        public static string Join(this IEnumerable<string> sequence, string seperator)
+        {
+            return string.Join(seperator, sequence);
+        }
     }
 }
