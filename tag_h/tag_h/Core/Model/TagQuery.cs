@@ -1,5 +1,16 @@
 namespace tag_h.Core.Model
 {
+    public interface ITagQuery
+    {
+
+    }
+
+    public class AllImagesTagQuery
+    {
+
+
+    }
+
     public record TagQuery
     {
         public TagSet Included { get; set; } = TagSet.Empty;
