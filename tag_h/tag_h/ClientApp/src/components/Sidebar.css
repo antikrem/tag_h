@@ -1,0 +1,13 @@
+﻿.sidebar-container {
+    min-height: 100vh;
+    background-color: lightgray;
+}
+
+.sidebar {
+    width: 200px;
+    padding-top: 25px;
+}
+
+.sidebar-link {
+    padding: 10px;
+}
