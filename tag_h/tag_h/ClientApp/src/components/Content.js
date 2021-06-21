@@ -2,7 +2,7 @@
 
 export class Content extends Component {
     render() {
-        return <div className="content-container">
+        return <div className="content">
             I'm the content!
     </div>
     }
