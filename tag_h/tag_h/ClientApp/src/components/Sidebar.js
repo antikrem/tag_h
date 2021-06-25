@@ -1,14 +1,14 @@
-﻿import React, { Component } from 'react'
+﻿import React, { Component } from 'react';
+import { SidebarItem } from './SidebarItem';
 import './Sidebar.css';
 
 export class Sidebar extends Component {
     render() {
-        return (<div className="sidebar-container">
-            <div className="sidebar">
-                <div className="sidebar-link">Home</div>
-                <div className="sidebar-link">About</div>
-                <div className="sidebar-link">Contact</div>
-            </div>
+        return (<div className="sidebar">
+            <SidebarItem text="Home" link="/" />
+            <SidebarItem text="Counter" link="/counter" />
+            <SidebarItem text="Image View" link="/images-view" />
+            <SidebarItem text="Fetch Data" link="/fetch-data" />
         </div>);
     }
 }

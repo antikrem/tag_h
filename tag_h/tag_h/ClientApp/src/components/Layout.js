@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container } from 'reactstrap';
 import { NavMenu } from './NavMenu';
 import { Sidebar } from './Sidebar';
-import { Content } from './Content' 
+import { Content } from './Content';
 
 import "./Layout.css"
 
@@ -14,7 +14,7 @@ export class Layout extends Component {
             <div className="layout">
                 <Sidebar />
                 <Content>
-                    {this.props.children }
+                    { this.props.children }
                 </Content>
             </div>
         );

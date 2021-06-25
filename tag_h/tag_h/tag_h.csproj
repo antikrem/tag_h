@@ -32,6 +32,7 @@
     <None Remove="ClientApp\src\components\Layout.css" />
     <None Remove="ClientApp\src\components\Sidebar.css" />
     <None Remove="ClientApp\src\components\Sidebar.js" />
+    <None Remove="ClientApp\src\components\SideBarItem.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +40,7 @@
     <TypeScriptCompile Include="ClientApp\src\components\Layout.css" />
     <TypeScriptCompile Include="ClientApp\src\components\Sidebar.js" />
     <TypeScriptCompile Include="ClientApp\src\components\Sidebar.css" />
+    <TypeScriptCompile Include="ClientApp\src\components\SidebarItem.js" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
