@@ -1,4 +1,5 @@
-﻿using System.Data.SQLite;
+﻿using Serilog;
+using System.Data.SQLite;
 using tag_h.Injection;
 
 namespace tag_h.Core.Persistence
@@ -13,13 +14,18 @@ namespace tag_h.Core.Persistence
     {
 
         private readonly SQLiteConnection _connection;
+        private readonly ILogger _logger;
 
-        public DatabaseConnection()
+
+        public DatabaseConnection(ILogger logger)
         {
             _connection = new SQLiteConnection("Data Source=database.db; Version = 3; New = True; Compress = True;");
             _connection.Open();
 
             CreateIfNotExistent();
+            _logger = logger;
+
+            _logger.ForContext("Connection", _connection).Information("Connection Made");
         }
 
         private readonly string[] _initialiserScripts = new string[]
@@ -40,7 +46,6 @@ namespace tag_h.Core.Persistence
                     PRIMARY KEY (id, tag)
                 );"
         };
-
 
         private void CreateIfNotExistent()
         {

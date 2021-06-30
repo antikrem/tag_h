@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Threading;
+
+using Serilog;
 
 using tag_h.Core.Persistence;
 using tag_h.Injection;
@@ -21,11 +22,12 @@ namespace tag_h.Core.Tasks
                 = new BlockingCollection<ITask>(new ConcurrentQueue<ITask>());
 
         private readonly Thread _taskHandler;
-
+        private readonly ILogger _logger;
         private readonly IHImageRepository _imageRepository;
 
-        public TaskRunner(IHImageRepository imageRepository)
+        public TaskRunner(ILogger logger, IHImageRepository imageRepository)
         {
+            _logger = logger;
             _imageRepository = imageRepository;
             _taskHandler = new Thread(ExecuteHandling);
             _taskHandler.Start();
@@ -37,12 +39,12 @@ namespace tag_h.Core.Tasks
             while ((task = _taskQueue.Take()) != null)
             {
                 Stopwatch stopWatch = Stopwatch.StartNew();
-                Console.WriteLine($"TASK: Starting task: {task.TaskName}");
+                _logger.Information("Starting task: {Task Name}", task.TaskName);
 
                 task.Execute(_imageRepository);
 
                 stopWatch.Stop();
-                Console.WriteLine($"TASK: Completed in {stopWatch.Elapsed}");
+                _logger.Information("Completed in: {Time}", stopWatch.Elapsed);
             }
         }
 

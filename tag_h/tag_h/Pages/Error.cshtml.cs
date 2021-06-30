@@ -1,20 +1,17 @@
+using System.Diagnostics;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using Serilog;
 
 namespace tag_h.Pages
 {
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public class ErrorModel : PageModel
     {
-        private readonly ILogger<ErrorModel> _logger;
+        private readonly ILogger _logger;
 
-        public ErrorModel(ILogger<ErrorModel> logger)
+        public ErrorModel(ILogger logger)
         {
             _logger = logger;
         }
