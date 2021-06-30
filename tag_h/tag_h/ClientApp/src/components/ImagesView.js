@@ -37,7 +37,7 @@ export class ImagesView extends Component {
     }
 
     async fetchImages() {
-        const response = await fetch('imagebrowse');
+        const response = await fetch('/ImageBrowse');
         const data = await response.json();
         console.log(data)
         this.setState({ images: data, loading: false });
