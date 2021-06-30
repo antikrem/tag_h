@@ -1,11 +1,12 @@
-using System;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
+using Serilog;
+using Serilog.Events
 
 using tag_h.Injection;
 using tag_h.Middleware;
@@ -30,6 +31,16 @@ namespace tag_h
 
             services.AddRegisteredInjections();
 
+            var logSink = new NonPersistentLogSinks();
+            services.AddSingleton<INonPersistentLogSinks>(logSink);
+
+            services.AddSingleton<ILogger>(new LoggerConfiguration()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Verbose)
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .WriteTo.Sink(logSink)
+                .CreateBootstrapLogger());
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -37,6 +48,10 @@ namespace tag_h
             });
         }
 
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .UseSerilog()
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

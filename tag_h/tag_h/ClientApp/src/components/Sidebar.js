@@ -22,7 +22,7 @@ export class Sidebar extends Component {
             <SidebarItem text="Home" link="/" />
             <SidebarItem text="Counter" link="/counter" />
             <SidebarItem text="Image View" link="/images-view" />
-            <SidebarItem text="Fetch Data" link="/fetch-data" />
+            <SidebarItem text="Logs" link="/log-view" />
         </div>);
     }
 }
