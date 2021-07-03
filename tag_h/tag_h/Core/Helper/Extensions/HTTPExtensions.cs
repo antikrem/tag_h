@@ -21,7 +21,7 @@ namespace tag_h.Core.Helper.Extensions
 
         public static async Task RespondWithObject<T>(this HttpContext context, IJsonifier jsonifier, T obj)
         {
-            var json = jsonifier.Jsonify<T>(obj);
+            var json = jsonifier.Jsonify(obj);
             var data = Encoding.ASCII.GetBytes(json);
             await context.Respond("object", data);
         }
