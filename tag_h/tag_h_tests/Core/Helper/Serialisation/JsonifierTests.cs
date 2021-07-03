@@ -2,6 +2,7 @@ using tag_h.Core.Helper.Extensions;
 
 using NUnit.Framework;
 using FluentAssertions;
+using System.Collections.Generic;
 
 namespace tag_h_tests
 {
@@ -37,6 +38,14 @@ namespace tag_h_tests
         }
 
         [Test]
+        public void Jsonify_WithListOfConcreteObject_ProperlyConverts()
+        {
+            List<TestObject> list = new List<TestObject>() { new TestObject { Name = "Bar", Age = 24 }, new TestObject { Name = "Bar", Age = 24 } };
+            var result = _sut.Jsonify(list);
+            result.Should().Equals("[{\"Name\":\"Bar\",\"Age\":24},{\"Name\":\"Bar\",\"Age\":24}]");
+        }
+
+        [Test]
         public void ParseJson_WithString_ProperlyConverts()
         {
             var result = _sut.ParseJson<string>("\"FooBar\"");
@@ -48,6 +57,13 @@ namespace tag_h_tests
         {
             var result = _sut.ParseJson<TestObject>("{\"Name\":\"Foo\",\"Age\":42}");
             result.Should().BeEquivalentTo(new TestObject { Name = "Foo", Age = 42 });
+        }
+
+        [Test]
+        public void ParseJson_WithListOfConcreteObject_ProperlyConverts()
+        {
+            var result = _sut.ParseJson<List<TestObject>>("[{\"Name\":\"Bar\",\"Age\":24},{\"Name\":\"Bar\",\"Age\":24}]");
+            result.Should().BeEquivalentTo(new List<TestObject>() { new TestObject { Name = "Bar", Age = 24 }, new TestObject { Name = "Bar", Age = 24 } });
         }
 
         private class TestObject
