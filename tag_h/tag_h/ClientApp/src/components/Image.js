@@ -9,6 +9,6 @@ export class Image extends Component {
     }
 
     render() {
-        return <img src={`~/ServerImageProvider/?Get=${this.state.image.uuid}`} />;
+        return <img src={`/ImageProvider/?Get=${this.state.image.uuid}`} />;
     }
 }
