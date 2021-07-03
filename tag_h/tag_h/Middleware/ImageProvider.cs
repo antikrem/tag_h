@@ -10,15 +10,15 @@ using tag_h.Middleware.Model;
 
 namespace tag_h.Middleware
 {
-    public class ServerImageProvider
+    public class ImageProvider
     {
         private readonly RequestDelegate _next;
         private readonly IHImageRepository _imageRepository;
         private readonly IHImageClientDataBuilder _imageClientDataBuilder;
 
-        private static string SearchCondition => nameof(ServerImageProvider);
+        private static string SearchCondition => nameof(ImageProvider);
 
-        public ServerImageProvider(
+        public ImageProvider(
                 RequestDelegate next,
                 IHImageRepository imageRepository, 
                 IHImageClientDataBuilder imageClientDataBuilder
