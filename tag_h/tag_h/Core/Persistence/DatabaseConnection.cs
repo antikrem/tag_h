@@ -19,11 +19,12 @@ namespace tag_h.Core.Persistence
 
         public DatabaseConnection(ILogger logger)
         {
+            _logger = logger;
+
             _connection = new SQLiteConnection("Data Source=database.db; Version = 3; New = True; Compress = True;");
             _connection.Open();
 
             CreateIfNotExistent();
-            _logger = logger;
 
             _logger.ForContext("Connection", _connection).Information("Connection Made");
         }
