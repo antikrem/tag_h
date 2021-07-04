@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 
 using Microsoft.AspNetCore.Mvc;
@@ -27,12 +26,33 @@ namespace tag_h.Controllers
         }
 
         [HttpGet]
+        [Route("[action]")]
         public TagSet GetTags(int uuid)
         {
             var image = _imageRepository.FetchImages(new TagQuery { UUID = uuid }).First();
             var tags = _tagRepository.GetTagsForImage(image);
             _logger.Information("Fetching images {tags}", tags);
             return tags;
+        }
+
+        [HttpDelete]
+        [Route("[action]")]
+        public void DeleteTag(int uuid, string tagName)
+        {
+            var image = _imageRepository.FetchImages(new TagQuery { UUID = uuid }).First();
+            var tag = _tagRepository.GetAllTags().Where(tag => tag.Value == tagName).First();// TODO Optimise
+
+            _tagRepository.RemoveTagFromImage(image, tag);
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public void AddTag(int uuid, string tagName)
+        {
+            var image = _imageRepository.FetchImages(new TagQuery { UUID = uuid }).First();
+            var tag = _tagRepository.GetAllTags().Where(tag => tag.Value == tagName).First();// TODO Optimise
+
+            _tagRepository.AddTagToImage(image, tag);
         }
     }
 }

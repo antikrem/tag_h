@@ -11,6 +11,8 @@ namespace tag_h.Core.Persistence
         TagSet GetAllTags();
 
         TagSet GetTagsForImage(HImage image);
+        void AddTagToImage(HImage image, Tag tag);
+        void RemoveTagFromImage(HImage image, Tag tag);
     }
 
     public class TagRespository : ITagRepository
@@ -27,9 +29,20 @@ namespace tag_h.Core.Persistence
             return _database.ExecuteQuery(new FetchAllTagsQuery()).Result;
         }
 
+        // TODO: Add ImageTagRepository
         public TagSet GetTagsForImage(HImage image)
         {
             return _database.ExecuteQuery(new FetchTagsForImageQuery(image)).Result;
+        }
+
+        public void AddTagToImage(HImage image, Tag tag)
+        {
+            _database.ExecuteQuery(new AddImageTagQuery(image, tag));
+        }
+
+        public void RemoveTagFromImage(HImage image, Tag tag)
+        {
+            _database.ExecuteQuery(new RemoveImageTagQuery(image, tag));
         }
     }
 }

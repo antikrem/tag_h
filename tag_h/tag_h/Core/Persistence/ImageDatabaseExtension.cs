@@ -34,6 +34,16 @@ namespace tag_h.Core.Persistence
             return database.ExecuteQuery(new FetchTagsForImageQuery(image)).Result;
         }
 
+        static public void AddTagToImage(this IDatabase database, HImage image, Tag tag)
+        {
+            database.ExecuteQuery(new AddImageTagQuery(image, tag));
+        }
+
+        static public void RemoveTagFromImage(this IDatabase database, HImage image, Tag tag)
+        {
+            database.ExecuteQuery(new RemoveImageTagQuery(image, tag));
+        }
+
         static public void RemoveDeletedImages(this IDatabase database)
         {
             database.ExecuteQuery(new RemoveDeletedImagesQuery());
