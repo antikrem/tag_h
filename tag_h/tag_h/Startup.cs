@@ -26,7 +26,7 @@ namespace tag_h
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllersWithViews();
+            services.AddControllers();
             services.AddHttpContextAccessor();
 
             services.AddRegisteredInjections();
@@ -45,6 +45,17 @@ namespace tag_h
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
+            });
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1",
+                new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "TAG H",
+                    Description = "Server side Rest API",
+                    Version = "v1"
+                });
             });
         }
 
@@ -75,7 +86,7 @@ namespace tag_h
             app.UseSpaStaticFiles();
 
             app.UseRouting();
-            app.UseAuthorization();  
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -95,6 +106,14 @@ namespace tag_h
             });
 
             app.UseMiddleware<ImageProvider>();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "TAG H");
+                options.RoutePrefix = "";
+            });
         }
     }
 }
