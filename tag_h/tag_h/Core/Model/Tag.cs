@@ -1,6 +1,8 @@
-﻿namespace tag_h.Core.Model
+﻿using System;
+
+namespace tag_h.Core.Model
 {
-    public class Tag
+    public class Tag : IComparable<Tag>
     {
         public string Value { get; }
 
@@ -12,6 +14,11 @@
         public override string ToString()
         {
             return Value;
+        }
+
+        public int CompareTo(Tag other)
+        {
+            return Value.CompareTo(other.Value);
         }
     }
 }
