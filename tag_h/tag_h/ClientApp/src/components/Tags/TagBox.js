@@ -21,7 +21,6 @@ export class TagBox extends Component {
     }
 
     async DeleteTag(tag) {
-        console.log("here")
         await fetch(`/ImageTagProvider/DeleteTag?uuid=${this.image.uuid}&tagName=${tag.value}`, { method: 'DELETE' })
         this.setState({ tags: this.state.tags.filter(item => item.value !== tag.value) })
     }
