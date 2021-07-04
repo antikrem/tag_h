@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Http;
 using tag_h.Core.Helper.Extensions;
 using tag_h.Core.Model;
 using tag_h.Core.Persistence;
-using tag_h.Middleware.Model;
 
 
 namespace tag_h.Middleware
@@ -14,19 +13,19 @@ namespace tag_h.Middleware
     {
         private readonly RequestDelegate _next;
         private readonly IHImageRepository _imageRepository;
-        private readonly IHImageClientDataBuilder _imageClientDataBuilder;
+        private readonly IPhysicalImageProvider _physicalImageProvider;
 
         private static string SearchCondition => nameof(ImageProvider);
 
         public ImageProvider(
                 RequestDelegate next,
-                IHImageRepository imageRepository, 
-                IHImageClientDataBuilder imageClientDataBuilder
+                IHImageRepository imageRepository,
+                IPhysicalImageProvider physicalImageProvider
             )
         {
             _next = next;
             _imageRepository = imageRepository;
-            _imageClientDataBuilder = imageClientDataBuilder;
+            _physicalImageProvider = physicalImageProvider;
         }
 
         public async Task Invoke(HttpContext context)
@@ -39,9 +38,11 @@ namespace tag_h.Middleware
                 }
 
                 var uuid = int.Parse(context.Request.Query["Get"]);
-                var image = _imageClientDataBuilder.LoadImage(_imageRepository.FetchImages(TagQuery.All with { UUID = uuid }).First());
+                var image =_imageRepository.FetchImages(TagQuery.All with { UUID = uuid }).First();
 
-                await context.Respond("image/" + image.Extension, image.Data);
+                var data = _physicalImageProvider.LoadImage(image);
+
+                await context.Respond("image/" + image.Format.Extensions.First(), data);
             }
             finally
             {
