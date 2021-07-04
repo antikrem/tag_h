@@ -24,11 +24,6 @@ namespace tag_h.Core.Persistence
             return database.ExecuteQuery(new FetchImagesQuery(query)).Result;
         }
 
-        static public List<HImage> FetchSampleImageQueue(this IDatabase database, int maxCount)
-        {
-            return database.ExecuteQuery(new FetchSampleImagesQuery(maxCount)).Result;
-        }
-
         static public void DeleteImage(this IDatabase database, HImage image)
         {
             database.ExecuteQuery(new DeleteImageQuery(image));
