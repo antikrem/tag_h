@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
+using Microsoft.Extensions.DependencyInjection;
+
 using tag_h.Core.Helper.Extensions;
 
 namespace tag_h.Injection
@@ -10,20 +12,20 @@ namespace tag_h.Injection
 
     static class InjectionModule
     {
-        private static IEnumerable<Type> AllTypes =>
-            AppDomain
-                .CurrentDomain
-                .GetAssemblies()
-                .SelectMany(assembly => assembly.GetTypes());
 
         private static IEnumerable<Type> GetInjectableInterfaces()
         {
-            return AllTypes.Where(type => type.IsDefined(typeof(Injectable), false));
+            return ReflectionHelper
+                .AllTypes
+                .Where(type => type.IsDefined(typeof(Injectable), false));
         }
 
         private static Type GetImplementation(Type serviceEntry)
         {
-            var implementations = AllTypes.Where(implementationd => serviceEntry.IsAssignableFrom(implementationd) && implementationd != serviceEntry);
+
+            var implementations = ReflectionHelper
+                .AllTypes
+                .Where(implementationd => serviceEntry.IsAssignableFrom(implementationd) && implementationd != serviceEntry);
 
             if (implementations.Count() != 1) throw new MultipleInjectionPointsFoundException();
 
