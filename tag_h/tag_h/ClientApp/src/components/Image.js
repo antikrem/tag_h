@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+//TODO
+import { TagBox } from './Tags/TagBox'
+
 export class Image extends Component {
     static displayName = Image.name;
 
@@ -9,6 +12,6 @@ export class Image extends Component {
     }
 
     render() {
-        return <img src={`/ImageProvider/?Get=${this.state.image.uuid}`} />;
+        return <div><img src={`/ImageProvider/?Get=${this.state.image.uuid}`} /> <TagBox image={this.state.image} /></div>;
     }
 }

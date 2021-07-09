@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\components\Content.js" />
+    <None Remove="ClientApp\src\components\ImportView.js" />
     <None Remove="ClientApp\src\components\Layout.css" />
     <None Remove="ClientApp\src\components\LogEntry.js" />
     <None Remove="ClientApp\src\components\LogView.js" />
@@ -45,6 +46,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\components\Content.js" />
+    <TypeScriptCompile Include="ClientApp\src\components\ImportView.js" />
     <TypeScriptCompile Include="ClientApp\src\components\Layout.css" />
     <TypeScriptCompile Include="ClientApp\src\components\LogEntry.js" />
     <TypeScriptCompile Include="ClientApp\src\components\LogView.js" />

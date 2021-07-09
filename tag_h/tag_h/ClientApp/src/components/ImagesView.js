@@ -14,7 +14,6 @@ export class ImagesView extends Component {
     }
 
     static CreateImageView(images) {
-        console.log(images);
         return (
             images.map(image =>
                 <Image image={image}/>
@@ -37,9 +36,8 @@ export class ImagesView extends Component {
     }
 
     async fetchImages() {
-        const response = await fetch('/ImageBrowse');
+        const response = await fetch('/Images/Get');
         const data = await response.json();
-        console.log(data)
         this.setState({ images: data, loading: false });
     }
 }

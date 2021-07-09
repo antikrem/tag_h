@@ -6,6 +6,7 @@ import { ImagesView } from './components/ImagesView';
 import { LogView } from './components/LogView';
 import { Counter } from './components/Counter';
 import { Image } from './components/Image';
+import { ImportView } from './components/ImportView'
 
 import './custom.css'
 
@@ -20,6 +21,7 @@ export default class App extends Component {
                 <Route path='/images-view' component={ImagesView} />
                 <Route path='/log-view' component={LogView} />
                 <Route path='/image' component={Image} />
+                <Route path='/import-view' component={ImportView} />
             </Layout>
         );
     }

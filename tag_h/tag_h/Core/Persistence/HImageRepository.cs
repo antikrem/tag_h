@@ -4,7 +4,6 @@ using System.Linq;
 using tag_h.Core.Helper.Extensions;
 using tag_h.Injection;
 using tag_h.Core.Model;
-using tag_h.Core.Persistence;
 
 namespace tag_h.Core.Persistence
 {
@@ -16,7 +15,7 @@ namespace tag_h.Core.Persistence
 
         void ApplyDeletions();
 
-        void AddNewImage(string fileName);
+        void AddNewImage(string fileName, byte[] data = null);
 
         void SaveImage(HImage image);
 
@@ -28,12 +27,14 @@ namespace tag_h.Core.Persistence
     public class HImageRepository : IHImageRepository
     {
         private IDatabase _database;
+        private readonly IPhysicalImageProvider _physicalImageProvider;
 
         public DirectoryInfo ImageFolder => _database.ImageFolder;
 
-        public HImageRepository(IDatabase database)
+        public HImageRepository(IDatabase database, IPhysicalImageProvider physicalImageProvider)
         {
             _database = database;
+            _physicalImageProvider = physicalImageProvider;
         }
 
         public void ApplyDeletions()
@@ -46,11 +47,15 @@ namespace tag_h.Core.Persistence
                 .ForEach(File.Delete);
         }
 
-        public void AddNewImage(string fileName)
+        public void AddNewImage(string fileName, byte[] data = null)
         {
+            if (data != null)
+            {
+                _physicalImageProvider.CreatePhysicalImage(_database.ImageFolder.FullName, fileName, data);
+                fileName = Path.Join(_database.ImageFolder.FullName, fileName);
+            }
             _database.AddNewImage(fileName);
         }
-
 
         public void SaveImage(HImage image)
         {
