@@ -4,9 +4,9 @@ using NUnit.Framework;
 using FluentAssertions;
 using System.Collections.Generic;
 
-namespace tag_h_tests
+namespace tag_h_tests.Core.Helper.Serialisation
 {
-    public class Tests
+    public class JsonifierTests
     {
         private Jsonifier _sut;
 
