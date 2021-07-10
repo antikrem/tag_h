@@ -11,7 +11,7 @@ namespace tag_h.Core.Helper.Extensions
         {
             try
             {
-                return Regex.Match(value, regex).Groups[0].Captures[0].Value;
+                return Regex.Match(value, regex).Groups[1].Captures[0].Value;
             }
             catch (Exception)
             {
