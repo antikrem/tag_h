@@ -29,6 +29,7 @@ namespace tag_h.Controllers
         }
 
         [HttpGet]
+        [Route("[action]")]
         public IReadOnlyList<LogEntry> Get()
         {
             return _logSink

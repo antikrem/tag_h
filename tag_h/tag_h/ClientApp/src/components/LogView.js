@@ -44,7 +44,7 @@ export class LogView extends Component {
     }
 
     async fetchLogs() {
-        const response = await fetch('/Logging');
+        const response = await fetch('/Logging/Get');
         const data = await response.json();
         this.setState({ logs: data, loading: false });
     }
