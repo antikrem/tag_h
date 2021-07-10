@@ -11,14 +11,14 @@ namespace tag_h.Controllers
 
     [ApiController]
     [Route("[controller]")]
-    public class ImageTagController : ControllerBase
+    public class ImageTagsController : ControllerBase
     {
 
         private readonly ILogger _logger;
         private readonly IHImageRepository _imageRepository;
         private readonly ITagRepository _tagRepository;
 
-        public ImageTagController(ILogger logger, IHImageRepository imageRepository, ITagRepository tagRepository)
+        public ImageTagsController(ILogger logger, IHImageRepository imageRepository, ITagRepository tagRepository)
         {
             _logger = logger;
             _imageRepository = imageRepository;
