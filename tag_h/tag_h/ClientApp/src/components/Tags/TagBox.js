@@ -15,13 +15,13 @@ export class TagBox extends Component {
     }
 
     async updateTags() {
-        const response = await fetch(`/ImageTagController/GetTags?uuid=${this.image.uuid}`);
+        const response = await fetch(`/ImageTag/GetTags?uuid=${this.image.uuid}`);
         const tags = await response.json();
         this.setState({ tags: tags });
     }
 
     async DeleteTag(tag) {
-        await fetch(`/ImageTagController/DeleteTag?uuid=${this.image.uuid}&tagName=${tag.value}`, { method: 'DELETE' })
+        await fetch(`/ImageTag/DeleteTag?uuid=${this.image.uuid}&tagName=${tag.value}`, { method: 'DELETE' })
         this.setState({ tags: this.state.tags.filter(item => item.value !== tag.value) })
     }
 
