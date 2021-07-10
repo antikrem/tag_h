@@ -12,26 +12,6 @@ namespace tag_h.Injection
 
     static class InjectionModule
     {
-
-        private static IEnumerable<Type> GetInjectableInterfaces()
-        {
-            return ReflectionHelper
-                .AllTypes
-                .Where(type => type.IsDefined(typeof(Injectable), false));
-        }
-
-        private static Type GetImplementation(Type serviceEntry)
-        {
-
-            var implementations = ReflectionHelper
-                .AllTypes
-                .Where(implementationd => serviceEntry.IsAssignableFrom(implementationd) && implementationd != serviceEntry);
-
-            if (implementations.Count() != 1) throw new MultipleInjectionPointsFoundException();
-
-            return implementations.First();
-        }
-
         public static IEnumerable<(Type service, Type implementation)> GetInjectionDefinitions()
         {
             return GetInjectableInterfaces()
@@ -49,6 +29,25 @@ namespace tag_h.Injection
         private static ServiceDescriptor CreateServiceDescription((Type service, Type implementation) definition)
         {
             return new ServiceDescriptor(definition.service, definition.implementation, ServiceLifetime.Singleton);
+        }
+
+        private static Type GetImplementation(Type serviceEntry)
+        {
+
+            var implementations = ReflectionHelper
+                .AllTypes
+                .Where(implementationd => serviceEntry.IsAssignableFrom(implementationd) && implementationd != serviceEntry);
+
+            if (implementations.Count() != 1) throw new MultipleInjectionPointsFoundException();
+
+            return implementations.First();
+        }
+
+        private static IEnumerable<Type> GetInjectableInterfaces()
+        {
+            return ReflectionHelper
+                .AllTypes
+                .Where(type => type.IsDefined(typeof(Injectable), false));
         }
     }
 }
