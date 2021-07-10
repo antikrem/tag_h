@@ -6,7 +6,6 @@ using Serilog;
 
 using tag_h.Core.Model;
 using tag_h.Core.Persistence;
-using tag_h.Core.Helper.Extensions;
 
 namespace tag_h.Controllers
 {
