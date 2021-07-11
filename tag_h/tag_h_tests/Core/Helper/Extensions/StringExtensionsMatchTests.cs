@@ -12,6 +12,7 @@ namespace tag_h_tests.Core.Helper.Extensions
         {
             AssertMatchSuccess("EasyExampleThing", @"(Example)", "Example");
             AssertMatchSuccess("HttpMethodAttribute", @"Http(.*)Attribute", "Method");
+            AssertMatchSuccess("ApiControllerBinderController", @"(.*)Controller$", "ApiControllerBinder");
         }
 
         [Test]
@@ -22,7 +23,7 @@ namespace tag_h_tests.Core.Helper.Extensions
 
         static private void AssertMatchSuccess(string input, string regex, string expected)
         {
-            input.MatchFirst(regex).Should().Equals(expected);
+            input.MatchFirst(regex).Should().Be(expected);
         }
 
         static private void AssertMatchFailed(string input, string regex)

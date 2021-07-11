@@ -20,21 +20,21 @@ namespace tag_h_tests.Core.Helper.Serialisation
         public void Jsonify_WithString_ProperlyConverts()
         {
             var result = _sut.Jsonify("FooBar");
-            result.Should().Equals("\"FooBar\"");
+            result.Should().Be("\"FooBar\"");
         }
 
         [Test]
         public void Jsonify_WithAnonymousObject_ProperlyConverts()
         {
             var result = _sut.Jsonify(new { Name = "Foo", Age = 42 });
-            result.Should().Equals("{\"Name\":\"Foo\",\"Age\":42}");
+            result.Should().Be("{\"Name\":\"Foo\",\"Age\":42}");
         }
 
         [Test]
         public void Jsonify_WithConcreteObject_ProperlyConverts()
         {
             var result = _sut.Jsonify(new TestObject { Name = "Foo", Age = 42 });
-            result.Should().Equals("{\"Name\":\"Foo\",\"Age\":42}");
+            result.Should().Be("{\"Name\":\"Foo\",\"Age\":42}");
         }
 
         [Test]
@@ -42,14 +42,14 @@ namespace tag_h_tests.Core.Helper.Serialisation
         {
             List<TestObject> list = new List<TestObject>() { new TestObject { Name = "Bar", Age = 24 }, new TestObject { Name = "Bar", Age = 24 } };
             var result = _sut.Jsonify(list);
-            result.Should().Equals("[{\"Name\":\"Bar\",\"Age\":24},{\"Name\":\"Bar\",\"Age\":24}]");
+            result.Should().Be("[{\"Name\":\"Bar\",\"Age\":24},{\"Name\":\"Bar\",\"Age\":24}]");
         }
 
         [Test]
         public void ParseJson_WithString_ProperlyConverts()
         {
             var result = _sut.ParseJson<string>("\"FooBar\"");
-            result.Should().Equals("FooBar");
+            result.Should().Be("FooBar");
         }
 
         [Test]
