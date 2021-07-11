@@ -31,7 +31,7 @@ namespace tag_h.Controllers
         {
             var image = _imageRepository.FetchImages(new TagQuery { UUID = uuid }).First();
             var tags = _tagRepository.GetTagsForImage(image);
-            _logger.Information("Fetching images {tags}", tags);
+            _logger.Information("Fetching tags {tags} for iamge {image}", tags, image);
             return tags;
         }
 
