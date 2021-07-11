@@ -38,7 +38,7 @@ export class ImagesView extends Component {
     }
 
     async fetchImages() {
-        const images = await Controllers.Images.Get();
+        const images = await Controllers.Images.GetAll();
         this.setState({ images: images, loading: false });
     }
 }

@@ -11,6 +11,7 @@ namespace tag_h.Core.Persistence
     {
         void CreatePhysicalImage(string location, string filename, byte[] data);
         byte[] LoadImage(HImage image);
+        FileStream LoadImageStream(HImage image);
     }
 
     public class PhysicalImageProvider : IPhysicalImageProvider
@@ -24,6 +25,11 @@ namespace tag_h.Core.Persistence
         public byte[] LoadImage(HImage image)
         {
             return File.ReadAllBytes(image.Location);
+        }
+
+        public FileStream LoadImageStream(HImage image)
+        {
+            return File.OpenRead(image.Location);
         }
     }
 }

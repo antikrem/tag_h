@@ -9,7 +9,6 @@ using Serilog;
 using Serilog.Events;
 
 using tag_h.Injection;
-using tag_h.Middleware;
 
 namespace tag_h
 {
@@ -67,9 +66,6 @@ namespace tag_h
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseMiddleware<ImageProvider>();
-
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -104,8 +100,6 @@ namespace tag_h
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
-
-            app.UseMiddleware<ImageProvider>();
 
             app.UseSwagger();
 
