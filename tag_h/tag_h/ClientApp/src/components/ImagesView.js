@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Image } from './Image'
 
+import { Controllers } from './../Framework/Controllers'
+
 export class ImagesView extends Component {
     static displayName = ImagesView.name;
 
@@ -36,8 +38,7 @@ export class ImagesView extends Component {
     }
 
     async fetchImages() {
-        const response = await fetch('/Images/Get');
-        const data = await response.json();
-        this.setState({ images: data, loading: false });
+        const images = await Controllers.Images.Get();
+        this.setState({ images: images, loading: false });
     }
 }

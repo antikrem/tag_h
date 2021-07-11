@@ -1,6 +1,8 @@
 ﻿import React, { Component } from 'react';
 import { LogEntry } from './LogEntry'
 
+import { Controllers } from './../Framework/Controllers'
+
 export class LogView extends Component {
     static displayName = LogView.name;
 
@@ -44,8 +46,7 @@ export class LogView extends Component {
     }
 
     async fetchLogs() {
-        const response = await fetch('/Logging/Get');
-        const data = await response.json();
-        this.setState({ logs: data, loading: false });
+        const logs = await Controllers.Logging.Get();
+        this.setState({ logs: logs, loading: false });
     }
 }
