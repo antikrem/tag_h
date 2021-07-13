@@ -15,7 +15,9 @@ namespace tag_h.Core.Persistence
 
         void ApplyDeletions();
 
-        void AddNewImage(string fileName, byte[] data = null);
+        void AddNewImage(string fileName);
+
+        void CreateNewImage(string fileName, byte[] data);
 
         void SaveImage(HImage image);
 
@@ -47,13 +49,15 @@ namespace tag_h.Core.Persistence
                 .ForEach(File.Delete);
         }
 
-        public void AddNewImage(string fileName, byte[] data = null)
+        public void AddNewImage(string fileName)
         {
-            if (data != null)
-            {
-                _physicalImageProvider.CreatePhysicalImage(_database.ImageFolder.FullName, fileName, data);
-                fileName = Path.Join(_database.ImageFolder.FullName, fileName);
-            }
+            _database.AddNewImage(fileName);
+        }
+
+        public void CreateNewImage(string fileName, byte[] data)
+        {
+            _physicalImageProvider.CreatePhysicalImage(_database.ImageFolder.FullName, fileName, data);
+            fileName = Path.Join(_database.ImageFolder.FullName, fileName);
             _database.AddNewImage(fileName);
         }
 

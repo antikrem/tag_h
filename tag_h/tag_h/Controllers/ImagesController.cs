@@ -52,7 +52,7 @@ namespace tag_h.Controllers
         public void AddImages(List<SubmittedFile> files)
         {
             files.ForEach(
-                    file => _imageRepository.AddNewImage(file.FileName, Convert.FromBase64String(file.Data))
+                    file => _imageRepository.CreateNewImage(file.FileName, Convert.FromBase64String(file.Data))
                 );
         }
     }
