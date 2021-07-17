@@ -10,8 +10,12 @@ namespace tag_h.Core.Persistence
     {
         TagSet GetAllTags();
 
+        void CreateTag(Tag tag);
+
         TagSet GetTagsForImage(HImage image);
+
         void AddTagToImage(HImage image, Tag tag);
+        
         void RemoveTagFromImage(HImage image, Tag tag);
     }
 
@@ -27,6 +31,10 @@ namespace tag_h.Core.Persistence
         public TagSet GetAllTags()
         {
             return _database.ExecuteQuery(new FetchAllTagsQuery()).Result;
+        }
+        public void CreateTag(Tag tag)
+        {
+            _database.ExecuteQuery(new AddNewTagQuery(tag));
         }
 
         // TODO: Add ImageTagRepository
