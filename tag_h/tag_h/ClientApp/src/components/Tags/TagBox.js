@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Tag } from './Tag'
+import { TagAdd } from './TagAdd'
 
 export class TagBox extends Component {
     static displayName = Image.name;
@@ -31,6 +32,7 @@ export class TagBox extends Component {
                 {this.state.tags.map(tag =>
                     <Tag tag={tag} callback={async () => await this.DeleteTag(tag)} />
                 )}
+                <TagAdd/>
             </div>
         );
     }

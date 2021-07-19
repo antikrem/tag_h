@@ -1,22 +1,43 @@
 ﻿import React, { Component } from 'react';
+import { TagDropDown } from './TagDropDown'
 
-import { Controllers } from './../Framework/Controllers'
-
-export class Tag extends Component {
+export class TagAdd extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { tags: [] };
+        this.state = { active: false };
     }
 
     componentDidMount() {
-        this.state.tags = Controllers.Tags.GetAllTags();
     }
+
+    componentWillUnmount() {
+        this.deactivateDropDown();
+    }
+
+    activateDropDown() {
+        document.addEventListener("click", this.handleClickOutside);
+        this.setState({ active: true });
+    }
+
+    deactivateDropDown() {
+        document.removeEventListener("click", this.handleClickOutside);
+        this.setState({ active: false });
+    }
+
+    handleClickOutside = event => {
+        const path = event.path || (event.composedPath && event.composedPath());
+ 
+        if (!path.includes(this.ref)) {
+            this.deactivateDropDown();
+        }
+    };
 
     render() {
         return (
             <div>
-                <button onClick={() => this.callback()}> |+| </button>
+                <button onClick={ () => this.activateDropDown() }> |+| </button>
+                {this.state.active && <TagDropDown ref={ref => (this.ref = ref)}/>}
             </div>
         );
     }
