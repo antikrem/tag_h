@@ -2,6 +2,22 @@
 
 import { Controllers } from '../../Framework/Controllers'
 
+class TagDropDownElement extends Component {
+    constructor(props) {
+        super(props);
+        this.tag = props.tag;
+        this.callback = () => props.callback(this.tag);
+    }
+
+    render() {
+        return (
+            <div>
+                <button onclick={ this.callback }>{this.tag.value}</button>
+            </div>
+        );
+    }
+}
+
 export class TagDropDown extends Component {
 
     constructor(props) {
@@ -17,7 +33,7 @@ export class TagDropDown extends Component {
         return (
             <div>
                 {this.state.tags != null && this.state.tags.map(
-                    tag => <div><p>{tag.value}</p></div>
+                    tag => <TagDropDownElement tag={ tag }/>
                 )}
             </div>
         );
