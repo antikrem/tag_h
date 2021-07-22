@@ -5,6 +5,7 @@ export class TagAdd extends Component {
 
     constructor(props) {
         super(props);
+        this.callback = props.callback;
         this.state = { active: false };
     }
 
@@ -37,7 +38,7 @@ export class TagAdd extends Component {
         return (
             <div>
                 <button onClick={ () => this.activateDropDown() }> |+| </button>
-                {this.state.active && <TagDropDown ref={ref => (this.ref = ref)}/>}
+                {this.state.active && <TagDropDown ref={ref => (this.ref = ref)} callback={  this.callback }/>}
             </div>
         );
     }

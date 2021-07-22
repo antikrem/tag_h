@@ -12,7 +12,7 @@ class TagDropDownElement extends Component {
     render() {
         return (
             <div>
-                <button onclick={ this.callback }>{this.tag.value}</button>
+                <button onClick={ this.callback }>{this.tag.value}</button>
             </div>
         );
     }
@@ -22,6 +22,7 @@ export class TagDropDown extends Component {
 
     constructor(props) {
         super(props);
+        this.callback = props.callback;
         this.state = { tags: [] };
     }
 
@@ -33,7 +34,7 @@ export class TagDropDown extends Component {
         return (
             <div>
                 {this.state.tags != null && this.state.tags.map(
-                    tag => <TagDropDownElement tag={ tag }/>
+                    tag => <TagDropDownElement tag={tag} callback={ this.callback } />
                 )}
             </div>
         );
