@@ -62,8 +62,8 @@ function createResponseBody(methodSchema, parameters) {
 function getResponseHandler(method, response) {
     switch (method) {
         case "GET":
-        case "POST":
             return async () => await response.json();
+        case "POST":
         case "DELETE":
             return async () => null;
     }
