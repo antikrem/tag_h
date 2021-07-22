@@ -33,7 +33,7 @@ function generateMethod(controllerSchema, methodSchema) {
             `/${controllerSchema.name}/${methodSchema.name}${createParameterURL(methodSchema, parameters)}`,
             createResponseBody(methodSchema, parameters)
         );
-        return await response.json();
+        return await getResponseHandler(methodSchema.method, response)();
     }
 }
 
@@ -57,4 +57,14 @@ function createResponseBody(methodSchema, parameters) {
             body: JSON.stringify(parameters[i])
         }),
     };
+}
+
+function getResponseHandler(method, response) {
+    switch (method) {
+        case "GET":
+        case "POST":
+            return async () => await response.json();
+        case "DELETE":
+            return async () => null;
+    }
 }
