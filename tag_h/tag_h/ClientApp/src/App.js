@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
-import { ImagesView } from './components/ImagesView';
+import ImagesView from './components/ImagesView';
 import { LogView } from './components/LogView';
 import Counter from './components/Counter';
 import { Image } from './components/Image';
