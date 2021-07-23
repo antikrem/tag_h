@@ -4,7 +4,7 @@ import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { ImagesView } from './components/ImagesView';
 import { LogView } from './components/LogView';
-import { Counter } from './components/Counter';
+import Counter from './components/Counter';
 import { Image } from './components/Image';
 import { ImportView } from './components/ImportView'
 

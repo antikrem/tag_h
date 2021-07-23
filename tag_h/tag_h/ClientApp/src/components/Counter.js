@@ -1,31 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
+import ViewModel from "react-use-controller";
 
-export class Counter extends Component {
-  static displayName = Counter.name;
+class CounterViewModel extends ViewModel {
+    number = 1;
 
-  constructor(props) {
-    super(props);
-    this.state = { currentCount: 0 };
-    this.incrementCounter = this.incrementCounter.bind(this);
-  }
-
-  incrementCounter() {
-    this.setState({
-      currentCount: this.state.currentCount + 1
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>Counter</h1>
-
-        <p>This is a simple example of a React component.</p>
-
-        <p aria-live="polite">Current count: <strong>{this.state.currentCount}</strong></p>
-
-        <button className="btn btn-primary" onClick={this.incrementCounter}>Increment</button>
-      </div>
-    );
-  }
+    increment = () => { this.number++ };
+    decrement = () => { this.number-- };
 }
+
+const Counter = () => {
+    const {  number, decrement, increment } = CounterViewModel.use();
+
+    return (
+        <div>
+            <h1>Counter</h1>
+
+            <p>This is a simple example of a React component.</p>
+
+            <p aria-live="polite">Current count: <strong>{ number }</strong></p>
+
+            <button className="btn btn-primary" onClick={increment}>Increment</button>
+            <button className="btn btn-primary" onClick={decrement}>Decrement</button>
+        </div>
+    );
+}
+
+export default Counter;
