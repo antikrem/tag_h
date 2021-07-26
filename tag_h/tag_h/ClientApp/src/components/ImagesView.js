@@ -1,44 +1,37 @@
-import React, { Component } from 'react';
-import { Image } from './Image'
+import React from 'react';
 
 import { Controllers } from './../Framework/Controllers'
+import ViewModel from "react-use-controller";
 
-export class ImagesView extends Component {
-    static displayName = ImagesView.name;
+import { Image } from './Image'
 
-    constructor(props) {
-        super(props);
-        this.state = { images: [], loading: true };
+class ImagesViewModel extends ViewModel {
+    
+    images = [];
+
+    constructor() {
+        super();
     }
 
     componentDidMount() {
         this.fetchImages();
     }
 
-    static CreateImageView(images) {
-        return (
-            images.map(image =>
-                <Image image={image}/>
-            )
-        );
-    }
-
-    render() {
-        let contents = this.state.loading
-            ? <p><em>Loading...</em></p>
-            : ImagesView.CreateImageView(this.state.images);
-
-        return (
-            <div>
-                <h1 id="tabelLabel" >Images view</h1>
-                <p>Rendering images:</p>
-                {contents}
-            </div>
-        );
-    }
-
     async fetchImages() {
-        const images = await Controllers.Images.GetAll();
-        this.setState({ images: images, loading: false });
+        this.images = await Controllers.Images.GetAll();
     }
 }
+
+const ImagesView = () => {
+    const { images } = ImagesViewModel.use();
+
+    return (
+        <div>
+            <h1 id="tabelLabel" >Images view</h1>
+            <p>Rendering images:</p>
+            {images.map(image => <Image image={image} />)}
+        </div>
+    );
+}
+
+export default ImagesView;

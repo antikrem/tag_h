@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { FileDrop } from 'react-file-drop';
 
-import { Controllers } from './../Framework/Controllers'
+import { Controllers } from './../../Framework/Controllers'
 
 export class ImportView extends Component {
     static displayName = ImportView.name;
