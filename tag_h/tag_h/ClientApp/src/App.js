@@ -6,7 +6,7 @@ import ImagesView from './components/ImagesView';
 import { LogView } from './components/LogView';
 import Counter from './components/Counter';
 import { Image } from './components/Image';
-import { ImportView } from './components/ImportView'
+import { ImportView } from './components/Import/ImportView'
 
 import './custom.css'
 
