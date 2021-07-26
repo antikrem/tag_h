@@ -1,21 +1,33 @@
-﻿import { Controllers } from './../../Framework/Controllers'
+﻿import ViewModel from "react-use-controller";
 
-export class TaggedImageViewModel {
+import { Controllers } from './../../Framework/Controllers'
 
-    constructor(image) {
-        this.image = image;
+export default class TaggedImageViewModel extends ViewModel {
+
+    tags = [];
+    image = null;
+
+    constructor(props) {
+        super();
+        this.image = props.image;
     }
 
-    async getTags() {
-        return await Controllers.ImageTags.GetTags(this.image.uuid);
+    componentDidMount() {
+        this.fetchTags();
     }
 
-    async deleteTag(tag) {
+    async fetchTags() {
+        this.tags = await Controllers.ImageTags.GetTags(this.image.uuid);
+    }
+
+    deleteTag = async (tag) => {
         await Controllers.ImageTags.DeleteTag(this.image.uuid, tag.value);
+        await this.fetchTags();
     }
 
-    async addTag(tag) {
+    addTag = async (tag) =>
+    {
         await Controllers.ImageTags.AddTag(this.image.uuid, tag.value);
-    }
-
+        await this.fetchTags();
+    };
 }

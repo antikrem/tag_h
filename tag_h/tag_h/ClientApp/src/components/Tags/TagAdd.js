@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+
 import { TagDropDown } from './TagDropDown'
 
 export class TagAdd extends Component {
@@ -7,9 +8,6 @@ export class TagAdd extends Component {
         super(props);
         this.callback = props.callback;
         this.state = { active: false };
-    }
-
-    componentDidMount() {
     }
 
     componentWillUnmount() {
