@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TagBox } from './Tags/TagBox'
+import TagBox from './Tags/TagBox'
 
 
 import { Controllers } from './../Framework/Controllers'

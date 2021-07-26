@@ -8,7 +8,8 @@ import TaggedImageViewModel from './TaggedImageViewModel'
 
 const TagBox = (props) => {
     const { tags, deleteTag, addTag } = TaggedImageViewModel.use(props);
-    
+
+    // TODO: pass view model into children
     return (
         <div>
             {tags.map(tag =>
