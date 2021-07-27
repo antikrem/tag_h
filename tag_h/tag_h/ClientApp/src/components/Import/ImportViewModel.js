@@ -13,10 +13,14 @@ export default class TaggedImageViewModel extends ViewModel {
         reader.onerror = error => reject(error);
     });
 
-    addFiles = async () => {
+    addFiles = (newFiles) => {
+        this.files = this.files.concat(...Array.from(newFiles));
+    }
+
+    submitFiles = async () => {
         this.files.forEach(
             async file => {
-                await Controllers.Images.AddImages([{ data: await this.toBase64(file), fileName: file.name }])
+                await Controllers.Images.AddImages([{ data: await TaggedImageViewModel.toBase64(file), fileName: file.name }])
             }
         );
         this.files = []
