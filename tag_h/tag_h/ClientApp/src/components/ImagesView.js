@@ -9,10 +9,6 @@ class ImagesViewModel extends ViewModel {
     
     images = [];
 
-    constructor() {
-        super();
-    }
-
     componentDidMount() {
         this.fetchImages();
     }
