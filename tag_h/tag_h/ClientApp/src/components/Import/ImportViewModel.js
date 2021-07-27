@@ -2,7 +2,7 @@
 
 import { Controllers } from './../../Framework/Controllers'
 
-export default class TaggedImageViewModel extends ViewModel {
+export default class ImportViewModel extends ViewModel {
 
     files = [];
 
@@ -20,7 +20,7 @@ export default class TaggedImageViewModel extends ViewModel {
     submitFiles = async () => {
         this.files.forEach(
             async file => {
-                await Controllers.Images.AddImages([{ data: await TaggedImageViewModel.toBase64(file), fileName: file.name }])
+                await Controllers.Images.AddImages([{ data: await ImportViewModel.toBase64(file), fileName: file.name }])
             }
         );
         this.files = []
