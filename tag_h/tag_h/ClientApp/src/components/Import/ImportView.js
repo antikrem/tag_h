@@ -1,7 +1,8 @@
 ﻿import React from 'react';
 import { FileDrop } from 'react-file-drop';
 
-import "./ImportViewModel.js"
+import ImportViewModel from "./ImportViewModel"
+
 const ImportView = (props) => {
     const { files, addFiles } = ImportViewModel.use();
 

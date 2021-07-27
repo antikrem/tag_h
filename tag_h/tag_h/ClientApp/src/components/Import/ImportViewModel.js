@@ -16,7 +16,7 @@ export default class TaggedImageViewModel extends ViewModel {
     addFiles = async () => {
         this.files.forEach(
             async file => {
-                await Controllers.Images.AddImages([{ data: await ImportView.toBase64(file), fileName: file.name }])
+                await Controllers.Images.AddImages([{ data: await this.toBase64(file), fileName: file.name }])
             }
         );
         this.files = []
