@@ -5,6 +5,7 @@ import { TagAdd } from './TagAdd'
 
 
 const TagBox = (props) => {
+    // TODO: some sort of useviewmodel which can auto use prototypes
     const { tags, deleteTag, addTag } = props.viewmodel.use(props);
 
     // TODO: pass view model into children

@@ -10,7 +10,7 @@ using tag_h.Core.Persistence;
 
 namespace tag_h.Controllers
 {
-    public record SubmittedFile(string Data, string FileName);
+    public record SubmittedFile(string Data, string FileName, List<Tag> Tags);
 
     [ApiController]
     [Route("[controller]")]
@@ -19,12 +19,14 @@ namespace tag_h.Controllers
 
         private readonly ILogger _logger;
         private readonly IHImageRepository _imageRepository;
+        private readonly ITagRepository _tagRepository;
         private readonly IPhysicalImageProvider _physicalImageProvider;
 
-        public ImagesController(ILogger logger, IHImageRepository imageRepository, IPhysicalImageProvider physicalImageProvider)
+        public ImagesController(ILogger logger, IHImageRepository imageRepository, ITagRepository tagRepository, IPhysicalImageProvider physicalImageProvider)
         {
             _logger = logger;
             _imageRepository = imageRepository;
+            _tagRepository = tagRepository;
             _physicalImageProvider = physicalImageProvider;
         }
 
@@ -52,7 +54,10 @@ namespace tag_h.Controllers
         public void AddImages(List<SubmittedFile> files)
         {
             files.ForEach(
-                    file => _imageRepository.CreateNewImage(file.FileName, Convert.FromBase64String(file.Data))
+                    file => {
+                        var image = _imageRepository.CreateNewImage(file.FileName, Convert.FromBase64String(file.Data));
+                        file.Tags.ForEach(tag => _tagRepository.AddTagToImage(image, tag));
+                    }
                 );
         }
     }
