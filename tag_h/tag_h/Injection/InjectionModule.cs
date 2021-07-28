@@ -36,7 +36,7 @@ namespace tag_h.Injection
 
             var implementations = ReflectionHelper
                 .AllTypes
-                .Where(implementationd => serviceEntry.IsAssignableFrom(implementationd) && implementationd != serviceEntry);
+                .Where(implementation => serviceEntry.IsAssignableFrom(implementation) && implementation != serviceEntry);
 
             if (implementations.Count() != 1) throw new MultipleInjectionPointsFoundException();
 
