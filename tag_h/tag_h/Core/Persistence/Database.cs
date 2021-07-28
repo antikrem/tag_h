@@ -1,7 +1,6 @@
 ﻿using System.IO;
 
 using tag_h.Injection;
-using tag_h.Core.Persistence;
 using tag_h.Core.Persistence.Query;
 
 namespace tag_h.Core.Persistence
@@ -30,7 +29,6 @@ namespace tag_h.Core.Persistence
                 return new DirectoryInfo("Images/");
             }
         }
-
 
         public Database(IDatabaseConnection connection)
         {

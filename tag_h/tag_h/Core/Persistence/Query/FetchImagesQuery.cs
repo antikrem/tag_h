@@ -24,10 +24,10 @@ namespace tag_h.Core.Persistence.Query
             var commandText
                     = @"SELECT * 
                         FROM Images 
-                        WHERE deleted = 0 $EXTRA
+                        WHERE $WHERECLAUSE
                         $LIMIT;";
             commandText = commandText.Replace("$LIMIT", _query.Maximum != int.MaxValue ? $"LIMIT {_query.Maximum}" : "");
-            commandText = commandText.Replace("$EXTRA", _query.UUID > 0 ? $"AND id =  {_query.UUID}" : "");
+            commandText = commandText.Replace("$WHERECLAUSE", string.Join(" AND ", BuildWhereClause()));
 
             command.CommandText = commandText;
 
@@ -38,6 +38,17 @@ namespace tag_h.Core.Persistence.Query
             }
 
             Result = images;
+        }
+
+        private IEnumerable<string> BuildWhereClause()
+        {
+            yield return " deleted = 0";
+
+            if (_query.UUID > 0)
+                yield return $"id = {_query.UUID}";
+
+            if (_query.Location != null)
+                yield return $"fileName = '{_query.Location}'";
         }
 
     }

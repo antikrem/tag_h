@@ -17,7 +17,7 @@ namespace tag_h.Core.Persistence
 
         void AddNewImage(string fileName);
 
-        void CreateNewImage(string fileName, byte[] data);
+        HImage CreateNewImage(string fileName, byte[] data);
 
         void SaveImage(HImage image);
 
@@ -54,11 +54,12 @@ namespace tag_h.Core.Persistence
             _database.AddNewImage(fileName);
         }
 
-        public void CreateNewImage(string fileName, byte[] data)
+        public HImage CreateNewImage(string fileName, byte[] data)
         {
             _physicalImageProvider.CreatePhysicalImage(_database.ImageFolder.FullName, fileName, data);
             fileName = Path.Join(_database.ImageFolder.FullName, fileName);
             _database.AddNewImage(fileName);
+            return FetchImages(new TagQuery { Location = fileName }).First();
         }
 
         public void SaveImage(HImage image)
