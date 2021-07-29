@@ -39,11 +39,11 @@
     <None Remove="ClientApp\src\components\LogEntry.js" />
     <None Remove="ClientApp\src\components\LogView.js" />
     <None Remove="ClientApp\src\components\Sidebar.css" />
-    <None Remove="ClientApp\src\components\Sidebar.js" />
     <None Remove="ClientApp\src\components\SideBarItem.js" />
     <None Remove="ClientApp\src\components\TaskRunnerView.js" />
     <None Remove="ClientApp\src\Framework\ApiControllerBinder.js" />
     <None Remove="ClientApp\src\Framework\Controllers.js" />
+    <None Remove="ClientApp\src\components\Panels\PanelViewModel.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,12 +51,11 @@
     <TypeScriptCompile Include="ClientApp\src\components\Layout.css" />
     <TypeScriptCompile Include="ClientApp\src\components\LogEntry.js" />
     <TypeScriptCompile Include="ClientApp\src\components\LogView.js" />
-    <TypeScriptCompile Include="ClientApp\src\components\Sidebar.js" />
     <TypeScriptCompile Include="ClientApp\src\components\Sidebar.css" />
     <TypeScriptCompile Include="ClientApp\src\components\SidebarItem.js" />
-    <TypeScriptCompile Include="ClientApp\src\components\TaskRunnerView.js" />
     <TypeScriptCompile Include="ClientApp\src\Framework\ApiControllerBinder.js" />
     <TypeScriptCompile Include="ClientApp\src\Framework\Controllers.js" />
+    <TypeScriptCompile Include="ClientApp\src\components\Panels\PanelViewModel.js" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
