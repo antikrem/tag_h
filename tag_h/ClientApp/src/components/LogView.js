@@ -39,7 +39,6 @@ export class LogView extends Component {
         return (
             <div>
                 <h1>Log view</h1>
-                <p>Rendering images:</p>
                 {contents}
             </div>
         );
