@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Home } from './components/Home';
 import ImagesView from './components/ImagesView';
-import { LogView } from './components/LogView';
+import { LogView } from './components/Logs/LogView';
 import Counter from './components/Counter';
 import ImportView from './components/Import/ImportView'
 import { Content } from './components/Content';
@@ -13,6 +13,8 @@ import './components/Layout.css';
 
 export default class App extends Component {
     static displayName = App.name;
+
+    static firmPanels = [<Home />, <Counter />, <ImagesView />, <ImportView />, <LogView />];
 
     render() {
         return (
@@ -26,11 +28,7 @@ export default class App extends Component {
                     <SidebarItem text="Logs" link="/log-view" />
                 </div>
                 <Content>
-                    <Home />
-                    <Counter />
-                    <ImagesView />
-                    <LogView />
-                    <ImportView />
+                    {App.firmPanels.map((component, i) => <div key={i}>{component}</div>)}
                 </Content>
             </div>
         );
