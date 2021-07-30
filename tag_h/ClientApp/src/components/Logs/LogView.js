@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { LogEntry } from './LogEntry'
 
-import { Controllers } from './../Framework/Controllers'
+import { Controllers } from '../../Framework/Controllers'
 
 export class LogView extends Component {
     static displayName = LogView.name;
