@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import TagBox from './Tags/TagBox'
+import TagBox from './../Tags/TagBox'
 
-import TaggedImageViewModel from './Tags/TaggedImageViewModel'
+import TaggedImageViewModel from './../Tags/TaggedImageViewModel'
 
 export class Image extends Component {
     static displayName = Image.name;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Home } from './components/Home';
-import ImagesView from './components/ImagesView';
+import ImagesView from './components/Images/ImagesView';
 import { LogView } from './components/Logs/LogView';
 import Counter from './components/Counter';
 import ImportView from './components/Import/ImportView'

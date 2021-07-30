@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Controllers } from './../Framework/Controllers'
+import { Controllers } from './../../Framework/Controllers'
 import ViewModel from "react-use-controller";
 
 import { Image } from './Image'
