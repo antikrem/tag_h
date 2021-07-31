@@ -6,15 +6,14 @@ export class SidebarItem extends Component {
         super(props);
 
         this.text = props.text;
-        this.link = props.link;
+        this.onClick = props.onClick;
     }
 
     render() {
         return (
-            <a href={this.link}>
-                <div className="sidebar-item">
-                    <p>{this.text}</p>
-                </div>
-            </a>);
+            <div className="sidebar-item">
+                <button onClick={this.onClick}><p>{this.text}</p></button>
+            </div>
+        );
     }
 }

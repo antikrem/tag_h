@@ -43,7 +43,7 @@
     <None Remove="ClientApp\src\components\TaskRunnerView.js" />
     <None Remove="ClientApp\src\Framework\ApiControllerBinder.js" />
     <None Remove="ClientApp\src\Framework\Controllers.js" />
-    <None Remove="ClientApp\src\components\Panels\PanelViewModel.js" />
+    <None Remove="ClientApp\src\PanelSystem\Panel.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,7 +55,7 @@
     <TypeScriptCompile Include="ClientApp\src\components\SidebarItem.js" />
     <TypeScriptCompile Include="ClientApp\src\Framework\ApiControllerBinder.js" />
     <TypeScriptCompile Include="ClientApp\src\Framework\Controllers.js" />
-    <TypeScriptCompile Include="ClientApp\src\components\Panels\PanelViewModel.js" />
+    <TypeScriptCompile Include="ClientApp\src\PanelSystem\Panel.js" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
