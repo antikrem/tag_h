@@ -7,17 +7,25 @@ import { LogView } from './../components/Logs/LogView';
 import Counter from './../components/Counter';
 import ImportView from './../components/Import/ImportView'
 
+class Panel {
+    constructor(name, component, viewmodel) {
+        this.name = name;
+        this.component = component;
+        this.viewmodel = viewmodel;
+    }
+}
+
 export default class PanelViewModel extends ViewModel {
 
     firmPanels = [
-        ["Home", <Home />],
-        ["Counter", <Counter />],
-        ["Images", <ImagesView />],
-        ["Import", <ImportView />],
-        ["Log", <LogView />]
+        new Panel("Home", <Home />, null),
+        new Panel("Counter", <Counter />, null),
+        new Panel("Images", <ImagesView />, null),
+        new Panel("Import", <ImportView />, null),
+        new Panel("Log", <LogView />, null)
     ];
 
-    activePane = this.firmPanels[0][1];
+    activePane = this.firmPanels[0].component;
 
     setActivePane = (pane) => {
         this.activePane = pane;
@@ -25,7 +33,7 @@ export default class PanelViewModel extends ViewModel {
 
     getSidebarProps = () => {
         return this.firmPanels.map(
-            (panel, i) => { return { text: panel[0], onClick: () => this.setActivePane(panel[1]) } }
+            (panel, _) => { return { text: panel.name, onClick: () => this.setActivePane(panel.component) } }
         );
     }
 
