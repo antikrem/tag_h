@@ -11,8 +11,8 @@ const TagBox = (props) => {
     // TODO: pass view model into children
     return (
         <div>
-            {tags.map(tag =>
-                <Tag tag={tag} callback={async () => { await deleteTag(tag) }} />
+            {tags.map((tag, i) =>
+                <Tag key={i} tag={tag} callback={async () => { await deleteTag(tag) }} />
             )}
             <TagAdd callback={async (tag) => await addTag(tag)} />
         </div>

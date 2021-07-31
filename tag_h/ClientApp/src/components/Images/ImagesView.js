@@ -25,7 +25,7 @@ const ImagesView = () => {
         <div>
             <h1 id="tabelLabel" >Images view</h1>
             <p>Rendering images:</p>
-            {images.map(image => <Image image={image} />)}
+            {images.map((image, i) => <Image key={i} image={image} />)}
         </div>
     );
 }
