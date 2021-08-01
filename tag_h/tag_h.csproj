@@ -33,7 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\components\Content.js" />
     <None Remove="ClientApp\src\components\ImportView.js" />
     <None Remove="ClientApp\src\components\Layout.css" />
     <None Remove="ClientApp\src\components\LogEntry.js" />
@@ -47,7 +46,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\components\Content.js" />
     <TypeScriptCompile Include="ClientApp\src\components\Layout.css" />
     <TypeScriptCompile Include="ClientApp\src\components\Logs\LogEntry.js" />
     <TypeScriptCompile Include="ClientApp\src\components\Logs\LogView.js" />
