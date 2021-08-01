@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { SidebarItem } from './components/SidebarItem';
+import { SidebarItem } from './PanelSystem/SidebarItem';
 
 import PanelViewModel from './PanelSystem/PanelsViewModel';
 
 import './custom.css'
 import './components/Content.css'
-import './components/Sidebar.css';
+import './PanelSystem/Sidebar.css';
 import './components/Layout.css';
 
 

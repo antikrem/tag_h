@@ -49,8 +49,8 @@
     <TypeScriptCompile Include="ClientApp\src\components\Layout.css" />
     <TypeScriptCompile Include="ClientApp\src\components\Logs\LogEntry.js" />
     <TypeScriptCompile Include="ClientApp\src\components\Logs\LogView.js" />
-    <TypeScriptCompile Include="ClientApp\src\components\Sidebar.css" />
-    <TypeScriptCompile Include="ClientApp\src\components\SidebarItem.js" />
+    <TypeScriptCompile Include="ClientApp\src\PanelSystem\Sidebar.css" />
+    <TypeScriptCompile Include="ClientApp\src\PanelSystem\SidebarItem.js" />
     <TypeScriptCompile Include="ClientApp\src\Framework\ApiControllerBinder.js" />
     <TypeScriptCompile Include="ClientApp\src\Framework\Controllers.js" />
   </ItemGroup>
