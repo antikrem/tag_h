@@ -55,7 +55,6 @@
     <TypeScriptCompile Include="ClientApp\src\components\SidebarItem.js" />
     <TypeScriptCompile Include="ClientApp\src\Framework\ApiControllerBinder.js" />
     <TypeScriptCompile Include="ClientApp\src\Framework\Controllers.js" />
-    <TypeScriptCompile Include="ClientApp\src\PanelSystem\Panel.js" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
