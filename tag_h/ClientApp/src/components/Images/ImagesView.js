@@ -5,6 +5,8 @@ import ViewModel from "react-use-controller";
 
 import { Image } from './Image'
 
+import './Image.css'
+
 class ImagesViewModel extends ViewModel {
     
     images = [];
@@ -22,9 +24,8 @@ const ImagesView = () => {
     const { images } = ImagesViewModel.use();
 
     return (
-        <div>
-            <h1 id="tabelLabel" >Images view</h1>
-            <p>Rendering images:</p>
+        <div className='image-grid fill-parent'>
+
             {images.map((image, i) => <Image key={i} image={image} />)}
         </div>
     );

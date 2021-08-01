@@ -3,6 +3,10 @@ import TagBox from './../Tags/TagBox'
 
 import TaggedImageViewModel from './../Tags/TaggedImageViewModel'
 
+import { ImageTile } from './ImageTile'
+
+import './Image.css'
+
 export class Image extends Component {
     static displayName = Image.name;
 
@@ -12,9 +16,9 @@ export class Image extends Component {
     }
 
     render() {
-        return <div>
-            <img src={`/Images/GetFile?imageId=${this.state.image.uuid}`} />
-            <TagBox image={this.state.image} viewmodel={TaggedImageViewModel} />
+        return <div className='inline-image'>
+            <ImageTile src={`/Images/GetFile?imageId=${this.state.image.uuid}`} />
+            {/*<TagBox image={this.state.image} viewmodel={TaggedImageViewModel} />*/}
         </div>;
     }
 }
