@@ -1,15 +1,18 @@
-import React, { Component } from 'react'
+import React from 'react'
+
+import TagBox from './../Tags/TagBox'
 
 import './Image.css'
 
-export class ImageTile extends Component {
+const ImageTile = (props) => {
 
-    constructor(props) {
-        super(props);
-        this.state = { src: props.src };
-    }
+    return <div className='inline-image-container'>
+        <img className='inline-image' src={props.tiledImage.src} />
 
-    render() {
-        return <img className='inline-image' src={this.state.src} />;
-    }
+        {props.tiledImage.tagViewmodel != null
+            && <TagBox viewmodel={props.tiledImage.tagViewmodel} {...props.tiledImage.tagViewmodelProps} />}
+    </div>
 }
+
+
+export default ImageTile;
