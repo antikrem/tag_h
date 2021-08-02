@@ -10,5 +10,6 @@
 }
 
 .inline-image {
-  display: inline;
+    display: inline;
+    width: 100%;
 }
