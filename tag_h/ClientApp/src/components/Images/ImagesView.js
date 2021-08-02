@@ -3,7 +3,7 @@ import React from 'react';
 import { Controllers } from './../../Framework/Controllers'
 import ViewModel from "react-use-controller";
 
-import { Image } from './Image'
+import ImagesTiling from './ImagesTiling'
 
 import './Image.css'
 
@@ -24,9 +24,10 @@ const ImagesView = () => {
     const { images } = ImagesViewModel.use();
 
     return (
-        <div className='image-grid fill-parent'>
-
-            {images.map((image, i) => <Image key={i} image={image} />)}
+        <div className='fill-parent'>
+            <h1>Images view</h1>
+            <p>Rendering images:</p>
+            <ImagesTiling images={ images } />
         </div>
     );
 }

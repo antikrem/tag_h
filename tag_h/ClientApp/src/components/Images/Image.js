@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+
+import ImageTile from './ImageTile'
 import TagBox from './../Tags/TagBox'
 
 import TaggedImageViewModel from './../Tags/TaggedImageViewModel'
 
-import { ImageTile } from './ImageTile'
-
 import './Image.css'
 
-export class Image extends Component {
+export default class Image extends Component {
     static displayName = Image.name;
 
     constructor(props) {
