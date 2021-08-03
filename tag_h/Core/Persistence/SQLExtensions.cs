@@ -13,8 +13,7 @@ namespace tag_h.Core.Persistence
         {
             return new HImage(
                     dataReader.GetInt32(0),
-                    dataReader.GetString(1),
-                    dataReader.IsDBNull(2) ? null : dataReader.GetString(2).ToHexULong()
+                    dataReader.GetString(1)
                 );
         }
 
