@@ -24,11 +24,15 @@ namespace tag_h.Core.Tasks
         private readonly Thread _taskHandler;
         private readonly ILogger _logger;
         private readonly IHImageRepository _imageRepository;
+        private readonly ITagRepository _tagRepository;
 
-        public TaskRunner(ILogger logger, IHImageRepository imageRepository)
+        public TaskRunner(ILogger logger, IHImageRepository imageRepository, ITagRepository tagRepository)
         {
             _logger = logger;
+            
             _imageRepository = imageRepository;
+            _tagRepository = tagRepository;
+
             _taskHandler = new Thread(ExecuteHandling);
             _taskHandler.Start();
         }
@@ -41,7 +45,7 @@ namespace tag_h.Core.Tasks
                 Stopwatch stopWatch = Stopwatch.StartNew();
                 _logger.Information("Starting task: {Task Name}", task.TaskName);
 
-                task.Execute(_imageRepository);
+                task.Execute(_imageRepository, _tagRepository);
 
                 stopWatch.Stop();
                 _logger.Information("Completed in: {Time}", stopWatch.Elapsed);

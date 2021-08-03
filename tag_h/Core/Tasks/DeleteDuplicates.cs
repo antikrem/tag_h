@@ -11,7 +11,7 @@ namespace tag_h.Core.Tasks
     {
         public string TaskName => "Deleting Duplicate";
 
-        public void Execute(IHImageRepository imageRepository)
+        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository)
         {
             var hashes = new Dictionary<ulong, string>();
             var duplicates = new List<(string, string)>();

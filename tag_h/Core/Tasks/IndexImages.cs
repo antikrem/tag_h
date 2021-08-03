@@ -11,7 +11,7 @@ namespace tag_h.Core.Tasks
     {
         public string TaskName => "Indexing all Images";
 
-        public void Execute(IHImageRepository imageRepository)
+        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository)
         {
             using (var images = imageRepository.FetchImages(TagQuery.All))
             {
