@@ -14,5 +14,12 @@ namespace tag_h.Core.Helper.Extensions
         {
             return Convert.ToUInt64(value, 16);
         }
+
+        public static string ToHexString(this byte[] value)
+        {
+            return BitConverter.ToString(value)
+                .Replace("-", "")
+                .ToLower();
+        }
     }
 }
