@@ -9,6 +9,11 @@ namespace tag_h.Core.Persistence
 {
     static class SQLExtensions
     {
+        public static string GetStringOrNull(this SQLiteDataReader dataReader, int column)
+        {
+            return dataReader.IsDBNull(column) ? null : dataReader.GetString(column);
+        }
+
         public static HImage GetHImage(this SQLiteDataReader dataReader)
         {
             return new HImage(
