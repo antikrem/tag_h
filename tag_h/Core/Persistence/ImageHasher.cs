@@ -44,13 +44,13 @@ namespace tag_h.Core.Persistence
         public ImageHash HashImage(HImage image)
         {
             using var stream = _physicalImageProvider.LoadImageStream(image); 
-            var hash = _md5Hasher.ComputeHash(stream);
-            var hashString = hash.ToHexString();
+            var hash = _md5Hasher.ComputeHash(stream).ToHexString();
 
-            _database.ExecuteQuery(new SetImageHashQuery(image, new ImageHash(hashString, null)));
+            _database.ExecuteQuery(
+                    new SetImageHashQuery(image, new ImageHash(hash, null))
+                );
 
-
-            return new ImageHash(hashString, null);
+            return new ImageHash(hash, null);
         }
     }
 
