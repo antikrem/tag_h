@@ -11,18 +11,17 @@ namespace tag_h.Core.Tasks
     {
         public string TaskName => "Deleting Duplicate";
 
-        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository)
+        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher)
         {
-            var hashes = new Dictionary<ulong, string>();
+            var hashes = new Dictionary<string, string>();
             var duplicates = new List<(string, string)>();
 
             using (var images = imageRepository.FetchImages(TagQuery.All))
             {
                 var dbImages = images
                     .Where(x => x.IsHashableFormat())
-                    .Select(image => (image, image.Hash))
-                    .Where(y => y.Hash != null)
-                    .Select(y => (y.image, y.Hash.Value));
+                    .Select(image => (image, Hash: imageHasher.GetHash(image).PerceptualHash))
+                    .Where(y => y.Hash != null);
 
                 foreach (var (image, hash) in dbImages)
                 {

@@ -11,15 +11,17 @@ namespace tag_h.Core.Tasks
     {
         public string TaskName => "Indexing all Images";
 
-        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository)
+        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher)
         {
             using (var images = imageRepository.FetchImages(TagQuery.All))
             {
                 var unhashedImages = images
                     .Where(x => x.IsHashableFormat())
-                    .Where(y => y.Hash == null);
+                    .Where(y => imageHasher.GetHash(y).FileHash == null);
 
-                unhashedImages.ForEach(x => x.Index());
+                unhashedImages.ForEach(
+                        image => imageHasher.HashImage(image)
+                    );
             }
         }
     }

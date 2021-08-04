@@ -34,7 +34,8 @@ namespace tag_h.Core.Persistence
             @"CREATE TABLE if not exists Images (
                     id INTEGER PRIMARY KEY ASC,
                     fileName STRING NOT NULL, 
-                    hash STRING,
+                    fileHash STRING,
+                    perceptualHash STRING,
                     deleted INTEGER
                 );",
             @"CREATE TABLE if not exists Tags (

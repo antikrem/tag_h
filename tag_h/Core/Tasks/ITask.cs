@@ -7,6 +7,6 @@ namespace tag_h.Core.Tasks
     {
         string TaskName { get; }
 
-        void Execute(IHImageRepository imageRepository, ITagRepository tagRepository);
+        void Execute(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher);
     }
 }

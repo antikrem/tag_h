@@ -11,7 +11,7 @@ namespace tag_h.Core.Tasks
     {
         public string TaskName => "Synchronising Database";
 
-        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository)
+        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher)
         {
             imageRepository.ApplyDeletions();
 

@@ -35,34 +35,10 @@ namespace tag_h.Core.Model
 
         public FileFormat Format => _stream is null ? FileExists ? FileFormat.Get(Location) : null : FileFormat.Get(Stream);
 
-        public ulong? _hash;
-        // Null if hashing not supported
-        public ulong? Hash
-        {
-            get
-            {
-                return _hash;
-            }
-        }
-
-        public void Index()
-        {
-            using (var stream = File.OpenRead(Location))
-            {
-                _hash = new AverageHash().Hash(stream);
-            }
-        }
-
         public HImage(int UUID, string location)
         {
             this.UUID = UUID;
             Location = location;
-        }
-
-        public HImage(int UUID, string location, ulong? hash)
-            : this(UUID, location)
-        {
-            _hash = hash;
         }
 
         public (double, double) Size
