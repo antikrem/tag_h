@@ -15,8 +15,8 @@ namespace tag_h.Core.Persistence.Query
         public void Execute(SQLiteCommand command)
         {
             command.CommandText
-                    = @"INSERT INTO Images (fileName, hash, deleted) 
-                        VALUES (@fileName, NULL, 0);";
+                    = @"INSERT INTO Images (fileName, deleted) 
+                        VALUES (@fileName, 0);";
             command.Parameters.AddWithValue("@fileName", _location);
 
             command.ExecuteNonQuery();

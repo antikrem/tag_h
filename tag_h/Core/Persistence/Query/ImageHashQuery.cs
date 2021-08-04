@@ -43,12 +43,12 @@ namespace tag_h.Core.Persistence.Query
         {
             command.CommandText
                     = @"UPDATE Images
-                        SET fileHash = '@fileHash'
-                        perceptualHash = '@perceptualHash'
+                        SET (fileHash, perceptualHash) = (@fileHash, @perceptualHash)
                         WHERE id = @id;";
 
             command.Parameters.AddWithValue("@id", _image.UUID);
-            command.Parameters.AddWithValue("@hash", _hash.FileHash);
+            command.Parameters.AddWithValue("@fileHash", _hash.FileHash);
+            command.Parameters.AddWithValue("@perceptualHash", _hash.PerceptualHash);
             command.ExecuteNonQuery();
         }
     }

@@ -46,7 +46,10 @@ namespace tag_h.Core.Persistence
             using var stream = _physicalImageProvider.LoadImageStream(image); 
             var hash = _md5Hasher.ComputeHash(stream);
             var hashString = hash.ToHexString();
-            
+
+            _database.ExecuteQuery(new SetImageHashQuery(image, new ImageHash(hashString, null)));
+
+
             return new ImageHash(hashString, null);
         }
     }
