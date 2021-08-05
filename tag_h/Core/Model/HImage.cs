@@ -41,13 +41,6 @@ namespace tag_h.Core.Model
             Location = location;
         }
 
-        public (double, double) Size
-        {
-            //get => (image.PixelWidth, image.PixelHeight);
-            get => (0, 0);
-
-        }
-
         public bool IsPhysicalExists()
         {
             return File.Exists(Location);
