@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using System.Collections.Generic;
 
 using NUnit.Framework;
 using NSubstitute;
@@ -6,7 +7,6 @@ using FluentAssertions;
 
 using tag_h.Core.TagRetriever;
 using tag_h.Core.Helper.Extensions;
-using System.Collections.Generic;
 
 namespace tag_h_tests.Core.TagRetriever
 {
