@@ -66,6 +66,13 @@ namespace tag_h_tests.Core.Helper.Serialisation
             result.Should().BeEquivalentTo(new List<TestObject>() { new TestObject { Name = "Bar", Age = 24 }, new TestObject { Name = "Bar", Age = 24 } });
         }
 
+        [Test]
+        public void ParseJson_WithInvalidType_ThrowException()
+        {
+            _sut.Invoking(sut => sut.ParseJson<int>("\"FooBar\""))
+                .Should().Throw<InvalidTypeForProvidedJson>();
+        }
+
         private class TestObject
         {
             public string Name { get; set; }

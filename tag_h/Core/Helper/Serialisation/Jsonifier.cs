@@ -6,6 +6,20 @@ using tag_h.Injection;
 
 namespace tag_h.Core.Helper.Extensions
 {
+    public class InvalidTypeForProvidedJson : Exception
+    {
+        public string Json { get; }
+        public JsonReaderException Inner { get; }
+
+        public InvalidTypeForProvidedJson(Type type, string json, JsonReaderException inner) 
+            : base($"Invalid json for {type.Name}" )
+        {
+            Json = json;
+            Inner = inner;
+        }
+
+    }
+
     [Injectable]
     public interface IJsonifier
     {
@@ -38,7 +52,14 @@ namespace tag_h.Core.Helper.Extensions
             using StringReader sr = new(json);
             var type = typeof(T);
 
-            return (T)_serializer.Deserialize(sr, type);
+            try
+            {
+                return (T)_serializer.Deserialize(sr, type);
+            }
+            catch (JsonReaderException e)
+            {
+                throw new InvalidTypeForProvidedJson(type, json, e);
+            }
         }
     }
 }
