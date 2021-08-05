@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace tag_h.Core.Helper.Extensions
@@ -17,6 +18,11 @@ namespace tag_h.Core.Helper.Extensions
             {
                 throw new MatchFirstFailed();
             }
+        }
+
+        public static string Concat(this IEnumerable<char> chars)
+        {
+            return string.Concat(chars);
         }
     }
 }
