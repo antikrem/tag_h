@@ -24,7 +24,9 @@ namespace tag_h.Core.Persistence.Query
                         WHERE id = @id;";
 
             command.Parameters.AddWithValue("@id", _image.UUID);
-            Hash = new ImageHash(command.ExecuteReader().GetStringOrNull(0), command.ExecuteReader().GetStringOrNull(1));
+
+            var reader = command.ExecuteReader();
+            Hash = new ImageHash(reader.GetStringOrNull(0), reader.GetStringOrNull(1));
         }
     }
 
