@@ -19,7 +19,7 @@ namespace tag_h.Core.Persistence.Query
                         (tag)
                         VALUES (@tag);";
 
-            command.Parameters.AddWithValue("@tag", _tag.Value);
+            command.Parameters.AddWithValue("@tag", _tag.Name);
             command.ExecuteNonQuery();
         }
     }

@@ -4,21 +4,21 @@ namespace tag_h.Core.Model
 {
     public class Tag : IComparable<Tag>
     {
-        public string Value { get; }
+        public string Name { get; }
 
         public Tag(string value)
         {
-            Value = value;
+            Name = value;
         }
 
         public override string ToString()
         {
-            return Value;
+            return Name;
         }
 
         public int CompareTo(Tag other)
         {
-            return Value.CompareTo(other.Value);
+            return Name.CompareTo(other.Name);
         }
     }
 }

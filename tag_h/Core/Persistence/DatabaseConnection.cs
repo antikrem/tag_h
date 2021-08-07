@@ -41,6 +41,10 @@ namespace tag_h.Core.Persistence
             @"CREATE TABLE if not exists Tags (
                     tag STRING NOT NULL PRIMARY KEY
                 );",
+            @"CREATE TABLE if not exists TagValues (
+                    tag STRING NOT NULL PRIMARY KEY,
+                    value STRING
+                );",
             @"CREATE TABLE if not exists ImageTags (
                     id INTEGER NOT NULL,
                     tag STRING NOT NULL,

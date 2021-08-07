@@ -24,7 +24,7 @@ namespace tag_h.Core.Persistence.Query
                         AND tag = @tag;";
 
             command.Parameters.AddWithValue("@id", _image.UUID);
-            command.Parameters.AddWithValue("@tag", _tag.Value);
+            command.Parameters.AddWithValue("@tag", _tag.Name);
             command.ExecuteNonQuery();
         }
     }
