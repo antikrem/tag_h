@@ -11,7 +11,7 @@ export class Tag extends Component {
     render() {
         return (
             <div>
-                <p> {this.state.tag.value} </p><button onClick={() => this.callback()}> |x| </button>
+                <p> {this.state.tag.name} </p><button onClick={() => this.callback()}> |x| </button>
             </div>
         );
     }
