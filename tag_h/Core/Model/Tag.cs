@@ -6,9 +6,9 @@ namespace tag_h.Core.Model
     {
         public string Name { get; }
 
-        public Tag(string value)
+        public Tag(string name)
         {
-            Name = value;
+            Name = name;
         }
 
         public override string ToString()

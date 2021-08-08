@@ -12,7 +12,7 @@ class TagDropDownElement extends Component {
     render() {
         return (
             <div>
-                <button onClick={ this.callback }>{this.tag.value}</button>
+                <button onClick={ this.callback }>{this.tag.name}</button>
             </div>
         );
     }
