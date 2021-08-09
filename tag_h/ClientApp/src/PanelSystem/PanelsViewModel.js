@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 
 import { Home } from './../components/Home';
 import ImagesView from './../components/Images/ImagesView';
+import TagPanel from './../components/Tags/TagPanel';
 import { LogView } from './../components/Logs/LogView';
 import Counter from './../components/Counter';
 import ImportView from './../components/Import/ImportView'
@@ -21,6 +22,7 @@ export default class PanelViewModel extends ViewModel {
         new Panel("Home", <Home />, null),
         new Panel("Counter", <Counter />, null),
         new Panel("Images", <ImagesView />, null),
+        new Panel("Tags", <TagPanel />, null),
         new Panel("Import", <ImportView />, null),
         new Panel("Log", <LogView />, null)
     ];
