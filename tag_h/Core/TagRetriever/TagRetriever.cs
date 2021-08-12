@@ -1,19 +1,31 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using tag_h.Core.Model;
+using tag_h.Core.TagRetriever.TagSource;
+using tag_h.Injection;
 
 namespace tag_h.Core.TagRetriever
 {
+    [Injectable]
     public interface ITagRetriever
     {
-        List<string> FetchTagValues(HImage image);
+        Task<IEnumerable<string>> FetchTagValues(HImage image);
     }
 
     public class TagRetriever : ITagRetriever
     {
-        public List<string> FetchTagValues(HImage image)
+        private readonly ITagSource _tagSource;
+
+        public TagRetriever(ITagSource tagSource)
         {
-            throw new System.NotImplementedException();
+            _tagSource = tagSource;
+            
+        }
+
+        public async Task<IEnumerable<string>> FetchTagValues(HImage image)
+        {
+            return await _tagSource.RetrieveTags(image);
         }
     }
 }
