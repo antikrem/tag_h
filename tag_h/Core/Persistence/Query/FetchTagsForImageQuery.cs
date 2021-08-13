@@ -25,7 +25,7 @@ namespace tag_h.Core.Persistence.Query
                     = @"SELECT tag 
                         FROM ImageTags
                         where imageId = @id;";
-            command.Parameters.AddWithValue("@id", _image.UUID);
+            command.Parameters.AddWithValue("@id", _image.Id);
 
             Result = command.ExecuteReader().GetTags();
         }

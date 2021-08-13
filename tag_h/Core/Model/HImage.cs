@@ -14,7 +14,7 @@ namespace tag_h.Core.Model
     public class HImage : IDisposable
     {
 
-        public int UUID { get; }
+        public int Id { get; }
 
         public string Location { get; }
 
@@ -35,9 +35,9 @@ namespace tag_h.Core.Model
 
         public FileFormat Format => _stream is null ? FileExists ? FileFormat.Get(Location) : null : FileFormat.Get(Stream);
 
-        public HImage(int UUID, string location)
+        public HImage(int id, string location)
         {
-            this.UUID = UUID;
+            Id = id;
             Location = location;
         }
 

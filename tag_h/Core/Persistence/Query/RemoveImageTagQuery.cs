@@ -23,7 +23,7 @@ namespace tag_h.Core.Persistence.Query
                         WHERE imageId = @id
                         AND tag = @tag;";
 
-            command.Parameters.AddWithValue("@id", _image.UUID);
+            command.Parameters.AddWithValue("@id", _image.Id);
             command.Parameters.AddWithValue("@tag", _tag.Name);
             command.ExecuteNonQuery();
         }

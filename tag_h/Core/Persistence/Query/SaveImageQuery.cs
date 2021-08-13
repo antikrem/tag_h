@@ -18,7 +18,7 @@ namespace tag_h.Core.Persistence.Query
         public void Execute(SQLiteCommand command)
         {
             command.CommandText = CreateCommand(command);
-            command.Parameters.AddWithValue("@id", _image.UUID);
+            command.Parameters.AddWithValue("@id", _image.Id);
             command.Parameters.AddWithValue("@fileName", _image.Location);
             command.ExecuteNonQuery();
         }

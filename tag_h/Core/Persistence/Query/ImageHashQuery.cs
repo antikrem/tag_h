@@ -23,7 +23,7 @@ namespace tag_h.Core.Persistence.Query
                         FROM Images
                         WHERE id = @id;";
 
-            command.Parameters.AddWithValue("@id", _image.UUID);
+            command.Parameters.AddWithValue("@id", _image.Id);
 
             var reader = command.ExecuteReader();
             Hash = new ImageHash(reader.GetStringOrNull(0), reader.GetStringOrNull(1));
@@ -48,7 +48,7 @@ namespace tag_h.Core.Persistence.Query
                         SET (fileHash, perceptualHash) = (@fileHash, @perceptualHash)
                         WHERE id = @id;";
 
-            command.Parameters.AddWithValue("@id", _image.UUID);
+            command.Parameters.AddWithValue("@id", _image.Id);
             command.Parameters.AddWithValue("@fileHash", _hash.FileHash);
             command.Parameters.AddWithValue("@perceptualHash", _hash.PerceptualHash);
             command.ExecuteNonQuery();

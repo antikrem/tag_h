@@ -21,7 +21,7 @@ namespace tag_h.Core.Persistence.Query
                         SET deleted = 1
                         WHERE id = @id;";
 
-            command.Parameters.AddWithValue("@id", _image.UUID);
+            command.Parameters.AddWithValue("@id", _image.Id);
             command.ExecuteNonQuery();
         }
     }
