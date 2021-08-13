@@ -29,7 +29,7 @@ class TiledTaggedImage {
     tagViewmodelProps = {};
 
     constructor(image) {
-        this.src = `/Images/GetFile?imageId=${image.uuid}`;
+        this.src = `/Images/GetFile?imageId=${image.id}`;
         this.tagViewmodel = TaggedImageViewModel;
         this.tagViewmodelProps = { image: image }
     }

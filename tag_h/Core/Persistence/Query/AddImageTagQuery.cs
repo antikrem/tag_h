@@ -20,11 +20,11 @@ namespace tag_h.Core.Persistence.Query
         {
             command.CommandText
                     = @"INSERT INTO ImageTags
-                        (imageId, tag)
-                        VALUES (@id, @tag);";
+                        (imageId, tagId)
+                        VALUES (@imageId, @tagId);";
 
-            command.Parameters.AddWithValue("@id", _image.Id);
-            command.Parameters.AddWithValue("@tag", _tag.Name);
+            command.Parameters.AddWithValue("@imageId", _image.Id);
+            command.Parameters.AddWithValue("@tagId", _tag.Id);
             command.ExecuteNonQuery();
         }
     }

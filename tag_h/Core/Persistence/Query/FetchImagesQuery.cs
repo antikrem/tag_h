@@ -44,8 +44,8 @@ namespace tag_h.Core.Persistence.Query
         {
             yield return " deleted = 0";
 
-            if (_query.UUID > 0)
-                yield return $"id = {_query.UUID}";
+            if (_query.Id > 0)
+                yield return $"id = {_query.Id}";
 
             if (_query.Location != null)
                 yield return $"fileName = '{_query.Location}'";

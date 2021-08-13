@@ -29,7 +29,7 @@ namespace tag_h.Controllers
         [Route("[action]")]
         public void CreateTag(string name, List<string> values)
         {
-            _tagRepository.CreateTag(new Tag(name));
+            _tagRepository.CreateTag(name, values);
         }
     }
 }

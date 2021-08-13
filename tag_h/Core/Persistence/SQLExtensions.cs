@@ -24,7 +24,7 @@ namespace tag_h.Core.Persistence
 
         public static Tag GetTag(this SQLiteDataReader dataReader)
         {
-            return new Tag(dataReader.GetString(0));
+            return new Tag(dataReader.GetInt32(0), dataReader.GetString(1));
         }
 
         private static IEnumerable<Tag> GetTagEnumeration(this SQLiteDataReader dataReader)

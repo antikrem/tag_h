@@ -4,10 +4,13 @@ namespace tag_h.Core.Model
 {
     public class Tag : IComparable<Tag>
     {
+        public int Id { get; }
+
         public string Name { get; }
 
-        public Tag(string name)
+        public Tag(int id, string name)
         {
+            Id = id;
             Name = name;
         }
 
@@ -18,7 +21,7 @@ namespace tag_h.Core.Model
 
         public int CompareTo(Tag other)
         {
-            return Name.CompareTo(other.Name);
+            return Id.CompareTo(other.Id);
         }
     }
 }

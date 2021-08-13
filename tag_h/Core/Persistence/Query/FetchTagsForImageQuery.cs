@@ -22,10 +22,11 @@ namespace tag_h.Core.Persistence.Query
             ISet<Tag> tags = new SortedSet<Tag>();
 
             command.CommandText
-                    = @"SELECT tag 
-                        FROM ImageTags
-                        where imageId = @id;";
-            command.Parameters.AddWithValue("@id", _image.Id);
+                    = @"SELECT ImageTags.tagId, Tags.name 
+                        FROM ImageTags INNER JOIN Tags 
+                        ON ImageTags.tagId = Tags.id
+                        WHERE ImageTags.imageId = @imageId;";
+            command.Parameters.AddWithValue("@imageId", _image.Id);
 
             Result = command.ExecuteReader().GetTags();
         }

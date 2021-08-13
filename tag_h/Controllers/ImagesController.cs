@@ -50,7 +50,7 @@ namespace tag_h.Controllers
         [Route("[action]")]
         public FileStreamResult GetFile(int imageId)
         {
-            var image = _imageRepository.FetchImages(ImageQuery.All with { UUID = imageId }).First();
+            var image = _imageRepository.FetchImages(ImageQuery.All with { Id = imageId }).First();
             var stream = _physicalImageProvider.LoadImageStream(image);
             return File(stream, "image/jpeg");
         }

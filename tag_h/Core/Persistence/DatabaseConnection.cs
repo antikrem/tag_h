@@ -39,17 +39,21 @@ namespace tag_h.Core.Persistence
                     deleted INTEGER
                 );",
             @"CREATE TABLE if not exists Tags (
-                    tag STRING NOT NULL PRIMARY KEY
+                    id INTEGER PRIMARY KEY ASC,
+                    name STRING NOT NULL
                 );",
             @"CREATE TABLE if not exists TagValues (
-                    tag STRING NOT NULL PRIMARY KEY,
-                    value STRING
+                    id INTEGER NOT NULL,
+                    value STRING NOT NULL,
+                    PRIMARY KEY (id, value),
+                    FOREIGN KEY(id) REFERENCES Tags(id)
                 );",
             @"CREATE TABLE if not exists ImageTags (
                     imageId INTEGER NOT NULL,
-                    tag STRING NOT NULL,
-                    PRIMARY KEY (id, tag),
-                    FOREIGN KEY(imageId) REFERENCES Images(id)
+                    tagId INTEGER NOT NULL,
+                    PRIMARY KEY (imageId, tagId),
+                    FOREIGN KEY(imageId) REFERENCES Images(id),
+                    FOREIGN KEY(tagId) REFERENCES Tags(id)
                 );"
         };
 

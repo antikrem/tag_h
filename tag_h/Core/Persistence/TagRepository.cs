@@ -1,7 +1,8 @@
-﻿using tag_h.Injection;
+﻿using System.Collections.Generic;
+
+using tag_h.Injection;
 using tag_h.Core.Model;
 using tag_h.Core.Persistence.Query;
-
 
 namespace tag_h.Core.Persistence
 {
@@ -10,7 +11,7 @@ namespace tag_h.Core.Persistence
     {
         TagSet GetAllTags();
 
-        void CreateTag(Tag tag);
+        void CreateTag(string name, List<string> values);
 
         TagSet GetTagsForImage(HImage image);
 
@@ -32,9 +33,9 @@ namespace tag_h.Core.Persistence
         {
             return _database.ExecuteQuery(new FetchAllTagsQuery()).Result;
         }
-        public void CreateTag(Tag tag)
+        public void CreateTag(string name, List<string> values)
         {
-            _database.ExecuteQuery(new AddNewTagQuery(tag));
+            _database.ExecuteQuery(new AddNewTagQuery(name, values));
         }
 
         // TODO: Add ImageTagRepository

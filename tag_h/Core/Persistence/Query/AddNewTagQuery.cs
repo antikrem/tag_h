@@ -1,25 +1,26 @@
-﻿using System.Data.SQLite;
+﻿using System.Collections.Generic;
+using System.Data.SQLite;
 using tag_h.Core.Model;
 
 namespace tag_h.Core.Persistence.Query
 {
     public class AddNewTagQuery : IQuery
     {
-        private readonly Tag _tag;
+        private readonly string _name;
 
-        public AddNewTagQuery(Tag tag)
+        public AddNewTagQuery(string name, List<string> values)
         {
-            _tag = tag;
+            _name = name;
         }
 
         public void Execute(SQLiteCommand command)
         {
             command.CommandText
                     = @"INSERT OR REPLACE INTO Tags
-                        (tag)
-                        VALUES (@tag);";
+                        (name)
+                        VALUES (@name);";
 
-            command.Parameters.AddWithValue("@tag", _tag.Name);
+            command.Parameters.AddWithValue("@name", _name);
             command.ExecuteNonQuery();
         }
     }

@@ -27,9 +27,9 @@ namespace tag_h.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public TagSet GetTags(int uuid)
+        public TagSet GetTags(int id)
         {
-            var image = _imageRepository.FetchImages(new ImageQuery { UUID = uuid }).First();
+            var image = _imageRepository.FetchImages(new ImageQuery { Id = id }).First();
             var tags = _tagRepository.GetTagsForImage(image);
             _logger.Information("Fetching tags {tags} for iamge {image}", tags, image);
             return tags;
@@ -37,20 +37,20 @@ namespace tag_h.Controllers
 
         [HttpDelete]
         [Route("[action]")]
-        public void DeleteTag(int uuid, string tagName)
+        public void DeleteTag(int imageId, int tagId)
         {
-            var image = _imageRepository.FetchImages(new ImageQuery { UUID = uuid }).First();
-            var tag = _tagRepository.GetAllTags().Where(tag => tag.Name == tagName).First();// TODO Optimise
+            var image = _imageRepository.FetchImages(new ImageQuery { Id = imageId }).First();
+            var tag = _tagRepository.GetAllTags().Where(tag => tag.Id == tagId).First();// TODO Optimise
 
             _tagRepository.RemoveTagFromImage(image, tag);
         }
 
         [HttpPost]
         [Route("[action]")]
-        public void AddTag(int uuid, string tagName)
+        public void AddTag(int id, int tagId)
         {
-            var image = _imageRepository.FetchImages(new ImageQuery { UUID = uuid }).First();
-            var tag = _tagRepository.GetAllTags().Where(tag => tag.Name == tagName).First();// TODO Optimise
+            var image = _imageRepository.FetchImages(new ImageQuery { Id = id }).First();
+            var tag = _tagRepository.GetAllTags().Where(tag => tag.Id == tagId).First();// TODO Optimise
 
             _tagRepository.AddTagToImage(image, tag);
         }
