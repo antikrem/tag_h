@@ -20,7 +20,7 @@ namespace tag_h.Core.Persistence.Query
         {
             command.CommandText
                     = @"INSERT INTO ImageTags
-                        (id, tag)
+                        (imageId, tag)
                         VALUES (@id, @tag);";
 
             command.Parameters.AddWithValue("@id", _image.UUID);

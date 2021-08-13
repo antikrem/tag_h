@@ -20,7 +20,7 @@ namespace tag_h.Core.Persistence.Query
         {
             command.CommandText
                     = @"DELETE FROM ImageTags
-                        WHERE id = @id
+                        WHERE imageId = @id
                         AND tag = @tag;";
 
             command.Parameters.AddWithValue("@id", _image.UUID);

@@ -42,14 +42,14 @@ namespace tag_h.Core.Persistence
                     tag STRING NOT NULL PRIMARY KEY
                 );",
             @"CREATE TABLE if not exists TagValues (
-                    tag STRING NOT NULL,
-                    value STRING NOT NULL,
-                    PRIMARY KEY (tag, value)
+                    tag STRING NOT NULL PRIMARY KEY,
+                    value STRING
                 );",
             @"CREATE TABLE if not exists ImageTags (
-                    id INTEGER NOT NULL,
+                    imageId INTEGER NOT NULL,
                     tag STRING NOT NULL,
-                    PRIMARY KEY (id, tag)
+                    PRIMARY KEY (id, tag),
+                    FOREIGN KEY(imageId) REFERENCES Images(id)
                 );"
         };
 

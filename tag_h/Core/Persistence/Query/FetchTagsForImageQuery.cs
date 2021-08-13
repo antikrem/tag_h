@@ -24,7 +24,7 @@ namespace tag_h.Core.Persistence.Query
             command.CommandText
                     = @"SELECT tag 
                         FROM ImageTags
-                        where id = @id;";
+                        where imageId = @id;";
             command.Parameters.AddWithValue("@id", _image.UUID);
 
             Result = command.ExecuteReader().GetTags();
