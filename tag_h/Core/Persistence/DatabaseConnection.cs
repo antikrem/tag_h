@@ -44,7 +44,7 @@ namespace tag_h.Core.Persistence
                 );",
             @"CREATE TABLE if not exists TagValues (
                     id INTEGER NOT NULL,
-                    value STRING NOT NULL,
+                    value STRING NOT NULL UNIQUE,
                     PRIMARY KEY (id, value),
                     FOREIGN KEY(id) REFERENCES Tags(id)
                 );",
