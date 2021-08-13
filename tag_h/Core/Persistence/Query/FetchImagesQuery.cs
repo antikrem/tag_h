@@ -8,11 +8,11 @@ namespace tag_h.Core.Persistence.Query
 {
     class FetchImagesQuery : IQuery
     {
-        private readonly TagQuery _query;
+        private readonly ImageQuery _query;
 
         public List<HImage> Result { get; private set; }
 
-        public FetchImagesQuery(TagQuery query)
+        public FetchImagesQuery(ImageQuery query)
         {
             _query = query;
         }

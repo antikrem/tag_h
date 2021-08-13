@@ -18,7 +18,7 @@ namespace tag_h.Core.Tasks
             var folder = imageRepository.ImageFolder;
 
             var physicalImages = new HashSet<string>(folder.GetFiles().Select(x => x.FullName));
-            var dbImages = imageRepository.FetchImages(TagQuery.All);
+            var dbImages = imageRepository.FetchImages(ImageQuery.All);
             var dbImageLocations = new HashSet<string>(dbImages.Select(x => x.Location));
 
             var newImages = physicalImages.ToList().Where(x => !dbImageLocations.Contains(x));

@@ -23,7 +23,7 @@ namespace tag_h.Core.Persistence
 
         void DeleteImage(HImage image);
 
-        HImageList FetchImages(TagQuery query);
+        HImageList FetchImages(ImageQuery query);
     }
 
     public class HImageRepository : IHImageRepository
@@ -59,7 +59,7 @@ namespace tag_h.Core.Persistence
             _physicalImageProvider.CreatePhysicalImage(_database.ImageFolder.FullName, fileName, data);
             fileName = Path.Join(_database.ImageFolder.FullName, fileName);
             _database.AddNewImage(fileName);
-            return FetchImages(new TagQuery { Location = fileName }).First();
+            return FetchImages(new ImageQuery { Location = fileName }).First();
         }
 
         public void SaveImage(HImage image)
@@ -72,7 +72,7 @@ namespace tag_h.Core.Persistence
             _database.DeleteImage(image);
         }
 
-        public HImageList FetchImages(TagQuery query)
+        public HImageList FetchImages(ImageQuery query)
         {
             return new HImageList(this, _database.FetchAllImages(query));
         }

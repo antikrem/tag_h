@@ -40,7 +40,7 @@ namespace tag_h.Controllers
         [Route("[action]")]
         public HImageList GetAll()
         {
-            var images = _imageRepository.FetchImages(TagQuery.All);
+            var images = _imageRepository.FetchImages(ImageQuery.All);
             _logger.Information("Fetching images {list}", images);
             return images;
         }
@@ -50,7 +50,7 @@ namespace tag_h.Controllers
         [Route("[action]")]
         public FileStreamResult GetFile(int imageId)
         {
-            var image = _imageRepository.FetchImages(TagQuery.All with { UUID = imageId }).First();
+            var image = _imageRepository.FetchImages(ImageQuery.All with { UUID = imageId }).First();
             var stream = _physicalImageProvider.LoadImageStream(image);
             return File(stream, "image/jpeg");
         }

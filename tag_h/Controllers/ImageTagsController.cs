@@ -29,7 +29,7 @@ namespace tag_h.Controllers
         [Route("[action]")]
         public TagSet GetTags(int uuid)
         {
-            var image = _imageRepository.FetchImages(new TagQuery { UUID = uuid }).First();
+            var image = _imageRepository.FetchImages(new ImageQuery { UUID = uuid }).First();
             var tags = _tagRepository.GetTagsForImage(image);
             _logger.Information("Fetching tags {tags} for iamge {image}", tags, image);
             return tags;
@@ -39,7 +39,7 @@ namespace tag_h.Controllers
         [Route("[action]")]
         public void DeleteTag(int uuid, string tagName)
         {
-            var image = _imageRepository.FetchImages(new TagQuery { UUID = uuid }).First();
+            var image = _imageRepository.FetchImages(new ImageQuery { UUID = uuid }).First();
             var tag = _tagRepository.GetAllTags().Where(tag => tag.Name == tagName).First();// TODO Optimise
 
             _tagRepository.RemoveTagFromImage(image, tag);
@@ -49,7 +49,7 @@ namespace tag_h.Controllers
         [Route("[action]")]
         public void AddTag(int uuid, string tagName)
         {
-            var image = _imageRepository.FetchImages(new TagQuery { UUID = uuid }).First();
+            var image = _imageRepository.FetchImages(new ImageQuery { UUID = uuid }).First();
             var tag = _tagRepository.GetAllTags().Where(tag => tag.Name == tagName).First();// TODO Optimise
 
             _tagRepository.AddTagToImage(image, tag);

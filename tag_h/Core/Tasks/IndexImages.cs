@@ -13,7 +13,7 @@ namespace tag_h.Core.Tasks
 
         public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher)
         {
-            using (var images = imageRepository.FetchImages(TagQuery.All))
+            using (var images = imageRepository.FetchImages(ImageQuery.All))
             {
                 var unhashedImages = images
                     .Where(x => x.IsHashableFormat())

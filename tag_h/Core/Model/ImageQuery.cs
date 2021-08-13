@@ -1,7 +1,7 @@
 namespace tag_h.Core.Model
 {
 
-    public record TagQuery
+    public record ImageQuery
     {
         public TagSet Included { get; set; } = TagSet.Empty;
         public TagSet Excluded { get; set; } = TagSet.Empty;
@@ -9,6 +9,6 @@ namespace tag_h.Core.Model
         public int Maximum { get; set; } = int.MaxValue;
         public int UUID { get; set; } = -1;
 
-        public static TagQuery All => new TagQuery();
+        public static ImageQuery All => new ImageQuery();
     };
 }

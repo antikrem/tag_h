@@ -19,7 +19,7 @@ namespace tag_h.Core.Persistence
             database.ExecuteQuery(new SaveImageQuery(image));
         }
 
-        static public List<HImage> FetchAllImages(this IDatabase database, TagQuery query)
+        static public List<HImage> FetchAllImages(this IDatabase database, ImageQuery query)
         {
             return database.ExecuteQuery(new FetchImagesQuery(query)).Result;
         }

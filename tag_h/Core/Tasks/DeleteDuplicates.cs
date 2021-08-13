@@ -16,7 +16,7 @@ namespace tag_h.Core.Tasks
             var hashes = new Dictionary<string, string>();
             var duplicates = new List<(string, string)>();
 
-            using (var images = imageRepository.FetchImages(TagQuery.All))
+            using (var images = imageRepository.FetchImages(ImageQuery.All))
             {
                 var dbImages = images
                     .Where(x => x.IsHashableFormat())
