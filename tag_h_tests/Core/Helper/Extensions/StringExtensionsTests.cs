@@ -5,7 +5,7 @@ using FluentAssertions;
 
 namespace tag_h_tests.Core.Helper.Extensions
 {
-    public class StringExtensionsMatchTests
+    public class StringExtensionsTests
     {
         [Test]
         public void MatchFirst_WithCorrectMatches_MatchesCorrectly()
@@ -19,6 +19,21 @@ namespace tag_h_tests.Core.Helper.Extensions
         public void MatchFirst_WithIncorrectMatches_ThrowsMatchFirstFailed()
         {
             AssertMatchFailed("EasyBxampleThing", @"(Example)");
+        }
+
+        [Test]
+        public void Filter_WithMultipleTokens_FiltersTokens()
+        {
+            "This is a more complicated instance of a string".Filter("more complicated", "a").Should().Be("This is   instnce of  string");
+            "coffret_(heartcatch_precure!)".Filter("(", ")").Should().Be("coffret_heartcatch_precure!");
+        }
+
+        [Test]
+        public void Concat_WithCharacters_ConcatenatesString()
+        {
+            var characters = new[] { 'a', 'b', 'c' };
+
+            characters.Concat().Should().Be("abc");
         }
 
         static private void AssertMatchSuccess(string input, string regex, string expected)
