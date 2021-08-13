@@ -27,18 +27,7 @@ namespace tag_h.Core.Persistence.Query
         {
             var body = @"UPDATE Images
                         SET fileName = @fileName,
-                            $hash$
                         WHERE id = @id;";
-
-            //if (_image.Hash != null)
-            //{
-            //    body = body.Replace("$hash$", "hash = @hash,");
-            //    command.Parameters.AddWithValue("@hash", _image.Hash?.ToHexString());
-            //}
-            //else
-            //{
-                body = body.Replace("$hash$", "");
-            //}
 
             return body;
         }
