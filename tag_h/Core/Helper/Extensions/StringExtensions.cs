@@ -20,6 +20,11 @@ namespace tag_h.Core.Helper.Extensions
             }
         }
 
+        public static string Filter(this string value, params string[] token)
+        {
+            return token.Length == 0 ? value : value.Replace(token[0], "").Filter(token[1..]);
+        }
+
         public static string Concat(this IEnumerable<char> chars)
         {
             return string.Concat(chars);
