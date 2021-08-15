@@ -25,7 +25,10 @@ namespace tag_h.Core.Persistence.Query
 
             command.Parameters.AddWithValue("@value", _value);
 
-            Result = command.ExecuteReader().GetTag();
+            //TODO: move to extension
+            var reader = command.ExecuteReader();
+            if (reader.Read())
+                Result = reader.GetTag();
         }
     }
 
