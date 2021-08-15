@@ -10,7 +10,7 @@ namespace tag_h.Core.TagRetriever
     [Injectable]
     public interface ITagRetriever
     {
-        Task<IEnumerable<string>> FetchTagValues(HImage image);
+        Task<IEnumerable<Tag>> FetchTagValues(HImage image);
     }
 
     public class TagRetriever : ITagRetriever
@@ -23,7 +23,7 @@ namespace tag_h.Core.TagRetriever
             
         }
 
-        public async Task<IEnumerable<string>> FetchTagValues(HImage image)
+        public async Task<IEnumerable<Tag>> FetchTagValues(HImage image)
         {
             return await _tagSource.RetrieveTags(image);
         }

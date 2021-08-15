@@ -9,7 +9,6 @@ namespace tag_h.Core.TagRetriever.TagSource
     [Injectable]
     public interface ITagSource
     {
-
-        Task<IEnumerable<string>> RetrieveTags(HImage image);
+        Task<IEnumerable<Tag>> RetrieveTags(HImage image);
     }
 }

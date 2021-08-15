@@ -1,9 +1,8 @@
-using System.IO;
-using System.Net;
 using System.Threading.Tasks;
 
 using tag_h.Core.Helper.Extensions;
 using tag_h.Core.Model;
+using tag_h.Core.Persistence;
 using tag_h.Injection;
 
 namespace tag_h.Core.TagRetriever
@@ -16,16 +15,19 @@ namespace tag_h.Core.TagRetriever
 
     public class AutoTagger : IAutoTagger
     {
+        private readonly ITagRepository _tagRepository;
         private readonly ITagRetriever _tagRetriever;
 
-        public AutoTagger(ITagRetriever tagRetriever)
+        public AutoTagger(ITagRetriever tagRetriever, ITagRepository tagRepository)
         {
             _tagRetriever = tagRetriever;
+            _tagRepository = tagRepository;
         }
 
         public async Task TagImage(HImage image)
         {
-            var tags = _tagRetriever.FetchTagValues(image);
+            var tags = await _tagRetriever.FetchTagValues(image);
+            tags.ForEach(tag => _tagRepository.AddTagToImage(image, tag));
         }
     }
 }
