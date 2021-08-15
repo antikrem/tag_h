@@ -26,7 +26,9 @@ namespace tag_h.Core.Persistence.Query
             command.Parameters.AddWithValue("@id", _image.Id);
 
             var reader = command.ExecuteReader();
-            Hash = new ImageHash(reader.GetStringOrNull(0), reader.GetStringOrNull(1));
+            // TODO: make extension
+            if (reader.Read())
+                Hash = new ImageHash(reader.GetStringOrNull(0), reader.GetStringOrNull(1));
         }
     }
 
