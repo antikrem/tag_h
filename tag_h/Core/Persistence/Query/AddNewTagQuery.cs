@@ -8,7 +8,7 @@ namespace tag_h.Core.Persistence.Query
     {
         private readonly string _name;
 
-        public AddNewTagQuery(string name, List<string> values)
+        public AddNewTagQuery(string name)
         {
             _name = name;
         }
