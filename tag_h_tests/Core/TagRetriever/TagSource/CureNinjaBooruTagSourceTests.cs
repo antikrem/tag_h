@@ -28,7 +28,7 @@ namespace tag_h_tests.Core.TagRetriever.TagSource
             IFetchHandler fetchHandler = new FetchHandler(new Jsonifier());
             _imageHasher = Substitute.For<IImageHasher>();
 
-            _sut = new CureNinjaBooruTagSource(fetchHandler, _imageHasher);
+            _sut = new CureNinjaBooruTagSource(Substitute.For<ITagMaterialiser>(), fetchHandler, _imageHasher);
         }
 
         [Test]
