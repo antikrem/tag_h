@@ -17,11 +17,12 @@ namespace tag_h.Core.Persistence.Query
 
         public void Execute(SQLiteCommand command)
         {
+            // TODO: Optimise query to not use outer join
             command.CommandText
                     = @"SELECT Tags.id, Tags.name 
-                        FROM Tags INNER JOIN TagValues 
+                        FROM Tags LEFT OUTER JOIN TagValues 
                         ON Tags.id = TagValues.id
-                        WHERE TagValues.value = @value;";
+                        WHERE TagValues.value = @value OR Tags.name = @value;";
 
             command.Parameters.AddWithValue("@value", _value);
 
