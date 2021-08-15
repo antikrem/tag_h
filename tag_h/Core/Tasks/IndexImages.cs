@@ -3,7 +3,7 @@
 using tag_h.Core.Helper.Extensions;
 using tag_h.Core.Model;
 using tag_h.Core.Persistence;
-
+using tag_h.Core.TagRetriever;
 
 namespace tag_h.Core.Tasks
 {
@@ -11,7 +11,7 @@ namespace tag_h.Core.Tasks
     {
         public string TaskName => "Indexing all Images";
 
-        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher)
+        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher, IAutoTagger autoTagger)
         {
             using (var images = imageRepository.FetchImages(ImageQuery.All))
             {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using tag_h.Core.Model;
 using tag_h.Core.Persistence;
+using tag_h.Core.TagRetriever;
 
 namespace tag_h.Core.Tasks
 {
@@ -19,13 +20,14 @@ namespace tag_h.Core.Tasks
             _files = files;
         }
 
-        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher)
+        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher, IAutoTagger autoTagger)
         {
             _files.ForEach(
                     file => {
                         var image = imageRepository.CreateNewImage(file.FileName, Convert.FromBase64String(file.Data));
                         file.Tags.ForEach(tag => tagRepository.AddTagToImage(image, tag));
                         imageHasher.HashImage(image);
+                        autoTagger.TagImage(image).Wait();
                     }
                 );
         }

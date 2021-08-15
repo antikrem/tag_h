@@ -3,7 +3,7 @@ using System.Linq;
 
 using tag_h.Core.Model;
 using tag_h.Core.Persistence;
-
+using tag_h.Core.TagRetriever;
 
 namespace tag_h.Core.Tasks
 {
@@ -11,7 +11,7 @@ namespace tag_h.Core.Tasks
     {
         public string TaskName => "Deleting Duplicate";
 
-        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher)
+        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher, IAutoTagger autoTagger)
         {
             var hashes = new Dictionary<string, string>();
             var duplicates = new List<(string, string)>();
