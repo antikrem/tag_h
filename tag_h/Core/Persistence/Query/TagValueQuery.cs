@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Linq;
 
 using tag_h.Core.Model;
 
@@ -26,6 +27,37 @@ namespace tag_h.Core.Persistence.Query
             command.Parameters.AddWithValue("@id", _tag.Id);
             command.Parameters.AddWithValue("@value", _value);
             command.ExecuteNonQuery();
+        }
+    }
+
+    public class FetchTagValues : IQuery
+    {
+        private readonly Tag _tag;
+        public List<string> Result { get; private set; }
+        
+        public FetchTagValues(Tag tag)
+        {
+            _tag = tag;
+        }
+
+        public void Execute(SQLiteCommand command)
+        {
+            command.CommandText
+                    = @"SELECT value 
+                        FROM TagValues
+                        WHERE id = @id;";
+
+            command.Parameters.AddWithValue("@id", _tag.Id);
+
+            Result = GetValues(command.ExecuteReader()).ToList();
+        }
+
+        private static IEnumerable<string> GetValues(SQLiteDataReader dataReader)
+        {
+            while (dataReader.Read())
+            {
+                yield return dataReader.GetString(0);
+            }
         }
     }
 }
