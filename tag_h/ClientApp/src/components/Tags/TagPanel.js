@@ -29,7 +29,7 @@ const TagPanel = () => {
                     <th>Catergory</th>
                 </tr>
                 {tags.map(tag =>
-                    <tr><td> {tag.name}</td><td> oops </td></tr>
+                    <tr><td> {tag.name}</td><td> { Controllers.Tags.GetValues(tag).join(", ") } </td></tr>
                 )}
             </table>}
         </div>

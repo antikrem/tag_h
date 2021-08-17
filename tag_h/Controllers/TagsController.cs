@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +31,13 @@ namespace tag_h.Controllers
         public void CreateTag(string name, List<string> values)
         {
             _tagRepository.CreateTag(name, values);
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public List<string> GetValues(Tag tag)
+        {
+            return _tagRepository.GetValues(tag).ToList();
         }
     }
 }
