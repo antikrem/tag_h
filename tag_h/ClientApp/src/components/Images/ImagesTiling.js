@@ -10,8 +10,7 @@ const ImagesTiling = (props) => {
             {props.tiledImages.map((tiledImage, i) =>
                 <ImageTile
                     key={i}
-                    tiledImage={tiledImage}
-                    viewmodel={props.viewmodel}/>)
+                    tiledImage={tiledImage}/>)
             }
         </div>
     );
