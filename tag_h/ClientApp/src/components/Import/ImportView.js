@@ -9,9 +9,6 @@ import ImportTagViewModel from './ImportTagViewModel';
 
 class TiledFileImage {
 
-    src = null;
-    tagViewmodel = null;
-
     constructor(file) {
         this.src = URL.createObjectURL(file);
     }

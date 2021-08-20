@@ -25,13 +25,9 @@ class ImagesViewModel extends ViewModel {
 class TiledTaggedImage {
 
     src = null;
-    tagViewmodel = null;
-    tagViewmodelProps = {};
 
     constructor(image) {
         this.src = `/Images/GetFile?imageId=${image.id}`;
-        this.tagViewmodel = TaggedImageViewModel;
-        this.tagViewmodelProps = { image: image }
     }
 }
 
