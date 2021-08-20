@@ -18,6 +18,8 @@ namespace tag_h.Core.TagRetriever.TagSource
     {
         private readonly ITagRepository _tagRepository;
 
+        private readonly object _singleMaterialiserLock = new();
+
         public TagMaterialiser(ITagRepository tagRepository)
         {
             _tagRepository = tagRepository;
@@ -25,9 +27,11 @@ namespace tag_h.Core.TagRetriever.TagSource
 
         public Tag GetOrCreateTag(string value)
         {
-            var tagSearch = _tagRepository.SearchTag(value);
-
-            return tagSearch != null ? tagSearch : MaterialiseTag(value);
+            lock (_singleMaterialiserLock)
+            {
+                var tagSearch = _tagRepository.SearchTag(value);
+                return tagSearch ?? MaterialiseTag(value);
+            }
         }
 
         private Tag MaterialiseTag(string value)
