@@ -35,8 +35,13 @@ namespace tag_h.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public List<string> GetValues(Tag tag)
+        public List<string> GetValues(int tagId)
         {
+            // TODO: Optimise
+            var tag = _tagRepository
+                .GetAllTags()
+                .Where(tag => tag.Id == tagId)
+                .First();
             return _tagRepository.GetValues(tag).ToList();
         }
     }
