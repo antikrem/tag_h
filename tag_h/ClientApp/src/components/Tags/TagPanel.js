@@ -5,6 +5,29 @@ import ViewModel from "react-use-controller";
 
 import TagCreate from "./TagCreate"
 
+class TagEntryViewModel extends ViewModel {
+
+    values = [];
+
+    constructor(tag) {
+        super();
+        this.tag = tag;
+        console.log(tag)
+    }
+
+    componentDidMount() {
+        this.loadTag();
+    }
+
+    loadTag = async () => this.values = await Controllers.Tags.GetValues(this.tag.id);
+}
+
+const TagEntry = (props) => {
+    const { values } = TagEntryViewModel.use(props.tag);
+
+    return <tr><td> {props.tag.name}</td><td> {values.join(", ")} </td></tr>;
+}
+
 class TagPanelViewModel extends ViewModel {
 
     tags = [];
@@ -28,8 +51,8 @@ const TagPanel = () => {
                     <th>Tag</th>
                     <th>Catergory</th>
                 </tr>
-                {tags.map(tag =>
-                    <tr><td> {tag.name}</td><td> { Controllers.Tags.GetValues(tag.tagId).join(", ") } </td></tr>
+                {tags.map(tag => 
+                    <TagEntry tag={tag} />
                 )}
             </table>}
         </div>
