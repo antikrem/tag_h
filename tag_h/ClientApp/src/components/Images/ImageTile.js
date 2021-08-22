@@ -1,15 +1,14 @@
 import React from 'react'
 
-import TagBox from './../Tags/TagBox'
-
 import './Image.css'
 
 const ImageTile = (props) => {
 
-    return <div className='inline-image-container'>
+    var setImage = props.setImage || (() => { });
+
+    return <div className='inline-image-container' onClick={() => setImage(props.tiledImage)}>
         <img className='inline-image' src={props.tiledImage.src} />
     </div>
 }
-
 
 export default ImageTile;

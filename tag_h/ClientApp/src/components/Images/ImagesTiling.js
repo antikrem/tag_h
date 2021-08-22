@@ -10,7 +10,8 @@ const ImagesTiling = (props) => {
             {props.tiledImages.map((tiledImage, i) =>
                 <ImageTile
                     key={i}
-                    tiledImage={tiledImage}/>)
+                    tiledImage={tiledImage}
+                    setImage={props.setImage}/>)
             }
         </div>
     );
