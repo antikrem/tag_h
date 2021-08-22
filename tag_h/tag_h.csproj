@@ -42,6 +42,7 @@
     <None Remove="ClientApp\src\components\TaskRunnerView.js" />
     <None Remove="ClientApp\src\Framework\ApiControllerBinder.js" />
     <None Remove="ClientApp\src\Framework\Controllers.js" />
+    <None Remove="ClientApp\src\Framework\UseViewModel.js" />
     <None Remove="ClientApp\src\PanelSystem\Panel.js" />
   </ItemGroup>
 
@@ -49,6 +50,7 @@
     <TypeScriptCompile Include="ClientApp\src\components\Layout.css" />
     <TypeScriptCompile Include="ClientApp\src\components\Logs\LogEntry.js" />
     <TypeScriptCompile Include="ClientApp\src\components\Logs\LogView.js" />
+    <TypeScriptCompile Include="ClientApp\src\Framework\UseViewModel.js" />
     <TypeScriptCompile Include="ClientApp\src\PanelSystem\Sidebar.css" />
     <TypeScriptCompile Include="ClientApp\src\PanelSystem\SidebarItem.js" />
     <TypeScriptCompile Include="ClientApp\src\Framework\ApiControllerBinder.js" />
