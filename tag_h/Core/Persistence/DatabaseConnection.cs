@@ -70,14 +70,8 @@ namespace tag_h.Core.Persistence
 
         }
 
-        public SQLiteCommand CreateCommand()
-        {
-            return _connection.CreateCommand();
-        }
+        public SQLiteCommand CreateCommand() => _connection.CreateCommand();
 
-        public void Stop()
-        {
-            _connection.Close();
-        }
+        public void Stop() => _connection.Close();
     }
 }
