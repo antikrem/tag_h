@@ -9,23 +9,17 @@ namespace tag_h.Core.Persistence
 {
     static class SQLExtensions
     {
-        public static string GetStringOrNull(this SQLiteDataReader dataReader, int column)
-        {
-            return dataReader.IsDBNull(column) ? null : dataReader.GetString(column);
-        }
+        public static string GetStringOrNull(this SQLiteDataReader dataReader, int column) 
+            => dataReader.IsDBNull(column) ? null : dataReader.GetString(column);
 
-        public static HImage GetHImage(this SQLiteDataReader dataReader)
-        {
-            return new HImage(
+        public static HImage GetHImage(this SQLiteDataReader dataReader) 
+            => new HImage(
                     dataReader.GetInt32(0),
                     dataReader.GetString(1)
                 );
-        }
 
-        public static Tag GetTag(this SQLiteDataReader dataReader)
-        {
-            return new Tag(dataReader.GetInt32(0), dataReader.GetString(1));
-        }
+        public static Tag GetTag(this SQLiteDataReader dataReader) 
+            => new Tag(dataReader.GetInt32(0), dataReader.GetString(1));
 
         private static IEnumerable<Tag> GetTagEnumeration(this SQLiteDataReader dataReader)
         {
@@ -35,9 +29,7 @@ namespace tag_h.Core.Persistence
             }
         }
 
-        public static TagSet GetTags(this SQLiteDataReader dataReader)
-        {
-            return new TagSet(dataReader.GetTagEnumeration());
-        }
+        public static TagSet GetTags(this SQLiteDataReader dataReader) 
+            => new TagSet(dataReader.GetTagEnumeration());
     }
 }
