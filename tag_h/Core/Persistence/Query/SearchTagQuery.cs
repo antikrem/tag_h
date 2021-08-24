@@ -1,4 +1,4 @@
-using System.Data.SQLite;
+using System.Linq;
 
 using tag_h.Core.Model;
 
@@ -28,11 +28,11 @@ namespace tag_h.Core.Persistence.Query
                         WHERE TagValues.value = @value OR Tags.name = @value;";
 
                     command.Parameters.AddWithValue("@value", _value);
-
-                    //TODO: move to extension
-                    var reader = command.ExecuteReader();
-                    if (reader.Read())
-                        Result = reader.GetTag();
+                    
+                    Result = command
+                        .ExecuteReader()
+                        .GetTags()
+                        .FirstOrDefault();
                 }
             );
         }
