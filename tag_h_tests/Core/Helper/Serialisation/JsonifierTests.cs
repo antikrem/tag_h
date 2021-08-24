@@ -2,6 +2,7 @@ using tag_h.Core.Helper.Extensions;
 
 using NUnit.Framework;
 using FluentAssertions;
+
 using System.Collections.Generic;
 
 namespace tag_h_tests.Core.Helper.Serialisation
