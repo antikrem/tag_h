@@ -3,6 +3,7 @@ using System.Data.SQLite;
 
 using Serilog;
 
+using tag_h.Core.Helper.Extensions;
 using tag_h.Injection;
 
 namespace tag_h.Core.Persistence
@@ -10,7 +11,7 @@ namespace tag_h.Core.Persistence
     [Injectable]
     public interface ISQLCommandExecutor
     {
-        void ExecuteCommand(Action<SQLiteCommand> command);
+        void ExecuteCommand(params Action<SQLiteCommand>[] command);
     }
 
     public class SQLCommandExecutor : ISQLCommandExecutor
@@ -24,12 +25,12 @@ namespace tag_h.Core.Persistence
             _databaseConnection = databaseConnection;
         }
 
-        public void ExecuteCommand(Action<SQLiteCommand> query)
+        public void ExecuteCommand(params Action<SQLiteCommand>[] querys)
         {
             using var command = _databaseConnection.CreateCommand();
             try
             {
-                query(command);
+                querys.ForEach(query => query(command));
                 _logger
                     .ForContext("Command", command)
                     .Information("Executed SQL command");
