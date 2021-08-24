@@ -12,11 +12,19 @@ namespace tag_h.Core.Persistence
         public static string GetStringOrNull(this SQLiteDataReader dataReader, int column) 
             => dataReader.IsDBNull(column) ? null : dataReader.GetString(column);
 
-        public static HImage GetHImage(this SQLiteDataReader dataReader) 
+        private static HImage GetHImage(this SQLiteDataReader dataReader) 
             => new HImage(
                     dataReader.GetInt32(0),
                     dataReader.GetString(1)
                 );
+
+        public static IEnumerable<HImage> GetHImages(this SQLiteDataReader dataReader)
+        {
+            while (dataReader.Read())
+            {
+                yield return dataReader.GetHImage();
+            }
+        }
 
         private static Tag GetTag(this SQLiteDataReader dataReader) 
             => new Tag(dataReader.GetInt32(0), dataReader.GetString(1));

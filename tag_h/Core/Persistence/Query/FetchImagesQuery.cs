@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Data.SQLite;
+using System.Linq;
 
 using tag_h.Core.Model;
 
@@ -19,8 +19,6 @@ namespace tag_h.Core.Persistence.Query
 
         public void Execute(ISQLCommandExecutor commandExecutor)
         {
-            List<HImage> images = new List<HImage>();
-
             commandExecutor.ExecuteCommand(
                 command =>
                 {
@@ -34,16 +32,12 @@ namespace tag_h.Core.Persistence.Query
 
                     command.CommandText = commandText;
 
-                    var dataReader = command.ExecuteReader();
-                    while (dataReader.Read())
-                    {
-                        images.Add(dataReader.GetHImage());
-                    }
+                    Result = command
+                        .ExecuteReader()
+                        .GetHImages()
+                        .ToList();
                 }
             );
-
-            Result = images;
-
         }
         private IEnumerable<string> BuildWhereClause()
         {
