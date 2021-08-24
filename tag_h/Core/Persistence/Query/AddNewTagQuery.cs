@@ -15,13 +15,23 @@ namespace tag_h.Core.Persistence.Query
 
         public void Execute(SQLiteCommand command)
         {
-            command.CommandText
+            
+        }
+
+        public void Execute(ISQLCommandExecutor commandExecutor)
+        {
+            commandExecutor.ExecuteCommand(
+                command =>
+                {
+                    command.CommandText
                     = @"INSERT OR REPLACE INTO Tags
                         (name)
                         VALUES (@name);";
 
-            command.Parameters.AddWithValue("@name", _name);
-            command.ExecuteNonQuery();
+                    command.Parameters.AddWithValue("@name", _name);
+                    command.ExecuteNonQuery();
+                }
+            );
         }
     }
 }

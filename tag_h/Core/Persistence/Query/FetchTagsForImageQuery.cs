@@ -17,18 +17,21 @@ namespace tag_h.Core.Persistence.Query
             _image = image;
         }
 
-        public void Execute(SQLiteCommand command)
+        public void Execute(ISQLCommandExecutor commandExecutor)
         {
-            ISet<Tag> tags = new SortedSet<Tag>();
-
-            command.CommandText
-                    = @"SELECT ImageTags.tagId, Tags.name 
+            commandExecutor.ExecuteCommand(
+                command =>
+                {
+                    command.CommandText
+                       = @"SELECT ImageTags.tagId, Tags.name 
                         FROM ImageTags INNER JOIN Tags 
                         ON ImageTags.tagId = Tags.id
                         WHERE ImageTags.imageId = @imageId;";
-            command.Parameters.AddWithValue("@imageId", _image.Id);
+                    command.Parameters.AddWithValue("@imageId", _image.Id);
 
-            Result = command.ExecuteReader().GetTags();
+                    Result = command.ExecuteReader().GetTags();
+                }
+            );
         }
     }
 }

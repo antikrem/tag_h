@@ -9,14 +9,17 @@ namespace tag_h.Core.Persistence.Query
     {
         public TagSet Result { get; private set; }
 
-        public void Execute(SQLiteCommand command)
+        public void Execute(ISQLCommandExecutor commandExecutor)
         {
-
-            command.CommandText
+            commandExecutor.ExecuteCommand(
+                command =>
+                {
+                    command.CommandText
                     = @"SELECT * FROM Tags;";
 
-            Result = command.ExecuteReader().GetTags();
+                    Result = command.ExecuteReader().GetTags();
+                }
+            );
         }
-
     }
 }

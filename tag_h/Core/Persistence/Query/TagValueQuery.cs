@@ -17,16 +17,21 @@ namespace tag_h.Core.Persistence.Query
             _value = value;
         }
 
-        public void Execute(SQLiteCommand command)
+        public void Execute(ISQLCommandExecutor commandExecutor)
         {
-            command.CommandText
+            commandExecutor.ExecuteCommand(
+                command =>
+                {
+                    command.CommandText
                     = @"INSERT OR REPLACE INTO TagValues
                         (id, value)
                         VALUES (@id, @value);";
 
-            command.Parameters.AddWithValue("@id", _tag.Id);
-            command.Parameters.AddWithValue("@value", _value);
-            command.ExecuteNonQuery();
+                    command.Parameters.AddWithValue("@id", _tag.Id);
+                    command.Parameters.AddWithValue("@value", _value);
+                    command.ExecuteNonQuery();
+                }
+            );
         }
     }
 
@@ -40,16 +45,21 @@ namespace tag_h.Core.Persistence.Query
             _tag = tag;
         }
 
-        public void Execute(SQLiteCommand command)
+        public void Execute(ISQLCommandExecutor commandExecutor)
         {
-            command.CommandText
+            commandExecutor.ExecuteCommand(
+                command =>
+                {
+                    command.CommandText
                     = @"SELECT value 
                         FROM TagValues
                         WHERE id = @id;";
 
-            command.Parameters.AddWithValue("@id", _tag.Id);
+                    command.Parameters.AddWithValue("@id", _tag.Id);
 
-            Result = GetValues(command.ExecuteReader()).ToList();
+                    Result = GetValues(command.ExecuteReader()).ToList();
+                }
+            );
         }
 
         private static IEnumerable<string> GetValues(SQLiteDataReader dataReader)

@@ -17,29 +17,34 @@ namespace tag_h.Core.Persistence.Query
             _query = query;
         }
 
-        public void Execute(SQLiteCommand command)
+        public void Execute(ISQLCommandExecutor commandExecutor)
         {
             List<HImage> images = new List<HImage>();
 
-            var commandText
+            commandExecutor.ExecuteCommand(
+                command =>
+                {
+                    var commandText
                     = @"SELECT * 
                         FROM Images 
                         WHERE $WHERECLAUSE
                         $LIMIT;";
-            commandText = commandText.Replace("$LIMIT", _query.Maximum != int.MaxValue ? $"LIMIT {_query.Maximum}" : "");
-            commandText = commandText.Replace("$WHERECLAUSE", string.Join(" AND ", BuildWhereClause()));
+                    commandText = commandText.Replace("$LIMIT", _query.Maximum != int.MaxValue ? $"LIMIT {_query.Maximum}" : "");
+                    commandText = commandText.Replace("$WHERECLAUSE", string.Join(" AND ", BuildWhereClause()));
 
-            command.CommandText = commandText;
+                    command.CommandText = commandText;
 
-            var dataReader = command.ExecuteReader();
-            while (dataReader.Read())
-            {
-                images.Add(dataReader.GetHImage());
-            }
+                    var dataReader = command.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        images.Add(dataReader.GetHImage());
+                    }
+                }
+            );
 
             Result = images;
-        }
 
+        }
         private IEnumerable<string> BuildWhereClause()
         {
             yield return " deleted = 0";
@@ -50,7 +55,6 @@ namespace tag_h.Core.Persistence.Query
             if (_query.Location != null)
                 yield return $"fileName = '{_query.Location}'";
         }
-
     }
 
 }

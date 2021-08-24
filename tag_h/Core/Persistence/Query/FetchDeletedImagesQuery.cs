@@ -11,20 +11,25 @@ namespace tag_h.Core.Persistence.Query
 
         public List<HImage> Result { get; private set; }
 
-        public void Execute(SQLiteCommand command)
+        public void Execute(ISQLCommandExecutor commandExecutor)
         {
-            List<HImage> images = new List<HImage>();
+            List<HImage> images = new();
 
-            command.CommandText
+            commandExecutor.ExecuteCommand(
+                command =>
+                {
+                    command.CommandText
                     = @"SELECT * 
                         FROM Images 
                         WHERE deleted = 1;";
 
-            var dataReader = command.ExecuteReader();
-            while (dataReader.Read())
-            {
-                images.Add(dataReader.GetHImage());
-            }
+                    var dataReader = command.ExecuteReader();
+                    while (dataReader.Read())
+                    {
+                        images.Add(dataReader.GetHImage());
+                    }
+                }
+            );
 
             Result = images;
         }

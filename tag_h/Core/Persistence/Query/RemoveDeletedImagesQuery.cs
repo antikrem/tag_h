@@ -5,14 +5,18 @@ namespace tag_h.Core.Persistence.Query
 {
     class RemoveDeletedImagesQuery : IQuery
     {
-
-        public void Execute(SQLiteCommand command)
+        public void Execute(ISQLCommandExecutor commandExecutor)
         {
-            command.CommandText
+            commandExecutor.ExecuteCommand(
+                command =>
+                {
+                    command.CommandText
                     = @"DELETE FROM Images
                         WHERE deleted = 1;";
 
-            command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
+                }
+            );
         }
     }
 

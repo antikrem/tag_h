@@ -15,9 +15,7 @@ namespace tag_h.Core.Persistence
 
     public class Database : IDatabase
     {
-
-        private IDatabaseConnection _connection;
-
+        ISQLCommandExecutor _commandExecutor;
         public DirectoryInfo ImageFolder
         {
             get
@@ -30,18 +28,14 @@ namespace tag_h.Core.Persistence
             }
         }
 
-        public Database(IDatabaseConnection connection)
+        public Database(IDatabaseConnection connection, ISQLCommandExecutor commandExecutor)
         {
-            _connection = connection;
+            _commandExecutor = commandExecutor;
         }
 
         public T ExecuteQuery<T>(T query) where T : IQuery
         {
-            using (var command = _connection.CreateCommand())
-            {
-                query.Execute(command);
-            }
-
+            query.Execute(_commandExecutor);
             return query;
         }
     }

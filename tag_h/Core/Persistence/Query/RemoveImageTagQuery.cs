@@ -16,16 +16,21 @@ namespace tag_h.Core.Persistence.Query
             _tag = tag;
         }
 
-        public void Execute(SQLiteCommand command)
+        public void Execute(ISQLCommandExecutor commandExecutor)
         {
-            command.CommandText
+            commandExecutor.ExecuteCommand(
+                command =>
+                {
+                    command.CommandText
                     = @"DELETE FROM ImageTags
                         WHERE imageId = @imageId
                         AND tagId = @tagId;";
 
-            command.Parameters.AddWithValue("@imageId", _image.Id);
-            command.Parameters.AddWithValue("@tagId", _tag.Id);
-            command.ExecuteNonQuery();
+                    command.Parameters.AddWithValue("@imageId", _image.Id);
+                    command.Parameters.AddWithValue("@tagId", _tag.Id);
+                    command.ExecuteNonQuery();
+                }
+            );
         }
     }
 

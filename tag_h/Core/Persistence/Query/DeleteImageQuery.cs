@@ -14,15 +14,20 @@ namespace tag_h.Core.Persistence.Query
             _image = image;
         }
 
-        public void Execute(SQLiteCommand command)
+        public void Execute(ISQLCommandExecutor commandExecutor)
         {
-            command.CommandText
+            commandExecutor.ExecuteCommand(
+                command =>
+                {
+                    command.CommandText
                     = @"UPDATE Images
                         SET deleted = 1
                         WHERE id = @id;";
 
-            command.Parameters.AddWithValue("@id", _image.Id);
-            command.ExecuteNonQuery();
+                    command.Parameters.AddWithValue("@id", _image.Id);
+                    command.ExecuteNonQuery();
+                }
+            );
         }
     }
 

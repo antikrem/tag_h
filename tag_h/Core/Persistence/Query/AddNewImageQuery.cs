@@ -14,12 +14,22 @@ namespace tag_h.Core.Persistence.Query
 
         public void Execute(SQLiteCommand command)
         {
-            command.CommandText
+            
+        }
+
+        public void Execute(ISQLCommandExecutor commandExecutor)
+        {
+            commandExecutor.ExecuteCommand(
+                command =>
+                {
+                    command.CommandText
                     = @"INSERT INTO Images (fileName, deleted) 
                         VALUES (@fileName, 0);";
-            command.Parameters.AddWithValue("@fileName", _location);
+                    command.Parameters.AddWithValue("@fileName", _location);
 
-            command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
+                }
+            );
         }
     }
 
