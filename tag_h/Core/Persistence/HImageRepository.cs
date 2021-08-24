@@ -58,8 +58,7 @@ namespace tag_h.Core.Persistence
         {
             _physicalImageProvider.CreatePhysicalImage(_database.ImageFolder.FullName, fileName, data);
             fileName = Path.Join(_database.ImageFolder.FullName, fileName);
-            _database.AddNewImage(fileName);
-            return FetchImages(new ImageQuery { Location = fileName }).First();
+            return _database.AddNewImage(fileName);
         }
 
         public void SaveImage(HImage image)

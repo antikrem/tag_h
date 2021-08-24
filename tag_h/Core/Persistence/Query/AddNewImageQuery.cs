@@ -1,4 +1,6 @@
-﻿using System.Data.SQLite;
+﻿using System.Linq;
+
+using tag_h.Core.Model;
 
 
 namespace tag_h.Core.Persistence.Query
@@ -7,14 +9,11 @@ namespace tag_h.Core.Persistence.Query
     {
         private string _location;
 
+        public HImage Image { get; private set; }
+
         public AddNewImageQuery(string location)
         {
             _location = location;
-        }
-
-        public void Execute(SQLiteCommand command)
-        {
-            
         }
 
         public void Execute(ISQLCommandExecutor commandExecutor)
@@ -28,6 +27,18 @@ namespace tag_h.Core.Persistence.Query
                     command.Parameters.AddWithValue("@fileName", _location);
 
                     command.ExecuteNonQuery();
+                },
+                command =>
+                {
+                    command.CommandText
+                    = @"SELECT * 
+                        FROM Images 
+                        WHERE id = last_insert_rowid();";
+
+                    Image = command
+                        .ExecuteReader()
+                        .GetHImages()
+                        .First();
                 }
             );
         }

@@ -9,9 +9,9 @@ namespace tag_h.Core.Persistence
     static class ImageDatabaseExtension
     {
 
-        static public void AddNewImage(this IDatabase database, string fileName)
+        static public HImage AddNewImage(this IDatabase database, string fileName)
         {
-            database.ExecuteQuery(new AddNewImageQuery(fileName));
+            return database.ExecuteQuery(new AddNewImageQuery(fileName)).Image;
         }
 
         static public void SaveImage(this IDatabase database, HImage image)
