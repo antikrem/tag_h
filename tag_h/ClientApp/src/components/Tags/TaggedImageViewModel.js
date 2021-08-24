@@ -20,6 +20,9 @@ export default class TaggedImageViewModel extends ViewModel {
         if (this.image) {
             this.tags = await Controllers.ImageTags.GetTags(this.image.id);
         }
+        else {
+            this.tags = [];
+        }
     }
 
     deleteTag = async (tag) => {
@@ -34,7 +37,12 @@ export default class TaggedImageViewModel extends ViewModel {
     };
 
     setImage = (image) => {
-        this.image = image;
+        if (!this.image || image.id != this.image.id) {
+            this.image = image;
+        }
+        else {
+            this.image = null;
+        }
         this.fetchTags();
     }
 }
