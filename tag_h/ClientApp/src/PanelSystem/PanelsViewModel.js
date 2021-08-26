@@ -24,7 +24,7 @@ export default class PanelViewModel extends ViewModel {
         new Panel("Images", <ImagesView />, null),
         new Panel("Tags", <TagPanel />, null),
         new Panel("Import", <ImportView />, null),
-        new Panel("Log", <LogView />, null)
+        new Panel("Log", <LogPanel />, null)
     ];
 
     activePane = this.firmPanels[0].component;
