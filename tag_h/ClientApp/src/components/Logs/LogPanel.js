@@ -3,8 +3,7 @@ import { LogEntry } from './LogEntry'
 
 import { Controllers } from '../../Framework/Controllers'
 
-export class LogView extends Component {
-    static displayName = LogView.name;
+export class LogPanel extends Component {
 
     constructor(props) {
         super(props);
@@ -34,7 +33,7 @@ export class LogView extends Component {
     render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : LogView.CreateLogsView(this.state.logs);
+            : LogPanel.CreateLogsView(this.state.logs);
 
         return (
             <div>

@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Home } from './../components/Home';
 import ImagesView from './../components/Images/ImagesView';
 import TagPanel from './../components/Tags/TagPanel';
-import { LogView } from './../components/Logs/LogView';
+import { LogPanel } from '../components/Logs/LogPanel';
 import Counter from './../components/Counter';
 import ImportView from './../components/Import/ImportView'
 

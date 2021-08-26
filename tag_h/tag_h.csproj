@@ -49,7 +49,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\components\Layout.css" />
     <TypeScriptCompile Include="ClientApp\src\components\Logs\LogEntry.js" />
-    <TypeScriptCompile Include="ClientApp\src\components\Logs\LogView.js" />
+    <TypeScriptCompile Include="ClientApp\src\components\Logs\LogPanel.js" />
     <TypeScriptCompile Include="ClientApp\src\Framework\UseViewModel.js" />
     <TypeScriptCompile Include="ClientApp\src\PanelSystem\Sidebar.css" />
     <TypeScriptCompile Include="ClientApp\src\PanelSystem\SidebarItem.js" />
