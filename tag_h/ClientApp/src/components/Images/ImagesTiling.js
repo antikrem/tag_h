@@ -6,14 +6,16 @@ import './Image.css'
 
 const ImagesTiling = (props) => {
     return (
-        <div className='image-grid fill-parent'>
-            {props.tiledImages.map((tiledImage, i) =>
-                <ImageTile
-                    key={i}
-                    tiledImage={tiledImage}
-                    setImage={props.setImage}/>)
-            }
-        </div>
+        <div className='scrollbar'>
+            <div className='image-grid fill-parent'>
+                {props.tiledImages.map((tiledImage, i) =>
+                    <ImageTile
+                        key={i}
+                        tiledImage={tiledImage}
+                        setImage={props.setImage}/>)
+                }
+            </div>
+        </div >
     );
 }
 

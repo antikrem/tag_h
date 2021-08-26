@@ -3,7 +3,13 @@
     height: 100%;
 }
 
+.scrollbar {
+    overflow-y: auto;
+    height: 100vh;
+}
+
 .image-grid {
+    display: table-cell;
     text-align: center;
     column-count: 3;
     column-gap: 20px;
