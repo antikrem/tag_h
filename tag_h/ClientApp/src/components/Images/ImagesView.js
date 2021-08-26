@@ -37,12 +37,17 @@ const ImagesView = () => {
     const { images } = ImagesViewModel.use();
     const { tags, image, deleteTag, addTag, setImage } = TaggedImageViewModel.use()
 
+    //TODO: Refactor to make task-pane more generic
     return (
         <div className='fill-parent'>
-            <h1>Images view</h1>
-            <p>Rendering images:</p>
-            <ImagesTiling tiledImages={images.map(image => new TiledTaggedImage(image))} setImage={setImage} />
-            {image && <TagBox viewmodel={{ tags, image, deleteTag, addTag }} />}
+            <div className={'image-body center' + (image ? ' left' : '')}>
+                <ImagesTiling
+                    tiledImages={images.map(image => new TiledTaggedImage(image))}
+                    setImage={setImage} />
+            </div>
+            {image && <div className='image-task-pane scrollbar'>
+                <TagBox viewmodel={{ tags, image, deleteTag, addTag }}/>
+            </div>}
         </div>
     );
 }

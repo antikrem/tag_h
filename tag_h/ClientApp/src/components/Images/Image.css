@@ -23,3 +23,20 @@
     display: inline;
 }
 
+.center {
+    align-content: center;
+    margin: 0 auto;
+}
+
+.left {
+    float: left;
+}
+
+.image-body {
+    width: 85%;
+}
+
+.image-task-pane {
+    float: left;
+    width: 15%;
+}
