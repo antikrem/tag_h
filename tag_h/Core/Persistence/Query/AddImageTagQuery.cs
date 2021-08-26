@@ -10,6 +10,8 @@ namespace tag_h.Core.Persistence.Query
         private HImage _image;
         private readonly Tag _tag;
 
+        public bool Success { get; private set; }
+
         public AddImageTagQuery(HImage image, Tag tag)
         {
             _image = image;
@@ -22,14 +24,14 @@ namespace tag_h.Core.Persistence.Query
                 command =>
                 {
                     command.CommandText
-                    = @"INSERT INTO ImageTags
+                    = @"INSERT OR IGNORE INTO ImageTags
                         (imageId, tagId)
                         VALUES (@imageId, @tagId);";
 
                     command.Parameters.AddWithValue("@imageId", _image.Id);
                     command.Parameters.AddWithValue("@tagId", _tag.Id);
-                    command.ExecuteNonQuery();
-                }  
+                    Success = command.ExecuteNonQuery() == 1;
+                }
             );
         }
     }

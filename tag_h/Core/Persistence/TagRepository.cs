@@ -20,7 +20,7 @@ namespace tag_h.Core.Persistence
 
         TagSet GetTagsForImage(HImage image);
 
-        void AddTagToImage(HImage image, Tag tag);
+        bool AddTagToImage(HImage image, Tag tag);
         
         void RemoveTagFromImage(HImage image, Tag tag);
     }
@@ -64,9 +64,9 @@ namespace tag_h.Core.Persistence
             return _database.ExecuteQuery(new FetchTagsForImageQuery(image)).Result;
         }
 
-        public void AddTagToImage(HImage image, Tag tag)
+        public bool AddTagToImage(HImage image, Tag tag)
         {
-            _database.ExecuteQuery(new AddImageTagQuery(image, tag));
+            return _database.ExecuteQuery(new AddImageTagQuery(image, tag)).Success;
         }
 
         public void RemoveTagFromImage(HImage image, Tag tag)
