@@ -7,11 +7,6 @@ export default class TaggedImageViewModel extends ViewModel {
     tags = [];
     image = null;
 
-    constructor(props) {
-        super();
-        this.image = props.image;
-    }
-
     componentDidMount() {
         this.fetchTags();
     }

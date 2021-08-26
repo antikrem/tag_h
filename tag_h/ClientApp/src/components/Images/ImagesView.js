@@ -35,7 +35,7 @@ class TiledTaggedImage {
 
 const ImagesView = () => {
     const { images } = ImagesViewModel.use();
-    const { tags, image, deleteTag, addTag, setImage } = TaggedImageViewModel.use({})
+    const { tags, image, deleteTag, addTag, setImage } = TaggedImageViewModel.use()
 
     return (
         <div className='fill-parent'>
