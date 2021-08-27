@@ -1,13 +1,3 @@
-.fill-parent {
-    width: 100%;
-    height: 100%;
-}
-
-.scrollbar {
-    overflow-y: auto;
-    height: 100vh;
-}
-
 .image-grid {
     display: table-cell;
     text-align: center;
@@ -21,15 +11,6 @@
 
 .inline-image-container {
     display: inline;
-}
-
-.center {
-    align-content: center;
-    margin: 0 auto;
-}
-
-.left {
-    float: left;
 }
 
 .image-body {

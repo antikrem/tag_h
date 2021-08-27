@@ -9,6 +9,7 @@ import TagBox from './../Tags/TagBox'
 import ImagesTiling from './ImagesTiling'
 
 import './Image.css'
+import './../../Styles/Format.css'
 
 class ImagesViewModel extends ViewModel {
     

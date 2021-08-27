@@ -3,6 +3,7 @@ import React from 'react';
 import ImageTile from './ImageTile'
 
 import './Image.css'
+import './../../Styles/Format.css'
 
 const ImagesTiling = (props) => {
     return (
