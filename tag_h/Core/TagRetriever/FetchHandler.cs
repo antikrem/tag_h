@@ -23,7 +23,13 @@ namespace tag_h.Core.TagRetriever
             _jsonifier = jsonifier;
         }
 
-        public async Task<string> GetAsync(string url)
+        public async Task<T> FetchAsync<T>(string url)
+        {
+            var response = await GetAsync(url);
+            return _jsonifier.ParseJson<T>(response);
+        }
+
+        private static async Task<string> GetAsync(string url)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
@@ -34,12 +40,6 @@ namespace tag_h.Core.TagRetriever
             {
                 return await reader.ReadToEndAsync();
             }
-        }
-
-        public async Task<T> FetchAsync<T>(string url)
-        {
-            var response = await GetAsync(url);
-            return _jsonifier.ParseJson<T>(response);
         }
     }
 }
