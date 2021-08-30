@@ -10,9 +10,10 @@ export class Tag extends Component {
 
     render() {
         return (
-            <div>
-                <p> {this.state.tag.name} </p><button onClick={() => this.callback()}> |x| </button>
-            </div>
+            <span style={{ marginRight: '5px', padding: '5px', whiteSpace: 'nowrap',  backgroundColor: 'red' }}>
+                <p style={{ padding: '3px', marginBottom: '5px', display: 'inline-block' }}> {this.state.tag.name}</p>
+                <p style={{ padding: '3px', marginBottom: '5px', display: 'inline-block', cursor: 'pointer' }} onClick={() => this.callback()}> x </p>
+            </span>
         );
     }
 }

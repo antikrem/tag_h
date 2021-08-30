@@ -10,7 +10,7 @@ const TagBox = (props) => {
     const { tags, deleteTag, addTag } = useViewModel(props.viewmodel, props);
 
     return (
-        <div>
+        <div style={{ display: 'inline' }}>
             {tags.map((tag) =>
                 <Tag key={tag.name} tag={tag} callback={async () => { await deleteTag(tag) }} />
             )}
