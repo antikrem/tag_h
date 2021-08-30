@@ -23,12 +23,14 @@ namespace tag_h.Core.Persistence.Query
                 command =>
                 {
                     var commandText
-                    = @"SELECT * 
-                        FROM Images 
-                        WHERE $WHERECLAUSE
+                    = @"SELECT imageId, fileName
+                        FROM (" + 
+                        GetInnerQuery() +
+                        @"
+                        ) WHERE $WHERECLAUSE
                         $LIMIT;";
                     commandText = commandText.Replace("$LIMIT", _query.Maximum != int.MaxValue ? $"LIMIT {_query.Maximum}" : "");
-                    commandText = commandText.Replace("$WHERECLAUSE", string.Join(" AND ", BuildWhereClause()));
+                    commandText = commandText.Replace("$WHERECLAUSE", string.Join(" AND ", BuildWhereClauseParts()));
 
                     command.CommandText = commandText;
 
@@ -39,15 +41,38 @@ namespace tag_h.Core.Persistence.Query
                 }
             );
         }
-        private IEnumerable<string> BuildWhereClause()
+
+        private string GetInnerQuery()
+        {
+            return _query.Included.Any()
+                ? @"SELECT Images.id as imageId, Images.fileName as fileName, Images.deleted as deleted, count(Images.id) as matchedTags
+                    FROM Images LEFT JOIN ImageTags
+                    ON Images.id == ImageTags.imageId
+                    WHERE " + GetIncludedTagClause() + @"
+                    GROUP BY Images.id"
+                : @"SELECT id as imageId, fileName as fileName, deleted
+                    FROM Images";
+        }
+
+        private string GetIncludedTagClause() => string.Join(" or ", BuildInnerTagClauseParts());
+
+        private IEnumerable<string> BuildInnerTagClauseParts() => _query.Included.Select(tag => $"ImageTags.tagId == {tag}");
+
+        private IEnumerable<string> BuildWhereClauseParts()
         {
             yield return " deleted = 0";
 
             if (_query.Id > 0)
-                yield return $"id = {_query.Id}";
+                yield return $"imageId = {_query.Id}";
 
             if (_query.Location != null)
                 yield return $"fileName = '{_query.Location}'";
+
+            if (_query.Location != null)
+                yield return $"fileName = '{_query.Location}'";
+
+            if (_query.Included.Any())
+                yield return $"matchedTags == {_query.Included.Count()}";
         }
     }
 

@@ -45,6 +45,15 @@ namespace tag_h.Controllers
             return images;
         }
 
+        [HttpGet]
+        [Route("[action]")]
+        public HImageList GetWithTags(List<Tag> tags)
+        {
+            var images = _imageRepository.FetchImages(new ImageQuery { Included = new TagSet(tags) });
+            _logger.Information("Fetching images {list}", images);
+            return images;
+        }
+
 
         [HttpGet]
         [Route("[action]")]
