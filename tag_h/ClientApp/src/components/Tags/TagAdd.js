@@ -37,7 +37,7 @@ export const TagAdd = (props) => {
     return (
         <div>
             <button onClick={activateDropDown}> |+| </button>
-            {active && <TagDropDown callback={props.callback} />}
+            {active && <TagDropDown callback={props.callback} selectedTags={props.selectedTags} />}
         </div>
     );
 
