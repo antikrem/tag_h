@@ -1,43 +1,44 @@
 ﻿import React, { Component } from 'react';
+import ViewModel from "react-use-controller";
 
 import { TagDropDown } from './TagDropDown'
 
-export class TagAdd extends Component {
+class TagAddViewModel extends ViewModel {
 
-    constructor(props) {
-        super(props);
-        this.callback = props.callback;
-        this.state = { active: false };
-    }
+    active = false;
 
     componentWillUnmount() {
         this.deactivateDropDown();
     }
 
-    activateDropDown() {
-        document.addEventListener("click", this.handleClickOutside);
-        this.setState({ active: true });
+    activateDropDown = () => {
+        //document.addEventListener("click", this.handleClickOutside);
+        this.active = true;
     }
 
     deactivateDropDown() {
-        document.removeEventListener("click", this.handleClickOutside);
-        this.setState({ active: false });
+        //document.removeEventListener("click", this.handleClickOutside);
+        this.active = false;
     }
 
     handleClickOutside = event => {
         const path = event.path || (event.composedPath && event.composedPath());
- 
+
         if (!path.includes(this.ref)) {
             this.deactivateDropDown();
         }
     };
+}
 
-    render() {
-        return (
-            <div>
-                <button onClick={ () => this.activateDropDown() }> |+| </button>
-                {this.state.active && <TagDropDown ref={ref => (this.ref = ref)} callback={  this.callback }/>}
-            </div>
-        );
-    }
+export const TagAdd = (props) => {
+
+    const { active, activateDropDown } = TagAddViewModel.use();
+
+    return (
+        <div>
+            <button onClick={activateDropDown}> |+| </button>
+            {active && <TagDropDown callback={props.callback} />}
+        </div>
+    );
+
 }
