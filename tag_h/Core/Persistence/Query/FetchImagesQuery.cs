@@ -23,8 +23,8 @@ namespace tag_h.Core.Persistence.Query
                 command =>
                 {
                     var commandText
-                    = @"SELECT imageId, fileName
-                        FROM (" + 
+                    = @"SELECT imageId, fileName, fileHash
+                        FROM (" +
                         GetInnerQuery() +
                         @"
                         ) WHERE $WHERECLAUSE
@@ -45,12 +45,12 @@ namespace tag_h.Core.Persistence.Query
         private string GetInnerQuery()
         {
             return _query.Included.Any()
-                ? @"SELECT Images.id as imageId, Images.fileName as fileName, Images.deleted as deleted, count(Images.id) as matchedTags
+                ? @"SELECT Images.id as imageId, Images.fileName as fileName, Images.deleted as deleted, Images.fileHash as fileHash, count(Images.id) as matchedTags
                     FROM Images LEFT JOIN ImageTags
                     ON Images.id == ImageTags.imageId
                     WHERE " + GetIncludedTagClause() + @"
                     GROUP BY Images.id"
-                : @"SELECT id as imageId, fileName as fileName, deleted
+                : @"SELECT id as imageId, fileName as fileName, deleted, fileHash
                     FROM Images";
         }
 
@@ -73,6 +73,9 @@ namespace tag_h.Core.Persistence.Query
 
             if (_query.Included.Any())
                 yield return $"matchedTags == {_query.Included.Count()}";
+
+            if (_query.ImageHash != null)
+                yield return $"fileHash == '{_query.ImageHash.FileHash}'";
         }
     }
 
