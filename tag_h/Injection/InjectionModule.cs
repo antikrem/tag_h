@@ -6,24 +6,25 @@ using Microsoft.Extensions.DependencyInjection;
 
 using tag_h.Core.Helper.Extensions;
 
+
 namespace tag_h.Injection
 {
     class MultipleInjectionPointsFoundException : Exception { };
 
     static class InjectionModule
     {
-        public static IEnumerable<(Type service, Type implementation)> GetInjectionDefinitions()
-        {
-            return GetInjectableInterfaces()
-                .Select(parent => (parent, GetImplementation(parent)));
-        }
-
         public static void AddRegisteredInjections(this IServiceCollection services)
         {
             GetInjectionDefinitions()
                 .ForEach(
                         definition => services.Add(CreateServiceDescription(definition))
                     );
+        }
+
+        private static IEnumerable<(Type service, Type implementation)> GetInjectionDefinitions()
+        {
+            return GetInjectableInterfaces()
+                .Select(parent => (parent, GetImplementation(parent)));
         }
 
         private static ServiceDescriptor CreateServiceDescription((Type service, Type implementation) definition)
