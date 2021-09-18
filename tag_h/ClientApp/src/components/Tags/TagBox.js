@@ -14,7 +14,7 @@ const TagBox = (props) => {
             {tags.map((tag) =>
                 <Tag key={tag.name} tag={tag} callback={async () => { await deleteTag(tag) }} />
             )}
-            <TagAdd callback={async (tag) => await addTag(tag)} />
+            <TagAdd callback={async (tag) => await addTag(tag)} selectedTags={tags} />
         </div>
     );
 }
