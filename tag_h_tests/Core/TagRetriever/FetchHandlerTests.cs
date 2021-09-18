@@ -13,6 +13,7 @@ namespace tag_h_tests.Core.TagRetriever
     public class FetchHandlerTests
     {
         private FetchHandler _sut;
+
         private IJsonifier _jsonifier;
 
         [SetUp]
