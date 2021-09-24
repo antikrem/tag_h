@@ -38,6 +38,7 @@ namespace tag_h
                         .MinimumLevel.Verbose()
                         .Enrich.FromLogContext()
                         .WriteTo.Console()
+                        .WriteTo.Seq("http://localhost:5341")
                         .WriteTo.Sink(logSink)
                         .CreateBootstrapLogger()
                 );
