@@ -48,7 +48,7 @@ namespace tag_h.Core.Tasks
             while ((task = _taskQueue.Take()) != null)
             {
                 Stopwatch stopWatch = Stopwatch.StartNew();
-                _logger.Information("Starting task: {Task Name}", task.TaskName);
+                _logger.Information("Starting task: {TaskName}", task.TaskName);
 
                 task.Execute(_imageRepository, _tagRepository, _imageHasher, _autoTagger);
 

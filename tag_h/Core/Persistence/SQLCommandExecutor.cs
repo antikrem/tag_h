@@ -31,15 +31,18 @@ namespace tag_h.Core.Persistence
             try
             {
                 querys.ForEach(query => query(command));
+
                 _logger
-                    .ForContext("Command", command)
-                    .Information("Executed SQL command");
+                    .ForContext("Command", command.CommandText)
+                    .ForContext("Parameters", command.Parameters, true)
+                    .Verbose("Executed SQL command");
             }
             catch (Exception e)
             {
                 _logger
-                    .ForContext("Exception", e)
-                    .Error("Exception thrown while executing SQL command");
+                    .ForContext("Command", command.CommandText)
+                    .ForContext("Parameters", command.Parameters, true)
+                    .Error(e, "Exception thrown while executing SQL command");
             }
 
         }
