@@ -33,12 +33,15 @@ namespace tag_h
             var logSink = new NonPersistentLogSinks();
             services.AddSingleton<INonPersistentLogSinks>(logSink);
 
-            services.AddSingleton<ILogger>(new LoggerConfiguration()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Verbose)
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .WriteTo.Sink(logSink)
-                .CreateBootstrapLogger());
+            services.AddSingleton<ILogger>(
+                    new LoggerConfiguration()
+                        .MinimumLevel.Verbose()
+                        .Enrich.FromLogContext()
+                        .WriteTo.Console()
+                        .WriteTo.Seq("http://localhost:5341")
+                        .WriteTo.Sink(logSink)
+                        .CreateBootstrapLogger()
+                );
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -106,7 +109,7 @@ namespace tag_h
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "TAG H");
-                options.RoutePrefix = "";
+                options.RoutePrefix = "swagger";
             });
         }
     }
