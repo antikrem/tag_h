@@ -8,6 +8,15 @@ using tag_h.Injection;
 
 namespace tag_h.Core.Persistence
 {
+    public class SqlExecutionException : Exception
+    {
+
+        internal SqlExecutionException(Exception innerException)
+            : base("An exception has occured executing an SQL command", innerException)
+        { }
+
+    }
+
     [Injectable]
     public interface ISQLCommandExecutor
     {
@@ -43,6 +52,8 @@ namespace tag_h.Core.Persistence
                     .ForContext("Command", command.CommandText)
                     .ForContext("Parameters", command.Parameters, true)
                     .Error(e, "Exception thrown while executing SQL command");
+
+                throw new SqlExecutionException(e);
             }
 
         }
