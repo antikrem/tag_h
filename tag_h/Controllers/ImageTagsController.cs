@@ -13,14 +13,11 @@ namespace tag_h.Controllers
     [Route("[controller]")]
     public class ImageTagsController : ControllerBase
     {
-
-        private readonly ILogger _logger;
         private readonly IHImageRepository _imageRepository;
         private readonly ITagRepository _tagRepository;
 
-        public ImageTagsController(ILogger logger, IHImageRepository imageRepository, ITagRepository tagRepository)
+        public ImageTagsController(IHImageRepository imageRepository, ITagRepository tagRepository)
         {
-            _logger = logger;
             _imageRepository = imageRepository;
             _tagRepository = tagRepository;
         }
@@ -30,9 +27,7 @@ namespace tag_h.Controllers
         public TagSet GetTags(int id)
         {
             var image = _imageRepository.FetchImages(new ImageQuery { Id = id }).First();
-            var tags = _tagRepository.GetTagsForImage(image);
-            _logger.Information("Fetching tags {tags} for iamge {image}", tags, image);
-            return tags;
+            return _tagRepository.GetTagsForImage(image);
         }
 
         [HttpDelete]
