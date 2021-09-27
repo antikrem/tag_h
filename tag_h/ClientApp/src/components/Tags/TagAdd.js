@@ -16,7 +16,7 @@ class TagAddViewModel extends ViewModel {
         this.active = true;
     }
 
-    deactivateDropDown() {
+    deactivateDropDown = () => {
         //document.removeEventListener("click", this.handleClickOutside);
         this.active = false;
     }
@@ -32,11 +32,11 @@ class TagAddViewModel extends ViewModel {
 
 export const TagAdd = (props) => {
 
-    const { active, activateDropDown } = TagAddViewModel.use();
+    const { active, activateDropDown, deactivateDropDown } = TagAddViewModel.use();
 
     return (
         <div>
-            <button onClick={activateDropDown}> |+| </button>
+            <button onClick={active ? deactivateDropDown : activateDropDown}> |{active ? "x" : "+"}| </button>
             {active && <TagDropDown callback={props.callback} selectedTags={props.selectedTags} />}
         </div>
     );
