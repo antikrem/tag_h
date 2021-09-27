@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 
 using tag_h.Core.Helper.Extensions;
@@ -27,7 +28,7 @@ namespace tag_h.Core.Persistence
         }
 
         private static Tag GetTag(this SQLiteDataReader dataReader) 
-            => new Tag(dataReader.GetInt32(0), dataReader.GetString(1));
+            => new Tag(dataReader.GetInt32(0), (string)dataReader.GetValue(1));
 
         private static IEnumerable<Tag> GetTagEnumeration(this SQLiteDataReader dataReader)
         {
