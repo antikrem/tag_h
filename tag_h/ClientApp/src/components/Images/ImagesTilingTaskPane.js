@@ -1,7 +1,7 @@
 ﻿import React from 'react'
 import ViewModel from "react-use-controller";
 
-export default class PanelViewModel extends ViewModel {
+export class PanelViewModel extends ViewModel {
 
     active = true;
     panels = [];
@@ -19,8 +19,7 @@ export default class PanelViewModel extends ViewModel {
     }
 }
 
-
-const ImagesTilingTaskPane = (props) => {
+export const ImagesTilingTaskPane = (props) => {
 
     return (
         <div className='image-task-pane scrollbar'>

@@ -7,6 +7,7 @@ import TaggedImageViewModel from './../Tags/TaggedImageViewModel'
 import TagBox from './../Tags/TagBox'
 
 import ImagesTiling from './ImagesTiling'
+import { PanelViewModel, ImagesTilingTaskPane } from './ImagesTilingTaskPane'
 
 import './Image.css'
 import './../../Styles/Format.css'
