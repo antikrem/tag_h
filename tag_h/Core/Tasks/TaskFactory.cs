@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
-using tag_h.Injection;
+using tag_h.Injection.DI;
 
 
 namespace tag_h.Core.Tasks

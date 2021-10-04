@@ -4,7 +4,7 @@ using System.Data.SQLite;
 using Serilog;
 
 using tag_h.Core.Helper.Extensions;
-using tag_h.Injection;
+using tag_h.Injection.DI;
 
 namespace tag_h.Core.Persistence
 {

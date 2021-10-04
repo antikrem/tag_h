@@ -6,9 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using Serilog;
-using Serilog.Events;
 
 using tag_h.Injection;
+using tag_h.Injection.DI;
 
 namespace tag_h
 {

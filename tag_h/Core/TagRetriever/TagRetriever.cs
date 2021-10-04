@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using tag_h.Core.Model;
 using tag_h.Core.TagRetriever.TagSource;
-using tag_h.Injection;
+using tag_h.Injection.DI;
 
 namespace tag_h.Core.TagRetriever
 {

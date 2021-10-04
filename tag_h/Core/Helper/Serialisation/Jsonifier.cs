@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using Newtonsoft.Json;
 
-using tag_h.Injection;
+using tag_h.Injection.DI;
 
 namespace tag_h.Core.Helper.Extensions
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using tag_h.Core.Helper.Extensions;
 using tag_h.Core.Model;
 using tag_h.Core.Persistence;
-using tag_h.Injection;
+using tag_h.Injection.DI;
 
 namespace tag_h.Core.TagRetriever.TagSource
 {
