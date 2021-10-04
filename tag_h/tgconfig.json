@@ -1,0 +1,4 @@
+{
+    "generationSpecs": ["ReflectiveGenerationSpec"],
+    "outputPath": "ClientApp/src/types"
+}
