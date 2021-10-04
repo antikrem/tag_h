@@ -19,6 +19,7 @@
     <PackageReference Include="Serilog.Sinks.Seq" Version="5.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.114.3" />
+    <PackageReference Include="TypeGen" Version="2.4.9" />
     <PackageReference Include="Workshell.FileFormats" Version="3.3.0.105" />
   </ItemGroup>
 
