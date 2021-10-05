@@ -1,13 +1,13 @@
-import React from 'react';
+import * as React from 'react';
 
-import { Controllers } from './../../Framework/Controllers'
-import ViewModel from "react-use-controller";
+import { Controllers } from '../../Framework/Controllers';
+import ViewModel from 'react-use-controller';
 
-import TaggedImageViewModel from './../Tags/TaggedImageViewModel'
-import TagBox from './../Tags/TagBox'
+import TaggedImageViewModel from '../Tags/TaggedImageViewModel';
+import TagBox from '../Tags/TagBox';
 
-import ImagesTiling from './ImagesTiling'
-import { PanelViewModel, ImagesTilingTaskPane } from './ImagesTilingTaskPane'
+import { ImageTileModel } from './ImageTile';
+import ImagesTiling from './ImagesTiling';
 
 import './Image.css'
 import './../../Styles/Format.css'
@@ -25,9 +25,9 @@ class ImagesViewModel extends ViewModel {
     }
 }
 
-class TiledTaggedImage {
-
-    src = null;
+class TiledTaggedImage implements ImageTileModel {
+    src: string;
+    id: number;
 
     constructor(image) {
         this.id = image.id;

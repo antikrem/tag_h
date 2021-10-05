@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using tag_h.Core.Helper.Extensions;
 
 
-namespace tag_h.Injection
+namespace tag_h.Injection.DI
 {
     class MultipleInjectionPointsFoundException : Exception { };
 

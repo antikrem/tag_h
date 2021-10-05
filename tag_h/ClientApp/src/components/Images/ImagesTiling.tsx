@@ -1,11 +1,16 @@
-import React from 'react';
+import * as React from 'react';
 
-import ImageTile from './ImageTile'
+import { ImageTile, ImageTileModel } from './ImageTile';
 
 import './Image.css'
 import './../../Styles/Format.css'
 
-const ImagesTiling = (props) => {
+export interface ImageTileViewProps {
+    tiledImages: ImageTileModel[];
+    setImage?: (model: ImageTileModel) => void;
+}
+
+const ImagesTiling = (props: ImageTileViewProps) => {
     return (
         <div className='scrollbar'>
             <div className='image-grid fill-parent'>

@@ -5,7 +5,7 @@ using NSubstitute;
 using FluentAssertions;
 
 using tag_h.Core.Tasks;
-using tag_h.Injection;
+using tag_h.Injection.DI;
 using tag_h.Core.Persistence;
 using tag_h.Core.TagRetriever;
 

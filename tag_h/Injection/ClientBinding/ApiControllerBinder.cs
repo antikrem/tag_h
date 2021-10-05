@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 
 using tag_h.Core.Helper.Extensions;
 
-namespace tag_h.Injection
+namespace tag_h.Injection.ClientBinding
 {
     static public class ApiControllerBinder
     {

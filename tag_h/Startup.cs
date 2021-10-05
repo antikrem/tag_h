@@ -6,9 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using Serilog;
-using Serilog.Events;
 
 using tag_h.Injection;
+using tag_h.Injection.DI;
 
 namespace tag_h
 {
@@ -24,7 +24,6 @@ namespace tag_h
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddHttpContextAccessor();
 

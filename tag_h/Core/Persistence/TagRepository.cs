@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using tag_h.Injection;
+using tag_h.Injection.DI;
 using tag_h.Core.Model;
 using tag_h.Core.Persistence.Query;
 using tag_h.Core.Helper.Extensions;

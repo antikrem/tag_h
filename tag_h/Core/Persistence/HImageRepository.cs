@@ -2,7 +2,7 @@
 using System.Linq;
 
 using tag_h.Core.Helper.Extensions;
-using tag_h.Injection;
+using tag_h.Injection.DI;
 using tag_h.Core.Model;
 
 namespace tag_h.Core.Persistence
