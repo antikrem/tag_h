@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -32,31 +32,6 @@
     <None Remove="$(SpaRoot)**" />
     <None Remove="Injection - Copy\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="ClientApp\src\components\ImportView.js" />
-    <None Remove="ClientApp\src\components\Layout.css" />
-    <None Remove="ClientApp\src\components\LogEntry.js" />
-    <None Remove="ClientApp\src\components\LogView.js" />
-    <None Remove="ClientApp\src\components\Sidebar.css" />
-    <None Remove="ClientApp\src\components\SideBarItem.js" />
-    <None Remove="ClientApp\src\components\TaskRunnerView.js" />
-    <None Remove="ClientApp\src\Framework\ApiControllerBinder.js" />
-    <None Remove="ClientApp\src\Framework\Controllers.js" />
-    <None Remove="ClientApp\src\Framework\UseViewModel.js" />
-    <None Remove="ClientApp\src\PanelSystem\Panel.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\components\Layout.css" />
-    <TypeScriptCompile Include="ClientApp\src\components\Logs\LogEntry.js" />
-    <TypeScriptCompile Include="ClientApp\src\components\Logs\LogPanel.js" />
-    <TypeScriptCompile Include="ClientApp\src\Framework\UseViewModel.js" />
-    <TypeScriptCompile Include="ClientApp\src\PanelSystem\Sidebar.css" />
-    <TypeScriptCompile Include="ClientApp\src\PanelSystem\SidebarItem.js" />
-    <TypeScriptCompile Include="ClientApp\src\Framework\ApiControllerBinder.js" />
-    <TypeScriptCompile Include="ClientApp\src\Framework\Controllers.js" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
