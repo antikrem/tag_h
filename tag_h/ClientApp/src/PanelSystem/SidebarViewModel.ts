@@ -1,6 +1,6 @@
 import ViewModel from "react-use-controller";
 
-export default class SideBarViewModel extends ViewModel {
+export class SideBarViewModel extends ViewModel {
     
     collapsed = false;
 

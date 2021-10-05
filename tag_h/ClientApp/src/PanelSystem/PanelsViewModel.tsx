@@ -1,22 +1,22 @@
 import ViewModel from "react-use-controller";
-import React, { Component } from 'react';
+import * as React  from 'react';
 
-import { Home } from './../components/Home';
-import ImagesView from './../components/Images/ImagesView';
-import TagPanel from './../components/Tags/TagPanel';
+import { Home } from '../components/Home';
+import ImagesView from '../components/Images/ImagesView';
+import TagPanel from '../components/Tags/TagPanel';
 import { LogPanel } from '../components/Logs/LogPanel';
-import Counter from './../components/Counter';
-import ImportView from './../components/Import/ImportView'
+import Counter from '../components/Counter';
+import ImportView from '../components/Import/ImportView'
 
 class Panel {
-    constructor(name, component, viewmodel) {
-        this.name = name;
-        this.component = component;
-        this.viewmodel = viewmodel;
-    }
+    constructor(
+        public name: string,
+        public component: JSX.Element,
+        public viewmodel: ViewModel
+        ) { }
 }
 
-export default class PanelViewModel extends ViewModel {
+export class PanelViewModel extends ViewModel {
 
     firmPanels = [
         new Panel("Home", <Home />, null),
