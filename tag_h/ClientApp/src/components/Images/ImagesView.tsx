@@ -9,8 +9,6 @@ import TagBox from '../Tags/TagBox';
 import { ImageTileModel } from './ImageTile';
 import ImagesTiling from './ImagesTiling';
 
-import { ImagesTilingTaskPane } from './ImagesTilingTaskPane'
-
 import './Image.css'
 import './../../Styles/Format.css'
 
