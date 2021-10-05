@@ -9,6 +9,8 @@ import TagBox from '../Tags/TagBox';
 import { ImageTileModel } from './ImageTile';
 import ImagesTiling from './ImagesTiling';
 
+import { PanelViewModel, ImagesTilingTaskPane } from './ImagesTilingTaskPane'
+
 import './Image.css'
 import './../../Styles/Format.css'
 
@@ -39,6 +41,10 @@ const ImagesView = () => {
     const { images } = ImagesViewModel.use();
     const { tags, image, deleteTag, addTag, setImage } = TaggedImageViewModel.use()
 
+    var panels = [
+        {name: "Tags", element: <TagBox viewmodel = {{ tags, image, deleteTag, addTag }}/>}
+    ]
+
     //TODO: Refactor to make task-pane more generic
     return (
         <div className='fill-parent'>
@@ -47,9 +53,7 @@ const ImagesView = () => {
                     tiledImages={images.map(image => new TiledTaggedImage(image))}
                     setImage={setImage} />
             </div>
-            {image && <div className='image-task-pane scrollbar'>
-                <TagBox viewmodel={{ tags, image, deleteTag, addTag }}/>
-            </div>}
+            {image && <ImagesTilingTaskPane panels={panels}/>}
         </div>
     );
 }
