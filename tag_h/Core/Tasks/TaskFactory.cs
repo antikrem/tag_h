@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Serilog;
+using System.Linq;
 
 using tag_h.Injection.DI;
 
@@ -13,10 +14,12 @@ namespace tag_h.Core.Tasks
 
     public class TaskFactory : ITaskFactory
     {
+        private readonly ILogger _logger;
         private readonly IServiceLocator _serviceProvider;
 
-        public TaskFactory(IServiceLocator serviceLocator)
+        public TaskFactory(ILogger logger, IServiceLocator serviceLocator)
         {
+            _logger = logger;
             _serviceProvider = serviceLocator;
         }
 
@@ -26,11 +29,23 @@ namespace tag_h.Core.Tasks
                 .GetConstructors()
                 .First();
 
-            var parameters = constructor
+            try
+            {
+                var parameters = constructor
                 .GetParameters()
-                .Select(parameter => _serviceProvider.Resolve(parameter.ParameterType));
+                .Select(parameter => _serviceProvider.Resolve(parameter.ParameterType))
+                .ToArray();
 
-            return (T)constructor.Invoke(parameters.ToArray());
+                return (T)constructor.Invoke(parameters);
+            }
+            catch (ServiceNotFoundException e)
+            {
+                _logger
+                    .ForContext("Parameters", constructor.GetParameters())
+                    .Error(e, "Unabled to generate {Type} task", typeof(T).GetType().Name);
+                throw;
+            }
+            
         }
     }
 }
