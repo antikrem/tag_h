@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using NSubstitute;
 using FluentAssertions;
+
+using Serilog;
 
 using tag_h.Core.Tasks;
 using tag_h.Injection.DI;
@@ -22,7 +22,7 @@ namespace tag_h_tests.Core.Tasks
         public void Setup()
         {
             _serviceLocator = Substitute.For<IServiceLocator>();
-            _sut = new TaskFactory(_serviceLocator);
+            _sut = new TaskFactory(Substitute.For<ILogger>(), _serviceLocator);
         }
 
         [Test]
