@@ -5,14 +5,14 @@ import { Home } from '../components/Home';
 import ImagesView from '../components/Images/ImagesView';
 import TagPanel from '../components/Tags/TagPanel';
 import { LogPanel } from '../components/Logs/LogPanel';
-import Counter from '../components/Counter';
+import { Counter, CounterModel } from '../components/Counter';
 import ImportView from '../components/Import/ImportView'
 
 class Panel {
     constructor(
         public name: string,
         public component: JSX.Element,
-        public viewmodel: ViewModel
+        public viewmodel: ViewModel | null
         ) { }
 }
 
@@ -20,7 +20,7 @@ export class PanelViewModel extends ViewModel {
 
     firmPanels = [
         new Panel("Home", <Home />, null),
-        new Panel("Counter", <Counter />, null),
+        new Panel("Counter", <Counter model={new CounterModel()}/>, null),
         new Panel("Images", <ImagesView />, null),
         new Panel("Tags", <TagPanel />, null),
         new Panel("Import", <ImportView />, null),
@@ -29,7 +29,7 @@ export class PanelViewModel extends ViewModel {
 
     activePane = this.firmPanels[0].component;
 
-    setActivePane = (pane) => {
+    setActivePane = (pane: JSX.Element) => {
         this.activePane = pane;
     }
 

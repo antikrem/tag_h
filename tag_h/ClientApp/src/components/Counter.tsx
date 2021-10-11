@@ -1,28 +1,35 @@
 import * as React from 'react';
-import ViewModel from "react-use-controller";
 
-class CounterViewModel extends ViewModel {
-    number = 1;
+import { event, reduce, reduced } from "event-reduce";
+import { reactive } from "event-reduce-react";
 
-    increment = () => { this.number++ };
-    decrement = () => { this.number-- };
+export class CounterModel {
+
+    increment = event();
+    decrement = event();
+
+    @reduced
+    count = reduce(0)
+        .on(this.increment, (current) => current + 1)
+        .on(this.decrement, (current) => current - 1)
+        .value;
+
+    constructor() {
+    }
 }
 
-const Counter = () => {
-    const {  number, decrement, increment } = CounterViewModel.use();
-
+export const Counter = reactive(function Counter({ model }: { model: CounterModel }) {
     return (
         <div>
             <h1>Counter</h1>
 
             <p>This is a simple example of a React component.</p>
 
-            <p aria-live="polite">Current count: <strong>{ number }</strong></p>
+            <p aria-live="polite">Current count: <strong>{model.count}</strong></p>
 
-            <button className="btn btn-primary" onClick={increment}>Increment</button>
-            <button className="btn btn-primary" onClick={decrement}>Decrement</button>
+            <button className="btn btn-primary" onClick={() => model.increment()}>Increment</button>
+            <button className="btn btn-primary" onClick={() => model.decrement()}>Decrement</button>
         </div>
     );
-}
+});
 
-export default Counter;
