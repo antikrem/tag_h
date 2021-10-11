@@ -95,7 +95,7 @@ namespace tag_h
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = "wwwroot";
 
                 if (env.IsDevelopment())
                 {
