@@ -20,10 +20,12 @@
     "jsx": "react",
     "experimentalDecorators": true,
     "noImplicitAny": true,
+    "importHelpers": true,
     "sourceMap": true
   },
   "include": [
-    "src"
+    "./**/*.tsx",
+    "./**/*.ts"
   ],
   "compileOnSave": true
 }
