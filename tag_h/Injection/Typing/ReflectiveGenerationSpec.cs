@@ -23,7 +23,7 @@ namespace tag_h.Injection.Typing
 
         private void Register(Type type)
         {
-            AddClass(type);
+            AddInterface(type);
         }
     }
 }
