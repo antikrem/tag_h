@@ -18,12 +18,7 @@ namespace tag_h.Injection.Typing
                 .Assembly
                 .GetLoadableTypes()
                 .Where(type => type.IsDefined(typeof(UsedByClient), false))
-                .ForEach(Register);
-        }
-
-        private void Register(Type type)
-        {
-            AddInterface(type);
+                .ForEach(type => AddInterface(type));
         }
     }
 }
