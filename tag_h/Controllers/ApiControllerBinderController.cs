@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc;
 
-using tag_h.Injection.ClientBinding;
+using tag_h.Injection.Controllers;
 
 namespace tag_h.Controllers
 {
