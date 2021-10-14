@@ -48,7 +48,7 @@ namespace tag_h.Injection.DI
         {
             return ReflectionHelper
                 .AllTypes
-                .Where(type => type.IsDefined(typeof(Injectable), false));
+                .Where(type => type.IsAttributed<Injectable>());
         }
     }
 }

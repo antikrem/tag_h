@@ -6,7 +6,8 @@ using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 
-using tag_h.Core.Helper.Extensions;
+using tag_h.Helper.Extensions;
+
 
 namespace tag_h.Injection.Controllers
 {
@@ -22,7 +23,7 @@ namespace tag_h.Injection.Controllers
         private static IEnumerable<Type> GetApiControllers()
         {
             return ReflectionHelper.AllTypes
-                .Where(type => type.IsDefined(typeof(ApiControllerAttribute), false));
+                .Where(type => type.IsAttributed<ApiControllerAttribute>());
         }
 
         public record ControllerDefinition(string Name, ControllerMethod[] Methods)
