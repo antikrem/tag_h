@@ -18,7 +18,13 @@ namespace tag_h.Injection.Typing
                 .Assembly
                 .GetLoadableTypes()
                 .Where(type => type.IsDefined(typeof(UsedByClient), false))
-                .ForEach(type => AddInterface(type));
+                .ForEach(type => AddInterface(type, "types"));
         }
+
+        public override void OnBeforeBarrelGeneration(OnBeforeBarrelGenerationArgs args)
+        {
+            AddBarrel("types");
+        }
+
     }
 }
