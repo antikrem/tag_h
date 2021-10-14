@@ -1,7 +1,8 @@
-﻿using tag_h.Core.Helper.Extensions;
+﻿using tag_h.Helper.Extensions;
 
 using NUnit.Framework;
 using FluentAssertions;
+
 
 namespace tag_h_tests.Core.Helper.Extensions
 {

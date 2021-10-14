@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace tag_h.Core.Helper.Extensions
+namespace tag_h.Helper.Extensions
 {
     static class ValueExtensions
     {

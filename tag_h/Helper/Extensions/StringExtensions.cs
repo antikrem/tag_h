@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace tag_h.Core.Helper.Extensions
+namespace tag_h.Helper.Extensions
 {
     public class MatchFirstFailed : Exception { }
 

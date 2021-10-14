@@ -1,9 +1,10 @@
 ﻿using System.Linq;
 
-using tag_h.Core.Helper.Extensions;
+using tag_h.Helper.Extensions;
 using tag_h.Core.Model;
 using tag_h.Core.Persistence;
 using tag_h.Core.TagRetriever;
+
 
 namespace tag_h.Core.Tasks
 {

@@ -3,7 +3,8 @@
 using tag_h.Injection.DI;
 using tag_h.Core.Model;
 using tag_h.Core.Persistence.Query;
-using tag_h.Core.Helper.Extensions;
+using tag_h.Helper.Extensions;
+
 
 namespace tag_h.Core.Persistence
 {

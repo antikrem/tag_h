@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using tag_h.Core.Helper.Extensions;
+
+using tag_h.Helper.Extensions;
+
 
 namespace tag_h_tests._TestHelpers
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace tag_h.Core.Helper.Extensions
+namespace tag_h.Helper.Extensions
 {
     static class CollectionExtensions
     {

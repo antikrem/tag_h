@@ -4,7 +4,7 @@ using System.Linq;
 
 using Microsoft.Extensions.DependencyInjection;
 
-using tag_h.Core.Helper.Extensions;
+using tag_h.Helper.Extensions;
 
 
 namespace tag_h.Injection.DI
