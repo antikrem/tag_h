@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace tag_h.Helper.Extensions
 {
@@ -13,5 +13,16 @@ namespace tag_h.Helper.Extensions
                 action(t);
             }
         }
+
+        //TODO: tests
+        public static bool None<T>(this IEnumerable<T> sequence)
+            => !sequence.Any();
+
+        //TODO: tests
+        public static T ChainCall<T, S>(this T target, IEnumerable<S> sequence, Func<T, S, T> action)
+            => sequence.Any()
+                ? action(target, sequence.First())
+                    .ChainCall(sequence.Skip(1), action)
+                : target;
     }
 }
