@@ -1,30 +1,48 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
+using System.Reflection;
 
-using tag_h.Core.Helper.Extensions;
 
 using TypeGen.Core.Extensions;
 using TypeGen.Core.SpecGeneration;
+
+using tag_h.Helper.Extensions;
 
 
 namespace tag_h.Injection.Typing
 {
     public class ReflectiveGenerationSpec : GenerationSpec
     {
+
+        //TODO: Use ReflectionHelper
         public override void OnBeforeGeneration(OnBeforeGenerationArgs args)
-        {
-            //TODO: use ReflectionHelper
-            GetType()
+            => GetType()
                 .Assembly
                 .GetLoadableTypes()
-                .Where(type => type.IsDefined(typeof(UsedByClient), false))
-                .ForEach(type => AddInterface(type, "types"));
-        }
+                .Where(type => type.IsAttributed<UsedByClient>())
+                .ForEach(RegisterType);
 
         public override void OnBeforeBarrelGeneration(OnBeforeBarrelGenerationArgs args)
-        {
-            AddBarrel("types");
-        }
+            => AddBarrel(TypesDirectory);
 
+        private void RegisterType(Type type)
+            => AddInterface(type, TypesDirectory)
+                .ChainCall(
+                        ExcludedMembers(type),
+                        (builder, excludedMember) => builder.Member(excludedMember)
+                    )
+                .Ignore();
+
+        private static IEnumerable<string> ExcludedMembers(Type type)
+            => type
+                .GetProperties()
+                .Where(IsExcludedProperty)
+                .Select(property => property.Name);
+
+        private static bool IsExcludedProperty(MemberInfo type)
+            => type.IsAttributed<ExcludeFromClientType>();
+
+        private static string TypesDirectory => "types";
     }
 }
