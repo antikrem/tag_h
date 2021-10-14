@@ -1,4 +1,7 @@
 {
-    "generationSpecs": ["ReflectiveGenerationSpec"],
-    "outputPath": "ClientApp/src/types"
+  "generationSpecs": [ "ReflectiveGenerationSpec" ],
+  "propertyNameConverters": [],
+  "typeNameConverters": [],
+  "fileNameConverters": [],
+  "outputPath": "ClientApp/src/types"
 }
