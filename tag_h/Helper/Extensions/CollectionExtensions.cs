@@ -15,6 +15,10 @@ namespace tag_h.Helper.Extensions
         }
 
         //TODO: tests
+        public static IEnumerable<T> ToEnumerable<T>(this T element) 
+            => new List<T> { element };
+
+        //TODO: tests
         public static bool None<T>(this IEnumerable<T> sequence)
             => !sequence.Any();
 
