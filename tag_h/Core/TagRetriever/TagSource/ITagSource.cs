@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using EphemeralEx.Injection;
+
 using tag_h.Core.Model;
-using tag_h.Injection.DI;
+
 
 namespace tag_h.Core.TagRetriever.TagSource
 {

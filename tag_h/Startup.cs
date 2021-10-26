@@ -5,10 +5,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using EphemeralEx.Injection;
 using Serilog;
 
 using tag_h.Injection;
-using tag_h.Injection.DI;
+
 
 namespace tag_h
 {

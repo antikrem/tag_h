@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 
-using tag_h.Helper.Extensions;
+using EphemeralEx.Extensions;
+
 using tag_h.Core.Model;
 using tag_h.Core.Persistence;
 using tag_h.Core.TagRetriever;

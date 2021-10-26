@@ -1,8 +1,9 @@
 ﻿using System.IO;
 using System.Linq;
 
-using tag_h.Helper.Extensions;
-using tag_h.Injection.DI;
+using EphemeralEx.Extensions;
+using EphemeralEx.Injection;
+
 using tag_h.Core.Model;
 
 
@@ -11,7 +12,7 @@ namespace tag_h.Core.Persistence
     [Injectable]
     public interface IHImageRepository
     {
-        //TODO
+        //TODO: Remove into seperate repository
         DirectoryInfo ImageFolder { get; }
 
         void ApplyDeletions();

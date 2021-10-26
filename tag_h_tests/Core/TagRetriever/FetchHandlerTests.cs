@@ -5,8 +5,9 @@ using NUnit.Framework;
 using NSubstitute;
 using FluentAssertions;
 
+using EphemeralEx.Serialisation;
+
 using tag_h.Core.TagRetriever;
-using tag_h.Core.Helper.Extensions;
 
 namespace tag_h_tests.Core.TagRetriever
 {

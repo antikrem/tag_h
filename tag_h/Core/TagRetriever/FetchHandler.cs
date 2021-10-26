@@ -1,10 +1,10 @@
-using System;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
-using tag_h.Core.Helper.Extensions;
-using tag_h.Injection.DI;
+using EphemeralEx.Injection;
+using EphemeralEx.Serialisation;
+
 
 namespace tag_h.Core.TagRetriever
 {

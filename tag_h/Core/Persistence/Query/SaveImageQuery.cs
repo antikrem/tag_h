@@ -1,6 +1,5 @@
 ﻿using System.Data.SQLite;
 
-using tag_h.Core.Helper.Extensions;
 using tag_h.Core.Model;
 
 

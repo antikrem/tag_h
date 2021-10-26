@@ -1,16 +1,16 @@
 ﻿using System.Threading.Tasks;
 
-using tag_h_tests._TestHelpers;
-
 using NUnit.Framework;
 using FluentAssertions;
 using NSubstitute;
+
+using EphemeralEx.Serialisation;
+using EphemeralEx.Tests;
 
 using tag_h.Core.TagRetriever.TagSource;
 using tag_h.Core.TagRetriever;
 using tag_h.Core.Persistence;
 using tag_h.Core.Model;
-using tag_h.Core.Helper.Extensions;
 
 namespace tag_h_tests.Core.TagRetriever.TagSource
 {

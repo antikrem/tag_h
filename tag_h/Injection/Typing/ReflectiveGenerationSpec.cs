@@ -3,12 +3,9 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
 
-
+using EphemeralEx.Extensions;
 using TypeGen.Core.Extensions;
 using TypeGen.Core.SpecGeneration;
-
-using tag_h.Helper.Extensions;
-
 
 namespace tag_h.Injection.Typing
 {

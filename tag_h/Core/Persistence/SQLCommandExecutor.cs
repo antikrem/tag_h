@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Data.SQLite;
 
+using EphemeralEx.Extensions;
+using EphemeralEx.Injection;
 using Serilog;
-
-using tag_h.Helper.Extensions;
-using tag_h.Injection.DI;
 
 
 namespace tag_h.Core.Persistence
