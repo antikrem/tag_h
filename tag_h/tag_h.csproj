@@ -16,17 +16,17 @@
 
   <ItemGroup>
     <PackageReference Include="CoenM.ImageSharp.ImageHash" Version="1.0.0" />
-    <PackageReference Include="EphemeralEx" Version="1.0.6" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.7" />
+    <PackageReference Include="EphemeralEx" Version="1.0.17" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.11" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
     <PackageReference Include="Serilog.Sinks.Seq" Version="5.0.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
-    <PackageReference Include="System.Data.SQLite" Version="1.0.114.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.115" />
     <PackageReference Include="TypeGen" Version="2.4.9" />
-    <PackageReference Include="Workshell.FileFormats" Version="3.3.0.105" />
+    <PackageReference Include="Workshell.FileFormats" Version="3.4.0.107" />
   </ItemGroup>
 
   <ItemGroup>
