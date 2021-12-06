@@ -15,7 +15,7 @@ namespace TestApplication.Specifications
 {
     class ControllerGenerationSpecification : GenerationSpecification
     {
-        public override string OutputRoot => "Controllers";
+        public override string OutputRoot => "ClientApp/src/Controllers";
 
         public override IEnumerable<ITypeDefinition> TypeDeclaractions()
             => GetType()

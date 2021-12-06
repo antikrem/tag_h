@@ -13,7 +13,7 @@ namespace TestApplication.Specifications
 {
     class ReflectiveGenerationSpecification : GenerationSpecification
     {
-        public override string OutputRoot => "Typings";
+        public override string OutputRoot => "ClientApp/src/Typings";
 
         public override IEnumerable<ITypeDefinition> TypeDeclaractions()
             => GetType()
