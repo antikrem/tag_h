@@ -15,16 +15,11 @@ namespace tag_h.Core.Tasks
 
         public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher, IAutoTagger autoTagger)
         {
-            using (var images = imageRepository.FetchImages(ImageQuery.All))
-            {
-                var unhashedImages = images
-                    .Where(x => x.IsHashableFormat())
-                    .Where(y => imageHasher.GetHash(y).FileHash == null);
+            var unhashedImages = imageRepository.FetchImages(ImageQuery.All)
+                .Where(image => image.IsHashableFormat())
+                .Where(image => imageHasher.GetHash(image).FileHash == null);
 
-                unhashedImages.ForEach(
-                        image => imageHasher.HashImage(image)
-                    );
-            }
+            unhashedImages.ForEach(image => imageHasher.HashImage(image));
         }
     }
 }

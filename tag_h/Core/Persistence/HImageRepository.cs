@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 using EphemeralEx.Extensions;
@@ -25,7 +26,7 @@ namespace tag_h.Core.Persistence
 
         void DeleteImage(HImage image);
 
-        HImageList FetchImages(ImageQuery query);
+        IEnumerable<HImage> FetchImages(ImageQuery query);
     }
 
     public class HImageRepository : IHImageRepository
@@ -73,9 +74,9 @@ namespace tag_h.Core.Persistence
             _database.DeleteImage(image);
         }
 
-        public HImageList FetchImages(ImageQuery query)
+        public IEnumerable<HImage> FetchImages(ImageQuery query)
         {
-            return new HImageList(this, _database.FetchAllImages(query));
+            return _database.FetchAllImages(query);
         }
 
     }

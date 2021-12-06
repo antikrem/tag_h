@@ -38,7 +38,7 @@ namespace tag_h.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public HImageList GetAll()
+        public IEnumerable<HImage> GetAll()
         {
             var images = _imageRepository.FetchImages(ImageQuery.All);
             _logger.Information("Fetching images {list}", images);
@@ -47,7 +47,7 @@ namespace tag_h.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public HImageList GetWithTags(List<Tag> tags)
+        public IEnumerable<HImage> GetWithTags(List<Tag> tags)
         {
             var images = _imageRepository.FetchImages(new ImageQuery { Included = new TagSet(tags) });
             _logger.Information("Fetching images {list}", images);

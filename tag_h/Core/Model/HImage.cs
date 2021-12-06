@@ -1,16 +1,14 @@
 ﻿using System;
 using System.IO;
 
-using CoenM.ImageHash;
-using CoenM.ImageHash.HashAlgorithms;
-
 using Workshell.FileFormats;
+
+using tag_h.Injection.Typing;
 
 
 namespace tag_h.Core.Model
 {
-    /* Stores an entire image
-     */
+    [UsedByClient]
     public class HImage : IDisposable
     {
 
