@@ -11,7 +11,7 @@ using TypeSharpGen.Specification;
 using tag_h.Controllers;
 
 
-namespace TestApplication.Specifications
+namespace tag_h.Injection.Typing
 {
     class ControllerGenerationSpecification : GenerationSpecification
     {
@@ -26,14 +26,14 @@ namespace TestApplication.Specifications
                 .Select(CreateControllerDefinition);
 
         private ITypeDefinition CreateControllerDefinition(Type type)
-            => DeclareInterface(type)
+            => Declare(type)
                 .ChainCall(GetControllerEndPoints(type), (definition, method) => definition.AddMethod(method))
-                .EmitTo($"{type.Name}.d.ts");
+                .EmitTo($"{type.Name}.ts");
 
         private static IEnumerable<string> GetControllerEndPoints(Type type)
             => type
                 .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
-                .Select(method => method.Name)
-                .Where(name => name != "GetFile");
+                .Where(method => !method.IsAttributed<IgnoredByClient>())
+                .Select(method => method.Name);
     }
 }

@@ -7,9 +7,8 @@ using EphemeralEx.Extensions;
 using TypeSharpGen.Builder;
 using TypeSharpGen.Specification;
 
-using tag_h.Injection.Typing;
 
-namespace TestApplication.Specifications
+namespace tag_h.Injection.Typing
 {
     class ReflectiveGenerationSpecification : GenerationSpecification
     {
@@ -23,9 +22,9 @@ namespace TestApplication.Specifications
                 .Select(CreateTypeDefinition);
 
         private ITypeDefinition CreateTypeDefinition(Type type)
-            => DeclareInterface(type)
+            => Declare(type)
                 .ChainCall(GetPublicProperties(type), (definition, method) => definition.AddProperty(method))
-                .EmitTo($"{type.Name}.d.ts");
+                .EmitTo($"{type.Name}.ts");
 
         private static IEnumerable<PropertyInfo> GetPublicProperties(Type type)
             => type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
