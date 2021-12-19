@@ -23,7 +23,11 @@ namespace tag_h.Injection.Typing
 
         private ITypeDefinition CreateTypeDefinition(Type type)
             => Declare(type)
-                .ChainCall(GetPublicProperties(type), (definition, method) => definition.AddProperty(method))
+                .ChainCall(
+                    GetPublicProperties(type), 
+                    (definition, method) 
+                        => method.IsAttributed<IgnoredByClient>() ? definition : definition.AddProperty(method)
+                )
                 .EmitTo($"{type.Name}.ts");
 
         private static IEnumerable<PropertyInfo> GetPublicProperties(Type type)
