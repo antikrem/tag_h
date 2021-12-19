@@ -12,6 +12,7 @@ using tag_h.Core.TagRetriever;
 using tag_h.Core.Persistence;
 using tag_h.Core.Model;
 
+
 namespace tag_h_tests.Core.TagRetriever.TagSource
 {
     class CureNinjaBooruTagSourceTests
