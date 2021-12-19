@@ -7,6 +7,8 @@ using Serilog;
 using tag_h.Core.Model;
 using tag_h.Core.Persistence;
 using tag_h.Core.Tasks;
+using tag_h.Injection.Typing;
+
 
 namespace tag_h.Controllers
 {
@@ -54,7 +56,7 @@ namespace tag_h.Controllers
             return images;
         }
 
-
+        [IgnoredByClient]
         [HttpGet]
         [Route("[action]")]
         public FileStreamResult GetFile(int imageId)
