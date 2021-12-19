@@ -1,7 +1,11 @@
 ﻿using System;
 
+using tag_h.Injection.Typing;
+
+
 namespace tag_h.Core.Model
 {
+    [UsedByClient]
     public class Tag : IComparable<Tag>
     {
         public int Id { get; }
