@@ -1,3 +1,0 @@
-﻿export { Controllers };
-
-let Controllers = {};
