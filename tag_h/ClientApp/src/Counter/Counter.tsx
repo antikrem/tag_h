@@ -2,9 +2,12 @@ import * as React from 'react';
 
 import { event, reduce, reduced } from "event-reduce";
 import { reactive } from "event-reduce-react";
+import { PageModel } from '../PageModel';
 
-export class CounterModel {
-
+export class CounterModel extends PageModel
+{
+    name = "Counter";
+      
     increment = event();
     decrement = event();
 
@@ -15,6 +18,11 @@ export class CounterModel {
         .value;
 
     constructor() {
+        super();
+    }
+
+    view() { 
+        return <Counter model={this}/> 
     }
 }
 

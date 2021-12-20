@@ -1,30 +1,22 @@
+import { reactive } from 'event-reduce-react';
 import * as React from 'react';
-
-import { SidebarItem } from './PanelSystem/SidebarItem';
-
-import { PanelViewModel } from './PanelSystem/PanelsViewModel';
-import { SideBarViewModel } from './PanelSystem/SidebarViewModel'
-
-import './custom.css'
-import './components/Content.css'
-import './PanelSystem/Sidebar.css';
+import { ApplicationModel } from './ApplicationModel';
+import './components/Content.css';
 import './components/Layout.css';
+import './custom.css';
+import './PageSystem/Sidebar.css';
+import { SidebarItem } from './PageSystem/SidebarItem';
 
-const App = () => {
-    const { activePane, getSidebarProps } = PanelViewModel.use();
-    const { collapsed, toggleCollapsed } = SideBarViewModel.use();
-
+export const App = reactive(function App({ model }: { model : ApplicationModel }) {
     return (
         <div className="layout">
-            {!collapsed && <div className="sidebar">
-                <button className="btn btn-primary" onClick={() => { toggleCollapsed() }}>Close</button>
-                {getSidebarProps().map((props, i) => <SidebarItem key={i} {...props} />)}
+            {!model.sidePanel.collapsed && <div className="sidebar">
+                <button className="btn btn-primary" onClick={() => model.sidePanel.toggleCollapse() }>Close</button>
+                {model.pages.map((page, i) => <SidebarItem key={i} page={page} pageEvent={model.pageManagement.events} />)}
             </div>}
             <div className="content">
-                {activePane}
+                { model.pageManagement.activePage.view() }
             </div>
         </div>
     );
-}
-
-export default App;
+});
