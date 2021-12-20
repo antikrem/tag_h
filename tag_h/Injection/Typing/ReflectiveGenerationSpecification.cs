@@ -26,7 +26,9 @@ namespace tag_h.Injection.Typing
                 .ChainCall(
                     GetPublicProperties(type), 
                     (definition, method) 
-                        => method.IsAttributed<IgnoredByClient>() ? definition : definition.AddProperty(method)
+                        => method.IsAttributed<IgnoredByClient>() 
+                            ? definition 
+                            : definition.AddProperty(method, new OverideName(char.ToLower(method.Name.First()) + method.Name.Substring(1) )) // TODO: EX
                 )
                 .EmitTo($"{type.Name}.ts");
 
