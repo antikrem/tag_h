@@ -3,6 +3,8 @@ import * as React from 'react';
 import { Controllers } from '../../Framework/Controllers';
 import ViewModel from 'react-use-controller';
 
+import { HImage } from "../../Typings/HImage"
+
 import TaggedImageViewModel from '../Tags/TaggedImageViewModel';
 import TagBox from '../Tags/TagBox';
 
@@ -16,7 +18,7 @@ import './../../Styles/Format.css'
 
 class ImagesViewModel extends ViewModel {
     
-    images = [];
+    images : HImage[] = [];
 
     componentDidMount() {
         this.fetchImages();
@@ -31,7 +33,7 @@ class TiledTaggedImage implements ImageTileModel {
     src: string;
     id: number;
 
-    constructor(image) {
+    constructor(image : HImage) {
         this.id = image.id;
         this.src = `/Images/GetFile?imageId=${image.id}`;
     }

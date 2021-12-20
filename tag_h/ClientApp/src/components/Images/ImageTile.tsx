@@ -17,6 +17,6 @@ export const ImageTile = (props: ImageTileProps) => {
     var setImage = props.setImage ?? (() => { });
 
     return <div className='inline-image-container' onClick={() => setImage(props.tiledImage)}>
-        <img className='inline-image' src={props.tiledImage.src} />
+        <img className='inline-image' src={props.tiledImage.src!} />
     </div>
 }
