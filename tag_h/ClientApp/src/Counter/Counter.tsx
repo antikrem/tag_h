@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import { event, reduce, reduced } from "event-reduce";
 import { reactive } from "event-reduce-react";
-import { PageModel } from '../PageModel';
+import { PageModel } from '../PageSystem/PageModel';
 
 export class CounterModel extends PageModel
 {
     name = "Counter";
-      
+
     increment = event();
     decrement = event();
 

@@ -1,8 +1,8 @@
 import { reduce, reduced, state } from 'event-reduce';
 import { CounterModel } from './Counter/Counter';
-import { PageManagementModel } from './PageManagement';
-import { PageModel } from './PageModel';
-import { SidePanelModel } from './SidePanelModel';
+import { PageManagementModel } from './PageSystem/PageManagement';
+import { PageModel } from './PageSystem/PageModel';
+import { SidePanelModel } from './PageSystem/SidePanelModel';
 
 export class ApplicationModel {
     @reduced

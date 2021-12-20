@@ -1,7 +1,7 @@
 ﻿import { reactive } from 'event-reduce-react';
 import * as React from 'react';
-import { PageManagementEvents } from "../PageManagement";
-import { PageModel } from '../PageModel';
+import { PageManagementEvents } from "../PageSystem/PageManagement";
+import { PageModel } from '../PageSystem/PageModel';
 import './Sidebar.css';
 
 interface ISidebarItemProps {
