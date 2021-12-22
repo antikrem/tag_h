@@ -9,7 +9,7 @@ using TypeSharpGen.Builder;
 using TypeSharpGen.Specification;
 
 using tag_h.Controllers;
-
+using System.Threading.Tasks;
 
 namespace tag_h.Injection.Typing
 {
@@ -27,13 +27,30 @@ namespace tag_h.Injection.Typing
 
         private ITypeDefinition CreateControllerDefinition(Type type)
             => Declare(type)
-                .ChainCall(GetControllerEndPoints(type), (definition, method) => definition.AddMethod(method))
+                .ChainCall(
+                    GetControllerEndPoints(type), 
+                    (definition, method) => definition.AddMethod(method.Name, GetOverideForMethodReturn(method))
+                )
                 .EmitTo($"{type.Name}.ts");
 
-        private static IEnumerable<string> GetControllerEndPoints(Type type)
+        private static IEnumerable<MethodInfo> GetControllerEndPoints(Type type)
             => type
                 .GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
-                .Where(method => !method.IsAttributed<IgnoredByClient>())
-                .Select(method => method.Name);
+                .Where(method => !method.IsAttributed<IgnoredByClient>());
+
+        private static IMethodModifier GetOverideForMethodReturn(MethodInfo method)
+            => new OverideReturnType(
+                method.ReturnType.Collect(
+                    type => type == typeof(void) ? typeof(Task) : null,
+                    type => IsTaskType(type) ? type : null,
+                    type => typeof(Task<>).MakeGenericType(type)
+                )
+                .NotNull()
+                .First());
+
+        private static bool IsTaskType(Type type) //TODO: move to ex 
+            => (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Task<>))
+                || type == typeof(Task);
+
     }
 }

@@ -4,11 +4,11 @@ import { Tag } from "./../Typings/Tag";
 
 export interface ImagesController {
 
-    GetAll(): HImage[];
+    GetAll(): Promise<HImage[]>;
 
-    GetWithTags(tags: Tag[]): HImage[];
+    GetWithTags(tags: Tag[]): Promise<HImage[]>;
 
-    AddImages(files: SubmittedFile[]): void;
+    AddImages(files: SubmittedFile[]): Promise<void>;
 }
 
 export interface SubmittedFile {

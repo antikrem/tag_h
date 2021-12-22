@@ -3,9 +3,9 @@ import { TagSet } from "./ImageTagsController";
 
 export interface TagsController {
 
-    GetAllTags(): TagSet;
+    GetAllTags(): Promise<TagSet>;
 
-    CreateTag(name: string, values: string[]): void;
+    CreateTag(name: string, values: string[]): Promise<void>;
 
-    GetValues(tagId: number): string[];
+    GetValues(tagId: number): Promise<string[]>;
 }

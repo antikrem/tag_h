@@ -2,11 +2,11 @@
 
 export interface ImageTagsController {
 
-    GetTags(id: number): TagSet;
+    GetTags(id: number): Promise<TagSet>;
 
-    DeleteTag(imageId: number, tagId: number): void;
+    DeleteTag(imageId: number, tagId: number): Promise<void>;
 
-    AddTag(id: number, tagId: number): void;
+    AddTag(id: number, tagId: number): Promise<void>;
 }
 
 export interface TagSet {
