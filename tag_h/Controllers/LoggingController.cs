@@ -1,19 +1,21 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Serilog.Events;
 
 using tag_h.Injection;
+using tag_h.Injection.Typing;
+
 
 namespace tag_h.Controllers
 {
 
+    [UsedByClient]
     public record LogEntry
     (
-        DateTime PostTime,
+        string Time,
         string Body, 
-        IReadOnlyDictionary<string, LogEventPropertyValue> Properties
+        IReadOnlyDictionary<string, string> Context
     );
 
     [ApiController]
@@ -40,7 +42,11 @@ namespace tag_h.Controllers
 
         static private LogEntry ConvertToEntry(LogEvent logEvent)
         {
-            return new LogEntry(logEvent.Timestamp.DateTime, logEvent.RenderMessage(), logEvent.Properties);
+            return new LogEntry(
+                logEvent.Timestamp.DateTime.ToString(),
+                logEvent.RenderMessage(),
+                logEvent.Properties.ToDictionary(property => property.Key, property => property.Value.ToString())
+            );
         }
     }
 }
