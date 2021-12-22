@@ -4,8 +4,7 @@ import { event, reduce, reduced } from "event-reduce";
 import { reactive } from "event-reduce-react";
 import { PageModel } from '../PageSystem/PageModel';
 
-export class CounterModel extends PageModel
-{
+export class CounterModel extends PageModel {
     name = "Counter";
 
     increment = event();
@@ -40,4 +39,3 @@ export const Counter = reactive(function Counter({ model }: { model: CounterMode
         </div>
     );
 });
-
