@@ -1,7 +1,6 @@
 import { reduce, event, reduced } from 'event-reduce';
 import { PageModel } from './PageModel';
-import { ApplicationModel } from './ApplicationModel';
-
+import { ApplicationModel } from './../ApplicationModel';
 
 export class PageManagementEvents {
     selectPage = event<PageModel>();
