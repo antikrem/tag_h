@@ -7,12 +7,12 @@ export interface ImageTileModel {
     id: number;
 }
 
-export interface ImageTileProps {
-    tiledImage: ImageTileModel;
-    setImage?: (model: ImageTileModel) => void;
+export interface ImageTileProps<T extends ImageTileModel> {
+    tiledImage: T;
+    setImage?: (model: T) => void;
 }
 
-export const ImageTile = (props: ImageTileProps) => {
+export const ImageTile = <T extends ImageTileModel>(props: ImageTileProps<T>) => {
 
     var setImage = props.setImage ?? (() => { });
 

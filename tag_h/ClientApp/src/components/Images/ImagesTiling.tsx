@@ -5,12 +5,12 @@ import { ImageTile, ImageTileModel } from './ImageTile';
 import './Image.css'
 import './../../Styles/Format.css'
 
-export interface ImageTileViewProps {
-    tiledImages: ImageTileModel[];
-    setImage?: (model: ImageTileModel) => void;
+export interface ImageTileViewProps<T extends ImageTileModel> {
+    tiledImages: T[];
+    setImage?: (model: T) => void;
 }
 
-const ImagesTiling = (props: ImageTileViewProps) => {
+export const ImagesTiling = <T extends ImageTileModel> (props: ImageTileViewProps<T>) => {
     return (
         <div className='scrollbar'>
             <div className='image-grid fill-parent'>
@@ -24,5 +24,3 @@ const ImagesTiling = (props: ImageTileViewProps) => {
         </div >
     );
 }
-
-export default ImagesTiling;

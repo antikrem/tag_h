@@ -9,7 +9,7 @@ import TaggedImageViewModel from '../Tags/TaggedImageViewModel';
 import TagBox from '../Tags/TagBox';
 
 import { ImageTileModel } from './ImageTile';
-import ImagesTiling from './ImagesTiling';
+import { ImagesTiling } from './ImagesTiling';
 
 import { ImagesTilingTaskPane } from './ImagesTilingTaskPane'
 
@@ -53,7 +53,7 @@ const ImagesView = () => {
             <div className={'image-body center' + (image ? ' left' : '')}>
                 <ImagesTiling
                     tiledImages={images.map(image => new TiledTaggedImage(image))}
-                    setImage={setImage} />
+                    setImage={(image) => {}} />
             </div>
             {image && <ImagesTilingTaskPane panels={panels}/>}
         </div>
