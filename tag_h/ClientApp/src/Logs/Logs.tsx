@@ -26,7 +26,7 @@ export class LogsModel extends PageModel {
     }
 }
 
-export const Logs = reactive(function Counter({ model }: { model: LogsModel }) {
+export const Logs = reactive(function Logs({ model }: { model: LogsModel }) {
     useEffect(() => model.events.fetchLogs(Controllers.Logging.Get()), [model])
 
     return (
