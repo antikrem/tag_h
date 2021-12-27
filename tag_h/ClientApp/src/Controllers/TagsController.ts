@@ -1,9 +1,9 @@
 // This is an auto generated test
-import { TagSet } from "./ImageTagsController";
+import { Tag } from "./../Typings/Tag";
 
 export interface TagsController {
 
-    GetAllTags(): Promise<TagSet>;
+    GetAllTags(): Promise<Tag[]>;
 
     CreateTag(name: string, values: string[]): Promise<void>;
 

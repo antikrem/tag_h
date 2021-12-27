@@ -22,17 +22,9 @@ namespace tag_h.Controllers
             _tagRepository = tagRepository;
         }
 
-        [HttpGet]
-        [Route("[action]")]
-        public TagSet GetTags(int id)
-        {
-            var image = _imageRepository.FetchImages(new ImageQuery { Id = id }).First();
-            return _tagRepository.GetTagsForImage(image);
-        }
-
         [HttpDelete]
         [Route("[action]")]
-        public void DeleteTag(int imageId, int tagId)
+        public void RemoveTag(int imageId, int tagId)
         {
             var image = _imageRepository.FetchImages(new ImageQuery { Id = imageId }).First();
             var tag = _tagRepository.GetAllTags().Where(tag => tag.Id == tagId).First();// TODO Optimise

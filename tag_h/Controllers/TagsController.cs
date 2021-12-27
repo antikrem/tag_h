@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 using tag_h.Core.Model;
 using tag_h.Core.Persistence;
+using tag_h.Injection.Typing;
+
 
 namespace tag_h.Controllers
 {
@@ -21,6 +23,7 @@ namespace tag_h.Controllers
 
         [HttpGet]
         [Route("[action]")]
+        [ClientReturns(typeof(IEnumerable<Tag>))]
         public TagSet GetAllTags()
         {
             return _tagRepository.GetAllTags();
