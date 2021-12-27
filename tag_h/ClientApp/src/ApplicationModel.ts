@@ -5,10 +5,14 @@ import { PageManagementModel } from './PageSystem/PageManagement';
 import { PageModel } from './PageSystem/PageModel';
 import { SidePanelModel } from './PageSystem/SidePanelModel';
 import { ImagesModel } from './Images/Images';
+import { TagsModel } from './Tags/TagsModel';
 
 export class ApplicationModel {
     @reduced
-    pages = reduce([new CounterModel(), new LogsModel(), new ImagesModel()] as PageModel[])
+    tags = new TagsModel();
+
+    @reduced
+    pages = reduce([new CounterModel(), new LogsModel(), new ImagesModel(this.tags)] as PageModel[])
         .value
 
     @state

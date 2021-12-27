@@ -1,4 +1,5 @@
-﻿import * as React from 'react';
+﻿import { reactive } from 'event-reduce-react';
+import * as React from 'react';
 import { PropsWithChildren, ReactChild } from 'react';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 
@@ -7,8 +8,7 @@ export interface TaskPane {
     pane: ReactChild;
 }
 
-export const TaskPane = ({ panes }: { panes: TaskPane[] }) => {
-
+const TaskPanes = reactive(function TaskPanes({ panes }: { panes: TaskPane[] }) {
     return (
         <div className='scrollbar'>
             <Tabs>
@@ -23,21 +23,21 @@ export const TaskPane = ({ panes }: { panes: TaskPane[] }) => {
             </Tabs>
         </div>
     );
-}
+});
 
 export type TaskPaneContainerProps = PropsWithChildren<{
     active: boolean;
     panes: TaskPane[];
 }>;
 
-export const TaskPaneContainer = (props: TaskPaneContainerProps) => {
+export const TaskPaneContainer = reactive(function TaskPaneContainer(props: TaskPaneContainerProps) {
     let active = props.active && props.panes.length > 0;
     return (
         <div className='fill-parent'>
             <div className={'image-body center' + (active ? ' left' : '')}>
                 {props.children}
             </div>
-            {active && <TaskPane panes={props.panes} />}
+            {active && <TaskPanes panes={props.panes} />}
         </div>
     );
-}
+});
