@@ -41,7 +41,7 @@ export const Logs = reactive(function Logs({ model }: { model: LogsModel }) {
                 </thead>
                 <tbody>
                     {model.logs.map(log =>
-                        <LogsRow log={log} />
+                        <LogsRow key={log.time} log={log} />
                     )}
                 </tbody>
             </table>
