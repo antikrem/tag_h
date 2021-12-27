@@ -8,7 +8,7 @@ import { ImagesModel } from './Images/Images';
 import { TagsModel } from './Tags/TagsModel';
 
 export class ApplicationModel {
-    @reduced
+    @state
     tags = new TagsModel();
 
     @reduced
