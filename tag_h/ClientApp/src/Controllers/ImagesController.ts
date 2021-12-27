@@ -1,12 +1,10 @@
 // This is an auto generated test
-import { HImage } from "./../Typings/HImage";
+import { ImageViewModel } from "./../Typings/ImageViewModel";
 import { Tag } from "./../Typings/Tag";
 
 export interface ImagesController {
 
-    GetAll(): Promise<HImage[]>;
-
-    GetWithTags(tags: Tag[]): Promise<HImage[]>;
+    GetAll(): Promise<ImageViewModel[]>;
 
     AddImages(files: SubmittedFile[]): Promise<void>;
 }

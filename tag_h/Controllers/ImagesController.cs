@@ -12,6 +12,21 @@ using tag_h.Injection.Typing;
 
 namespace tag_h.Controllers
 {
+    [UsedByClient]
+    public class ImageViewModel
+    {
+        public int Id { get; }
+        public string Location { get; }
+        public IEnumerable<Tag> Tags { get; }
+
+        public ImageViewModel(HImage image, TagSet tags)
+        {
+            Id = image.Id;
+            Location = image.Location;
+            Tags = tags;
+        }
+    }
+
     [ApiController]
     [Route("[controller]")]
     public class ImagesController : ControllerBase
@@ -40,20 +55,11 @@ namespace tag_h.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public IEnumerable<HImage> GetAll()
+        public IEnumerable<ImageViewModel> GetAll()
         {
             var images = _imageRepository.FetchImages(ImageQuery.All);
             _logger.Information("Fetching images {list}", images);
-            return images;
-        }
-
-        [HttpGet]
-        [Route("[action]")]
-        public IEnumerable<HImage> GetWithTags(List<Tag> tags)
-        {
-            var images = _imageRepository.FetchImages(new ImageQuery { Included = new TagSet(tags) });
-            _logger.Information("Fetching images {list}", images);
-            return images;
+            return images.Select(CreateViewModel);
         }
 
         [IgnoredByClient]
@@ -72,5 +78,8 @@ namespace tag_h.Controllers
         {
             _taskRunner.Submit(new AddNewImages(files));
         }
+
+        private ImageViewModel CreateViewModel(HImage image) 
+            => new(image, _tagRepository.GetTagsForImage(image));
     }
 }

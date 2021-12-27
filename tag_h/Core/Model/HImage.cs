@@ -8,7 +8,6 @@ using tag_h.Injection.Typing;
 
 namespace tag_h.Core.Model
 {
-    [UsedByClient]
     public class HImage : IDisposable
     {
 
@@ -31,7 +30,6 @@ namespace tag_h.Core.Model
 
         public bool FileExists => File.Exists(Location);
 
-        [IgnoredByClient]
         public FileFormat Format => _stream is null ? FileExists ? FileFormat.Get(Location) : null : FileFormat.Get(Stream);
 
         public HImage(int id, string location)

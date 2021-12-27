@@ -1,17 +1,15 @@
 import { asyncEvent, event, reduce, reduced } from "event-reduce";
 import { reactive } from "event-reduce-react";
-import * as React from 'react';
-import { useEffect } from "react";
+import React, { useEffect } from 'react';
 import { ImagesTiling } from "../components/Images/ImagesTiling";
 import { ImageTileModel } from "../components/Images/ImageTile";
 import { TaskPaneContainer } from "../components/TaskPane/TaskPane";
 import { Controllers } from "../Framework/Controllers";
+import { ImageViewModel } from "../Typings/ImageViewModel";
 import { PageModel } from "./../PageSystem/PageModel";
-import { HImage } from './../Typings/HImage';
 
 export class ImagesEvents {
-    fetchImages = asyncEvent<HImage[]>();
-
+    fetchImages = asyncEvent<ImageViewModel[]>();
     selectImage = event<ImageModel>();
 }
 
@@ -22,7 +20,7 @@ export class ImagesModel extends PageModel {
 
     @reduced
     images = reduce([] as ImageModel[], this.events)
-        .on(e => e.fetchImages.resolved, (_, { result: images }) => images.map(image => new ImageModel(image.id)))
+        .on(e => e.fetchImages.resolved, (_, { result: images }) => images.map(image => new ImageModel(image)))
         .value;
 
     @reduced
@@ -37,11 +35,15 @@ export class ImagesModel extends PageModel {
 
 export class ImageModel implements ImageTileModel {
 
+    get id() {
+        return this.image.id;
+    }
+
     get src() {
         return `/Images/GetFile?imageId=${this.id}`;
     }
 
-    constructor(public readonly id: number) {
+    constructor(private readonly image: ImageViewModel) {
     }
 }
 
