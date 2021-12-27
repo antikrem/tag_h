@@ -40,13 +40,17 @@ namespace tag_h.Injection.Typing
 
         private static IMethodModifier GetOverideForMethodReturn(MethodInfo method)
             => new OverideReturnType(
-                method.ReturnType.Collect(
-                    type => type == typeof(void) ? typeof(Task) : null,
-                    type => IsTaskType(type) ? type : null,
-                    type => typeof(Task<>).MakeGenericType(type)
-                )
-                .NotNull()
-                .First());
+                GetDeclaredReturnType(method)
+                    .Collect(
+                        type => type == typeof(void) ? typeof(Task) : null,
+                        type => IsTaskType(type) ? type : null,
+                        type => typeof(Task<>).MakeGenericType(type)
+                    )
+                    .NotNull()
+                    .First());
+
+        private static Type GetDeclaredReturnType(MethodInfo method)
+            => method.GetCustomAttribute<ClientReturns>()?.Type ?? method.ReturnType;
 
         private static bool IsTaskType(Type type) //TODO: move to ex 
             => (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Task<>))
