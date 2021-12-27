@@ -1,34 +1,41 @@
-import { reactive } from 'event-reduce-react';
-import React from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 
-export interface Taggable {
-    name: string;
+export interface TagBoxProps<T> {
+    selected: T[],
+    all: T[],
+    add: (tag: T) => void;
+    remove: (tag: T) => void;
+    render: (tag: T) => ReactNode;
 }
 
-export interface TagBoxProps {
-    selected: Taggable[],
-    all: Taggable[],
-    add: (tag: Taggable) => void;
-    remove: (tag: Taggable) => void;
-}
+export const TagBox = <T, >(props: TagBoxProps<T>) => {
+    const [selected, setSelected] = useState([] as T[]);
+    const [all, setAll] = useState([] as T[]);
 
-export const TagBox = reactive((props: TagBoxProps) => {
+    useEffect(() => setSelected(props.selected), [props.selected]);
+    useEffect(() => setAll(props.all), [props.all]);
 
     return (
         <div style={{ display: 'inline' }}>
-            {props.selected.map((tag, index) =>
-                <Tag key={index} tag={tag} remove={() => props.remove(tag)}/>
+            {selected.map((tag, index) =>
+                <Tag key={index} remove={() => props.remove(tag)}>
+                    {props.render(tag)}
+                </Tag>
             )}
         </div>
     );
-});
+}
 
-const Tag = ({ tag, remove }: {tag: Taggable, remove: () => void}) => {
+interface TagProps<T> {
+    remove: () => void;
+    children: ReactNode;
+}
+
+const Tag = <T, >(props: TagProps<T>) => {
     return (
             <span style={{ marginRight: '5px', padding: '5px', whiteSpace: 'nowrap',  backgroundColor: 'red' }}>
-                <p style={{ padding: '3px', marginBottom: '5px', display: 'inline-block' }}> {tag.name}</p>
-                <p style={{ padding: '3px', marginBottom: '5px', display: 'inline-block', cursor: 'pointer' }} onClick={remove}> x </p>
+                <p style={{ padding: '3px', marginBottom: '5px', display: 'inline-block' }}> {props.children}</p>
+                <p style={{ padding: '3px', marginBottom: '5px', display: 'inline-block', cursor: 'pointer' }} onClick={props.remove}> x </p>
             </span>
         );
 }
-

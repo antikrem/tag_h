@@ -9,7 +9,12 @@ import { TagsModel } from '../Tags/TagsModel';
 export const ImageDetailsPane = reactive(function Images({ model, tags }: { model: ImageModel, tags: TagsModel }) {
     return (
         <div>
-            <TagBox all={tags.tags} selected={model.tags} add = {tag=>{}} remove = {tag => removeTag(model, tag as Tag)} />
+            <TagBox 
+                all={tags.tags} 
+                selected={model.tags} 
+                add = {tag=>{}} 
+                remove = {tag => removeTag(model, tag as Tag)} 
+                render={tag => tag.name} />
         </div>
     );
 });
