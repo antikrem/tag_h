@@ -6,6 +6,7 @@ export interface TagBoxProps<T> {
     add: (tag: T) => void;
     remove: (tag: T) => void;
     render: (tag: T) => ReactNode;
+    search: (tag: T, search: string) => boolean;
     comparator: (first: T, second: T) => boolean;
 }
 
@@ -31,7 +32,8 @@ export const TagBox = <T,>(props: TagBoxProps<T>) => {
             {dropped && <TagDropDown
                 options={all.filter(tag => !selected.find(t => props.comparator(t, tag)))}
                 add={props.add}
-                render={props.render} />}
+                render={props.render}
+                search={props.search} />}
         </div>
     );
 }
@@ -54,13 +56,29 @@ interface TagDropDown<T> {
     options: T[],
     add: (tag: T) => void;
     render: (tag: T) => ReactNode;
+    search: (tag: T, search: string) => boolean;
 }
 
 const TagDropDown = <T,>(props: TagDropDown<T>) => {
+    const [search, setSearch] = useState("");
+
+    let onKey = (event: KeyboardEvent) => {
+        const key = event.key.toLowerCase();
+        if ((/[a-zA-Z]/).test(key))
+            setSearch(search + key);
+    }
+
+    useEffect(() => {
+        document.addEventListener('keydown', onKey);
+        return () => document.removeEventListener('keydown', onKey);
+    }, []);
+
     return (
         <div>
-            {props.options.map(
-                (tag, index) => <div key={index} onClick={() => props.add(tag)}>
+            {props
+                .options
+                .filter(tag => search == "" || props.search(tag, search))
+                .map((tag, index) => <div key={index} onClick={() => props.add(tag)}>
                     {props.render(tag)}
                 </div>)
             }
