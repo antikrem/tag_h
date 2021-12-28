@@ -12,9 +12,11 @@ export const ImageDetailsPane = reactive(function Images({ model, tags }: { mode
             <TagBox 
                 all={tags.tags} 
                 selected={model.tags} 
-                add = {tag=>{}} 
-                remove = {tag => removeTag(model, tag as Tag)} 
-                render={tag => tag.name} />
+                add = {tag => addTag(model, tag)} 
+                remove = {tag => removeTag(model, tag)} 
+                render={tag => tag.name}
+                comparator={(first, second) => first.id == second.id}
+                search={(tag, search) => tag.name.toLowerCase().includes(search.toLowerCase())}/>
         </div>
     );
 });
@@ -22,4 +24,9 @@ export const ImageDetailsPane = reactive(function Images({ model, tags }: { mode
 async function removeTag(model: ImageModel, tag: Tag) {
     await Controllers.ImageTags.RemoveTag(model.id, tag.id);
     model.events.removeTag(tag);
+}
+
+async function addTag(model: ImageModel, tag: Tag) {
+    await Controllers.ImageTags.AddTag(model.id, tag.id);
+    model.events.addTag(tag);
 }
