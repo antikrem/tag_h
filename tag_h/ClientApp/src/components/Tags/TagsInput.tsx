@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 
-export interface TagBoxProps<T> {
+export interface TagsInputProps<T> {
     selected: T[],
     all: T[],
     add: (tag: T) => void;
@@ -10,7 +10,7 @@ export interface TagBoxProps<T> {
     comparator: (first: T, second: T) => boolean;
 }
 
-export const TagBox = <T,>(props: TagBoxProps<T>) => {
+export const TagsInput = <T,>(props: TagsInputProps<T>) => {
     const [selected, setSelected] = useState([] as T[]);
     const [all, setAll] = useState([] as T[]);
 

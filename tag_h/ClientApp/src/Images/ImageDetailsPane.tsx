@@ -1,6 +1,6 @@
 import { reactive } from 'event-reduce-react';
 import React from 'react';
-import { TagBox } from '../components/Tags/TagBox';
+import { TagsInput } from '../components/Tags/TagsInput';
 import { ImageModel } from './Images';
 import { Tag } from './../Typings/Tag'
 import { Controllers } from '../Framework/Controllers';
@@ -9,7 +9,7 @@ import { TagsModel } from '../Tags/TagsModel';
 export const ImageDetailsPane = reactive(function Images({ model, tags }: { model: ImageModel, tags: TagsModel }) {
     return (
         <div>
-            <TagBox 
+            <TagsInput 
                 all={tags.tags} 
                 selected={model.tags} 
                 add = {tag => addTag(model, tag)} 
