@@ -7,6 +7,7 @@ export interface TagsInputProps<T> {
     remove: (tag: T) => void;
     render: (tag: T) => ReactNode;
     search: (tag: T, search: string) => boolean;
+    create?: (input: string) => T | Promise<T>;
     comparator: (first: T, second: T) => boolean;
 }
 
@@ -33,7 +34,8 @@ export const TagsInput = <T,>(props: TagsInputProps<T>) => {
                 options={all.filter(tag => !selected.find(t => props.comparator(t, tag)))}
                 add={props.add}
                 render={props.render}
-                search={props.search} />}
+                search={props.search}
+                create={props.create} />}
         </div>
     );
 }
@@ -57,24 +59,19 @@ interface TagDropDown<T> {
     add: (tag: T) => void;
     render: (tag: T) => ReactNode;
     search: (tag: T, search: string) => boolean;
+    create?: (input: string) => T | Promise<T>;
 }
 
 const TagDropDown = <T,>(props: TagDropDown<T>) => {
     const [search, setSearch] = useState("");
 
-    let onKey = (event: KeyboardEvent) => {
-        const key = event.key.toLowerCase();
-        if ((/[a-zA-Z]/).test(key))
-            setSearch(search + key);
-    }
-
-    useEffect(() => {
-        document.addEventListener('keydown', onKey);
-        return () => document.removeEventListener('keydown', onKey);
-    }, []);
-
     return (
         <div>
+            <input autoFocus 
+                type="text" 
+                value={search} 
+                onChange={(input) => setSearch(input.target.value)} 
+                onKeyPress={(event) => submitOrCreate(event.key)} />
             {props
                 .options
                 .filter(tag => search == "" || props.search(tag, search))
@@ -84,4 +81,25 @@ const TagDropDown = <T,>(props: TagDropDown<T>) => {
             }
         </div>
     );
+
+    function submitOrCreate(key: string) {
+        if (key != "Enter") {
+            return;
+        }
+
+        let options = props.options
+            .filter(tag => search == "" || props.search(tag, search));
+
+        if (options.length == 1) {
+            props.add(options[0]);
+            setSearch("");
+
+        }
+        else if (search.trim() != "" && props.create) {
+            var thing = props.create(search);
+            Promise.resolve(thing)
+                .then(props.add); 
+            setSearch("");
+        }
+    }
 }
