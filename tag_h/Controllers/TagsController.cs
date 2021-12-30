@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using EphemeralEx.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 using tag_h.Core.Model;
@@ -29,11 +30,11 @@ namespace tag_h.Controllers
             return _tagRepository.GetAllTags();
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("[action]")]
-        public void CreateTag(string name, List<string> values)
+        public Tag CreateTag(string name)
         {
-            _tagRepository.CreateTag(name, values);
+            return _tagRepository.CreateTag(name, name.ToLower().ToEnumerable());
         }
 
         [HttpGet]

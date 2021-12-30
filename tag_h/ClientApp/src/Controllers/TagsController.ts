@@ -5,7 +5,7 @@ export interface TagsController {
 
     GetAllTags(): Promise<Tag[]>;
 
-    CreateTag(name: string, values: string[]): Promise<void>;
+    CreateTag(name: string): Promise<Tag>;
 
     GetValues(tagId: number): Promise<string[]>;
 }

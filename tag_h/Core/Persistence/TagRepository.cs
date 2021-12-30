@@ -18,7 +18,7 @@ namespace tag_h.Core.Persistence
 
         IEnumerable<string> GetValues(Tag tag);
 
-        void CreateTag(string name, IEnumerable<string> values);
+        Tag CreateTag(string name, IEnumerable<string> values);
 
         TagSet GetTagsForImage(HImage image);
 
@@ -51,13 +51,14 @@ namespace tag_h.Core.Persistence
             return _database.ExecuteQuery(new FetchTagValues(tag)).Result;
         }
 
-        public void CreateTag(string name, IEnumerable<string> values)
+        public Tag CreateTag(string name, IEnumerable<string> values)
         {
             _database.ExecuteQuery(new AddNewTagQuery(name));
             var tag = _database.ExecuteQuery(new SearchTagQuery(name)).Result;
             values.ForEach(
                     value => _database.ExecuteQuery(new AddTagValue(tag, value))
                 );
+            return tag;
         }
 
         // TODO: Add ImageTagRepository
