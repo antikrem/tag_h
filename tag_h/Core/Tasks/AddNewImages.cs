@@ -43,7 +43,7 @@ namespace tag_h.Core.Tasks
         private static void TagImage(ITagRepository tagRepository, IAutoTagger autoTagger, SubmittedFile file, HImage image)
         {
             file.Tags.ForEach(tag => tagRepository.AddTagToImage(image, tag));
-            autoTagger.TagImage(image).Wait();
+            // autoTagger.TagImage(image).Wait();
         }
 
         private static bool HashExists(IHImageRepository imageRepository, ImageHash hash)
