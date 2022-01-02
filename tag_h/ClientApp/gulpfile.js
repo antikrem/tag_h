@@ -11,12 +11,11 @@ var ts = require("gulp-typescript");
 var exec = require('child_process').exec;
 var del = require("del");
 
-var tsProject = ts.createProject("tsconfig.json");
-
 var paths = {
     public: "public",
     packges: ["package.json", "package-lock.json"],
-    scripts: ["src/**/*.js", "src/**/*.jsx", "src/**/*.css", "src/**/*.map"]
+    scripts: ["src/**/*.js", "src/**/*.jsx", "src/**/*.css", "src/**/*.map"],
+    allscripts: ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx", "src/**/*.css", "src/**/*.map"]
 };
 
 gulp.task("clean", function () {
@@ -40,15 +39,26 @@ gulp.task("install", function (done) {
 })
 
 gulp.task("default", function (done) {
-    gulp.src(["public/**/*"]).pipe(gulp.dest("../wwwroot/public"));
-
-    tsProject
-        .src()
-        .pipe(sourcemaps.init())
-        .pipe(tsProject())
-        .js
-        .pipe(gulp.src(paths.scripts))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest("../wwwroot/src"));
+    gulp.series(
+        (done) => {
+            gulp.src(["public/**/*"]).pipe(gulp.dest("../wwwroot/public"));
+            done();
+        },
+        (done) => {
+            let project = ts.createProject("tsconfig.json");
+            project
+                .src()
+                .pipe(sourcemaps.init())
+                .pipe(project())
+                .on("error", () => { console.error("TS Compilation failed: Unfortunate end"); done(); }) 
+                .js
+                .pipe(gulp.src(paths.scripts))
+                .pipe(sourcemaps.write())
+                .pipe(gulp.dest("../wwwroot/src"));
+            done();
+        }
+    )();
     done();
 });
+
+gulp.watch(paths.allscripts, gulp.series('default'));
