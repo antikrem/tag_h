@@ -1,42 +1,53 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using tag_h.Core.Model;
 using tag_h.Core.Persistence;
-using tag_h.Core.TagRetriever;
+
 
 namespace tag_h.Core.Tasks
 {
     class SynchronisePersistence : ITask
     {
-        public string TaskName => "Synchronising Database";
+        private readonly IHImageRepository _imageRepository;
 
-        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher, IAutoTagger autoTagger)
+        public SynchronisePersistence(IHImageRepository imageRepository)
         {
-            imageRepository.ApplyDeletions();
+            _imageRepository = imageRepository;
+        }
 
-            var folder = imageRepository.ImageFolder;
+        public string Name => "Synchronise Persistence";
+
+        public Task Run()
+        {
+            _imageRepository.ApplyDeletions();
+
+            var folder = _imageRepository.ImageFolder;
 
             var physicalImages = new HashSet<string>(folder.GetFiles().Select(x => x.FullName));
-            var dbImages = imageRepository.FetchImages(ImageQuery.All);
+            var dbImages = _imageRepository.FetchImages(ImageQuery.All);
             var dbImageLocations = new HashSet<string>(dbImages.Select(x => x.Location));
 
-            var newImages = physicalImages.ToList().Where(x => !dbImageLocations.Contains(x));
+            var newImages = physicalImages
+                .Where(image => !dbImageLocations.Contains(image));
 
-            var oldImages = dbImages.Where(x => !physicalImages.Contains(x.Location));
+            var oldImages = dbImages
+                .Where(image => !physicalImages.Contains(image.Location));
 
             foreach (var image in newImages)
             {
-                imageRepository.AddNewImage(image);
+                _imageRepository.AddNewImage(image);
             }
 
             foreach (var image in oldImages)
             {
-                imageRepository.DeleteImage(image);
+                _imageRepository.DeleteImage(image);
             }
 
-            imageRepository.ApplyDeletions();
+            _imageRepository.ApplyDeletions();
 
+            return Task.CompletedTask;
         }
     }
 }

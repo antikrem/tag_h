@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading.Tasks;
 using tag_h.Core.Model;
 using tag_h.Core.Persistence;
 using tag_h.Core.TagRetriever;
@@ -9,16 +9,24 @@ namespace tag_h.Core.Tasks
 {
     class DeleteDuplicates : ITask
     {
-        public string TaskName => "Deleting Duplicate";
+        private readonly IImageHasher _imageHasher;
+        private readonly IHImageRepository _imageRepository;
 
-        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher, IAutoTagger autoTagger)
+        public DeleteDuplicates(IImageHasher imageHasher)
+        {
+            _imageHasher = imageHasher;
+        }
+
+        public string Name => "Delete Duplicates";
+
+        public Task Run()
         {
             var hashes = new Dictionary<string, string>();
             var duplicates = new List<(string, string)>();
 
-            var dbImages = imageRepository.FetchImages(ImageQuery.All)
+            var dbImages = _imageRepository.FetchImages(ImageQuery.All)
                 .Where(image => image.IsHashableFormat())
-                .Select(image => (image, Hash: imageHasher.GetHash(image).PerceptualHash))
+                .Select(image => (image, Hash: _imageHasher.GetHash(image).PerceptualHash))
                 .Where(image => image.Hash != null);
 
             foreach (var (image, hash) in dbImages)
@@ -33,7 +41,9 @@ namespace tag_h.Core.Tasks
                 }
             }
 
-            System.Console.WriteLine($"Found {duplicates.Count} duplicate image/s");
+            System.Console.WriteLine($"Found {duplicates.Count} duplicate image/s"); //TODO: replace with logger
+            return Task.CompletedTask;
         }
+
     }
 }

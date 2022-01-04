@@ -76,7 +76,7 @@ namespace tag_h.Controllers
         [Route("[action]")]
         public void AddImages(List<SubmittedFile> files)
         {
-            _taskRunner.Submit(new AddNewImages(files));
+            _taskRunner.Execute<AddNewImages, AddNewImagesConfiguration>(new(files));
         }
 
         private ImageViewModel CreateViewModel(HImage image) 

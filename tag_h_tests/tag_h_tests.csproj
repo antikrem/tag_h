@@ -19,4 +19,8 @@
     <ProjectReference Include="..\tag_h\tag_h.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Core\Tasks\" />
+  </ItemGroup>
+
 </Project>

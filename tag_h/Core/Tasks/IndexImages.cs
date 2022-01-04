@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-
+using System.Threading.Tasks;
 using EphemeralEx.Extensions;
 
 using tag_h.Core.Model;
@@ -11,15 +11,26 @@ namespace tag_h.Core.Tasks
 {
     class IndexImages : ITask
     {
-        public string TaskName => "Indexing all Images";
+        private readonly IHImageRepository _imageRepository;
+        private readonly IImageHasher _imageHasher;
 
-        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher, IAutoTagger autoTagger)
+        public IndexImages(IHImageRepository imageRepository, IImageHasher imageHasher)
         {
-            var unhashedImages = imageRepository.FetchImages(ImageQuery.All)
-                .Where(image => image.IsHashableFormat())
-                .Where(image => imageHasher.GetHash(image).FileHash == null);
+            _imageRepository = imageRepository;
+            _imageHasher = imageHasher;
+        }
 
-            unhashedImages.ForEach(image => imageHasher.HashImage(image));
+        public string Name => "Indexing images";
+
+        public Task Run()
+        {
+            var unhashedImages = _imageRepository.FetchImages(ImageQuery.All)
+                .Where(image => image.IsHashableFormat())
+                .Where(image => _imageHasher.GetHash(image).FileHash == null);
+
+            unhashedImages.ForEach(image => _imageHasher.HashImage(image));
+
+            return Task.CompletedTask;
         }
     }
 }

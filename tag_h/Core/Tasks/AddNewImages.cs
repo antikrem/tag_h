@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading.Tasks;
 using tag_h.Core.Model;
 using tag_h.Core.Persistence;
 using tag_h.Core.TagRetriever;
@@ -10,47 +10,56 @@ namespace tag_h.Core.Tasks
 {
     public record SubmittedFile(string Data, string FileName, List<Tag> Tags);
 
-    class AddNewImages : ITask
+    public record AddNewImagesConfiguration(List<SubmittedFile> Files);
+
+    class AddNewImages
+        : ITask<AddNewImagesConfiguration>
     {
-        private readonly List<SubmittedFile> _files;
+        private readonly IHImageRepository _imageRepository;
+        private readonly ITagRepository _tagRepository;
+        private readonly IImageHasher _imageHasher;
+        private readonly IAutoTagger _autoTagger;
 
-        public string TaskName => "Adding New Images";
 
-        public AddNewImages(List<SubmittedFile> files)
+        public AddNewImages(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher, IAutoTagger autoTagger)
         {
-            _files = files;
+            _imageRepository = imageRepository;
+            _tagRepository = tagRepository;
+            _imageHasher = imageHasher;
+            _autoTagger = autoTagger;
         }
 
-        public void Execute(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher, IAutoTagger autoTagger)
+        public string Name => "Add New Images";
+
+        public Task Run(AddNewImagesConfiguration configuration)
         {
-            _files.ForEach(
+            configuration.Files.ForEach(
                     file =>
                     {
-                        var image = imageRepository.CreateNewImage(file.FileName, Convert.FromBase64String(file.Data));
-                        var hash = imageHasher.HashImage(image);
-                        if (HashExists(imageRepository, hash))
+                        var image = _imageRepository.CreateNewImage(file.FileName, Convert.FromBase64String(file.Data));
+                        var hash = _imageHasher.HashImage(image); // TODO: bad, make hasher take data
+                        if (HashExists(hash))
                         {
-                            imageRepository.DeleteImage(image);
+                            _imageRepository.DeleteImage(image);
                         }
                         else
                         {
-                            TagImage(tagRepository, autoTagger, file, image);
+                            TagImage(file, image);
                         }
                     }
                 );
+            return Task.CompletedTask; //TODO: propogate task down to db
         }
 
-        private static void TagImage(ITagRepository tagRepository, IAutoTagger autoTagger, SubmittedFile file, HImage image)
+        private void TagImage(SubmittedFile file, HImage image)
         {
-            file.Tags.ForEach(tag => tagRepository.AddTagToImage(image, tag));
+            file.Tags.ForEach(tag => _tagRepository.AddTagToImage(image, tag));
             // autoTagger.TagImage(image).Wait();
         }
 
-        private static bool HashExists(IHImageRepository imageRepository, ImageHash hash)
-        {
-            return imageRepository
+        private bool HashExists(ImageHash hash)
+            => _imageRepository
                 .FetchImages(new ImageQuery { ImageHash = hash })
                 .Count() > 1;
-        }
     }
 }

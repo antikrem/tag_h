@@ -1,72 +1,74 @@
-﻿using System.Collections.Concurrent;
-using System.Diagnostics;
-using System.Threading;
+﻿using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 
 using EphemeralEx.Injection;
 using Serilog;
-
-using tag_h.Core.Persistence;
-using tag_h.Core.TagRetriever;
 
 
 namespace tag_h.Core.Tasks
 {
     [Injectable]
-
-    public interface ITaskRunner : IStopOnDejection
+    public interface ITaskRunner
     {
-        void Submit(ITask task);
+        public Task Execute<ConfiguredTask, TConfiguration>(TConfiguration config)
+            where ConfiguredTask : ITask<TConfiguration>;
     }
 
-    public class TaskRunner : ITaskRunner
+    public class BackgroundTaskRunner : ITaskRunner
     {
-        private readonly BlockingCollection<ITask> _taskQueue
-                = new BlockingCollection<ITask>(new ConcurrentQueue<ITask>());
-
-        private readonly Thread _taskHandler;
         private readonly ILogger _logger;
-        private readonly IHImageRepository _imageRepository;
-        private readonly ITagRepository _tagRepository;
-        private readonly IImageHasher _imageHasher;
-        private readonly IAutoTagger _autoTagger;
+        private readonly IServiceLocator _serviceProvider;
 
-        public TaskRunner(ILogger logger, IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher, IAutoTagger autoTagger)
+        public BackgroundTaskRunner(ILogger logger, IServiceLocator serviceProvider)
         {
             _logger = logger;
-
-            _imageRepository = imageRepository;
-            _tagRepository = tagRepository;
-            _imageHasher = imageHasher;
-            _autoTagger = autoTagger;
-
-            _taskHandler = new Thread(ExecuteHandling);
-            _taskHandler.Start();
+            _serviceProvider = serviceProvider;
         }
 
-        void ExecuteHandling()
+        public async Task Execute<TConfiguredTask, TConfiguration>(TConfiguration config)
+            where TConfiguredTask : ITask<TConfiguration>
         {
-            ITask task;
-            while ((task = _taskQueue.Take()) != null)
+            var task = CreateTask<TConfiguredTask, TConfiguration>();
+            await DecoratedBackgroundTask(task, config);
+        }
+
+        private async Task DecoratedBackgroundTask<TConfiguredTask, TConfiguration>(TConfiguredTask task, TConfiguration config)
+            where TConfiguredTask : ITask<TConfiguration>
+        {
+            var stopWatch = Stopwatch.StartNew();
+            _logger.Information("Starting task: {TaskName}", task.Name);
+
+            await task.Run(config);
+
+            stopWatch.Stop();
+            _logger.Information("Completed in: {Time}", stopWatch.Elapsed);
+        }
+
+        private TConfiguredTask CreateTask<TConfiguredTask, TConfiguration>()
+            where TConfiguredTask : ITask<TConfiguration>
+        {
+            var constructor = typeof(TConfiguredTask)
+                .GetConstructors()
+                .First();
+
+            try
             {
-                Stopwatch stopWatch = Stopwatch.StartNew();
-                _logger.Information("Starting task: {TaskName}", task.TaskName);
+                var parameters = constructor
+                .GetParameters()
+                .Select(parameter => _serviceProvider.Resolve(parameter.ParameterType))
+                .ToArray();
 
-                task.Execute(_imageRepository, _tagRepository, _imageHasher, _autoTagger);
-
-                stopWatch.Stop();
-                _logger.Information("Completed in: {Time}", stopWatch.Elapsed);
+                return (TConfiguredTask)constructor.Invoke(parameters);
             }
-        }
+            catch (ServiceNotFoundException e)
+            {
+                _logger
+                    .ForContext("Parameters", constructor.GetParameters())
+                    .Error(e, "Unabled to generate {Type} task", typeof(TConfiguredTask).GetType().Name);
+                throw;
+            }
 
-        public void Submit(ITask task)
-        {
-            _taskQueue.Add(task);
-        }
-
-        public void Stop()
-        {
-            _taskQueue.Add(null);
-            _taskHandler.Join();
         }
     }
 }

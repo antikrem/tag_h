@@ -1,13 +1,19 @@
-﻿using tag_h.Core.Persistence;
-using tag_h.Core.TagRetriever;
+﻿using System.Threading.Tasks;
+
 
 namespace tag_h.Core.Tasks
 {
     public interface ITask
     {
-        string TaskName { get; }
+        string Name { get; }
 
-        //TODO, provide a central provider for these injections
-        void Execute(IHImageRepository imageRepository, ITagRepository tagRepository, IImageHasher imageHasher, IAutoTagger autoTagger);
+        Task Run();
+    }
+
+    public interface ITask<TConfiguration>
+    {
+        string Name { get; }
+
+        Task Run(TConfiguration configuration);
     }
 }
