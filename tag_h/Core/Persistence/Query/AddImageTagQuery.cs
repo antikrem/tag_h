@@ -35,5 +35,4 @@ namespace tag_h.Core.Persistence.Query
             );
         }
     }
-
 }
