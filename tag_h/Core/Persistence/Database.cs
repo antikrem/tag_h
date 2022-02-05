@@ -4,7 +4,7 @@ using EphemeralEx.Injection;
 using Serilog;
 
 using tag_h.Core.Persistence.Query;
-
+using tag_h.Helpers;
 
 namespace tag_h.Core.Persistence
 {
@@ -41,9 +41,8 @@ namespace tag_h.Core.Persistence
 
         public T ExecuteQuery<T>(T query) where T : IQuery
         {
-            _logger.Verbose("Executing Query: {QueryName}", typeof(T).Name);
-            query.Execute(_commandExecutor);
-            _logger.Verbose("Executed Query: {QueryName}", typeof(T).Name);
+            using (_logger.LogPerformance(typeof(T).Name))
+                query.Execute(_commandExecutor);
             return query;
         }
     }
