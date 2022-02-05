@@ -20,7 +20,9 @@ namespace tag_h.Core.Persistence
     [Injectable]
     public interface ISQLCommandExecutor
     {
-        void ExecuteCommand(params Action<SQLiteCommand>[] command);
+        void ExecuteCommand(params Action<SQLiteCommand>[] querys);
+
+        T ExecuteCommand<T>(Func<SQLiteCommand, T> query);
     }
 
     public class SQLCommandExecutor : ISQLCommandExecutor
@@ -56,6 +58,31 @@ namespace tag_h.Core.Persistence
                 throw new SqlExecutionException(e);
             }
 
+        }
+
+        public T ExecuteCommand<T>(Func<SQLiteCommand, T> query)
+        {
+            using var command = _databaseConnection.CreateCommand();
+            try
+            {
+                var result = query(command);
+
+                _logger
+                    .ForContext("Command", command.CommandText)
+                    .ForContext("Parameters", command.Parameters, true)
+                    .Verbose("Executed SQL command");
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                _logger
+                    .ForContext("Command", command.CommandText)
+                    .ForContext("Parameters", command.Parameters, true)
+                    .Error(e, "Exception thrown while executing SQL command");
+
+                throw new SqlExecutionException(e);
+            }
         }
     }
 }
