@@ -38,23 +38,23 @@ namespace tag_h.Core.Persistence
 
         public TagSet GetAllTags()
         {
-            return _database.ExecuteQuery(new FetchAllTagsQuery()).Result;
+            return _database.ExecuteQuery(new FetchAllTagsQuery());
         }
 
-        public Tag SearchTag(string value)
+        public Tag? SearchTag(string value)
         {
-            return _database.ExecuteQuery(new SearchTagQuery(value)).Result;
+            return _database.ExecuteQuery(new SearchTagQuery(value));
         }
 
         public IEnumerable<string> GetValues(Tag tag)
         {
-            return _database.ExecuteQuery(new FetchTagValues(tag)).Result;
+            return _database.ExecuteQuery(new FetchTagValues(tag));
         }
 
         public Tag CreateTag(string name, IEnumerable<string> values)
         {
             _database.ExecuteQuery(new AddNewTagQuery(name));
-            var tag = _database.ExecuteQuery(new SearchTagQuery(name)).Result;
+            var tag = _database.ExecuteQuery(new SearchTagQuery(name));
             values.ForEach(
                     value => _database.ExecuteQuery(new AddTagValue(tag, value))
                 );
@@ -64,12 +64,12 @@ namespace tag_h.Core.Persistence
         // TODO: Add ImageTagRepository
         public TagSet GetTagsForImage(HImage image)
         {
-            return _database.ExecuteQuery(new FetchTagsForImageQuery(image)).Result;
+            return _database.ExecuteQuery(new FetchTagsForImageQuery(image));
         }
 
         public bool AddTagToImage(HImage image, Tag tag)
         {
-            return _database.ExecuteQuery(new AddImageTagQuery(image, tag)).Success;
+            return _database.ExecuteQuery(new AddImageTagQuery(image, tag));
         }
 
         public void RemoveTagFromImage(HImage image, Tag tag)

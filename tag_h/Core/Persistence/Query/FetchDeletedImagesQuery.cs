@@ -6,14 +6,11 @@ using tag_h.Core.Model;
 
 namespace tag_h.Core.Persistence.Query
 {
-    class FetchDeletedImagesQuery : IQuery
+    class FetchDeletedImagesQuery : IQuery<List<HImage>>
     {
-
-        public List<HImage> Result { get; private set; }
-
-        public void Execute(ISQLCommandExecutor commandExecutor)
+        public List<HImage> Execute(ISQLCommandExecutor commandExecutor)
         {
-            commandExecutor.ExecuteCommand(
+            return commandExecutor.ExecuteCommand(
                 command =>
                 {
                     command.CommandText
@@ -21,7 +18,7 @@ namespace tag_h.Core.Persistence.Query
                         FROM Images 
                         WHERE deleted = 1;";
 
-                    Result = command
+                    return command
                         .ExecuteReader()
                         .GetHImages()
                         .ToList();

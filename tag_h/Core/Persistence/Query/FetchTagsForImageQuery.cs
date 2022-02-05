@@ -6,20 +6,18 @@ using tag_h.Core.Model;
 
 namespace tag_h.Core.Persistence.Query
 {
-    class FetchTagsForImageQuery : IQuery
+    class FetchTagsForImageQuery : IQuery<TagSet>
     {
         private readonly HImage _image;
-
-        public TagSet Result { get; private set; }
 
         public FetchTagsForImageQuery(HImage image)
         {
             _image = image;
         }
 
-        public void Execute(ISQLCommandExecutor commandExecutor)
+        public TagSet Execute(ISQLCommandExecutor commandExecutor)
         {
-            commandExecutor.ExecuteCommand(
+            return commandExecutor.ExecuteCommand(
                 command =>
                 {
                     command.CommandText
@@ -29,7 +27,7 @@ namespace tag_h.Core.Persistence.Query
                         WHERE ImageTags.imageId = @imageId;";
                     command.Parameters.AddWithValue("@imageId", _image.Id);
 
-                    Result = command.ExecuteReader().GetTags();
+                    return command.ExecuteReader().GetTags();
                 }
             );
         }

@@ -4,20 +4,18 @@ using tag_h.Core.Model;
 
 namespace tag_h.Core.Persistence.Query
 {
-    class SearchTagQuery : IQuery
+    class SearchTagQuery : IQuery<Tag?>
     {
         string _value;
-
-        public Tag Result { get; private set; }
 
         public SearchTagQuery(string value)
         {
             _value = value;
         }
 
-        public void Execute(ISQLCommandExecutor commandExecutor)
+        public Tag? Execute(ISQLCommandExecutor commandExecutor)
         {
-            commandExecutor.ExecuteCommand(
+            return commandExecutor.ExecuteCommand(
                 command =>
                 {
                     // TODO: Optimise query to not use outer join
@@ -29,7 +27,7 @@ namespace tag_h.Core.Persistence.Query
 
                     command.Parameters.AddWithValue("@value", _value);
                     
-                    Result = command
+                    return command
                         .ExecuteReader()
                         .GetTags()
                         .FirstOrDefault();

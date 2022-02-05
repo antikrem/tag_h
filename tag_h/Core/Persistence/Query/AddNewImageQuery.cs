@@ -5,19 +5,18 @@ using tag_h.Core.Model;
 
 namespace tag_h.Core.Persistence.Query
 {
-    class AddNewImageQuery : IQuery
+    class AddNewImageQuery : IQuery<HImage>
     {
         private string _location;
-
-        public HImage Image { get; private set; }
 
         public AddNewImageQuery(string location)
         {
             _location = location;
         }
 
-        public void Execute(ISQLCommandExecutor commandExecutor)
+        public HImage Execute(ISQLCommandExecutor commandExecutor)
         {
+            //TODO: Pretty bad, make these two happen together
             commandExecutor.ExecuteCommand(
                 command =>
                 {
@@ -27,7 +26,10 @@ namespace tag_h.Core.Persistence.Query
                     command.Parameters.AddWithValue("@fileName", _location);
 
                     command.ExecuteNonQuery();
-                },
+                }                
+            );
+
+            return commandExecutor.ExecuteCommand(
                 command =>
                 {
                     command.CommandText
@@ -35,7 +37,7 @@ namespace tag_h.Core.Persistence.Query
                         FROM Images 
                         WHERE id = last_insert_rowid();";
 
-                    Image = command
+                    return command
                         .ExecuteReader()
                         .GetHImages()
                         .First();

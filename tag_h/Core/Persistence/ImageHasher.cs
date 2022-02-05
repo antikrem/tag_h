@@ -38,7 +38,7 @@ namespace tag_h.Core.Persistence
 
         public ImageHash GetHash(HImage image)
         {
-            return _database.ExecuteQuery(new GetImageHashQuery(image)).Hash;
+            return _database.ExecuteQuery(new GetImageHashQuery(image));
         }
 
         public ImageHash HashImage(HImage image)

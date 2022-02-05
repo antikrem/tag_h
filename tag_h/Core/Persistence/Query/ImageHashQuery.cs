@@ -5,22 +5,19 @@ using tag_h.Core.Model;
 
 namespace tag_h.Core.Persistence.Query
 {
-    class GetImageHashQuery : IQuery
+    class GetImageHashQuery : IQuery<ImageHash?>
     {
         private HImage _image;
-
-        public ImageHash Hash;
 
         public GetImageHashQuery(HImage image)
         {
             _image = image;
         }
 
-        public void Execute(ISQLCommandExecutor commandExecutor)
+        public ImageHash? Execute(ISQLCommandExecutor commandExecutor)
         {
-            commandExecutor.ExecuteCommand(
-                command =>
-                {
+            return commandExecutor.ExecuteCommand(
+                command => {
                     command.CommandText
                     = @"SELECT fileHash, perceptualHash
                         FROM Images
@@ -30,8 +27,9 @@ namespace tag_h.Core.Persistence.Query
 
                     var reader = command.ExecuteReader();
                     // TODO: make extension
-                    if (reader.Read())
-                        Hash = new ImageHash(reader.GetStringOrNull(0), reader.GetStringOrNull(1));
+                    return reader.Read() 
+                        ? new ImageHash(reader.GetStringOrNull(0), reader.GetStringOrNull(1)) 
+                        : null;
                 }
             );
         }

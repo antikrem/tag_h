@@ -13,7 +13,9 @@ namespace tag_h.Core.Persistence
     {
         DirectoryInfo ImageFolder { get; }
 
-        T ExecuteQuery<T>(T query) where T : IQuery;
+        void ExecuteQuery(IQuery query);
+
+        T ExecuteQuery<T>(IQuery<T> query);
     }
 
     public class Database : IDatabase
@@ -41,9 +43,20 @@ namespace tag_h.Core.Persistence
 
         public T ExecuteQuery<T>(T query) where T : IQuery
         {
-            using (_logger.LogPerformance(typeof(T).Name))
-                query.Execute(_commandExecutor);
+            
             return query;
+        }
+
+        public void ExecuteQuery(IQuery query)
+        {
+            using (_logger.LogPerformance(query.GetType().Name))
+                query.Execute(_commandExecutor);
+        }
+
+        public T ExecuteQuery<T>(IQuery<T> query)
+        {
+            using (_logger.LogPerformance(query.GetType().Name))
+                return query.Execute(_commandExecutor);
         }
     }
 }

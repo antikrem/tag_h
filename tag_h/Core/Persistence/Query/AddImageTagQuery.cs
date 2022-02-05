@@ -5,12 +5,10 @@ using tag_h.Core.Model;
 
 namespace tag_h.Core.Persistence.Query
 {
-    class AddImageTagQuery : IQuery
+    class AddImageTagQuery : IQuery<bool>
     {
         private HImage _image;
         private readonly Tag _tag;
-
-        public bool Success { get; private set; }
 
         public AddImageTagQuery(HImage image, Tag tag)
         {
@@ -18,9 +16,9 @@ namespace tag_h.Core.Persistence.Query
             _tag = tag;
         }
 
-        public void Execute(ISQLCommandExecutor commandExecutor)
+        public bool Execute(ISQLCommandExecutor commandExecutor)
         {
-            commandExecutor.ExecuteCommand(
+            return commandExecutor.ExecuteCommand(
                 command =>
                 {
                     command.CommandText
@@ -30,7 +28,7 @@ namespace tag_h.Core.Persistence.Query
 
                     command.Parameters.AddWithValue("@imageId", _image.Id);
                     command.Parameters.AddWithValue("@tagId", _tag.Id);
-                    Success = command.ExecuteNonQuery() == 1;
+                    return command.ExecuteNonQuery() == 1;
                 }
             );
         }

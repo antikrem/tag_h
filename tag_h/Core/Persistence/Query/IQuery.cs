@@ -5,4 +5,8 @@
         void Execute(ISQLCommandExecutor commandExecutor);
     }
 
+    public interface IQuery<T>
+    {
+        T Execute(ISQLCommandExecutor commandExecutor);
+    }
 }

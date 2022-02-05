@@ -6,20 +6,18 @@ using tag_h.Core.Model;
 
 namespace tag_h.Core.Persistence.Query
 {
-    class FetchImagesQuery : IQuery
+    class FetchImagesQuery : IQuery<List<HImage>>
     {
         private readonly ImageQuery _query;
-
-        public List<HImage> Result { get; private set; }
 
         public FetchImagesQuery(ImageQuery query)
         {
             _query = query;
         }
 
-        public void Execute(ISQLCommandExecutor commandExecutor)
+        public List<HImage> Execute(ISQLCommandExecutor commandExecutor)
         {
-            commandExecutor.ExecuteCommand(
+            return commandExecutor.ExecuteCommand(
                 command =>
                 {
                     var commandText
@@ -34,7 +32,7 @@ namespace tag_h.Core.Persistence.Query
 
                     command.CommandText = commandText;
 
-                    Result = command
+                    return command
                         .ExecuteReader()
                         .GetHImages()
                         .ToList();

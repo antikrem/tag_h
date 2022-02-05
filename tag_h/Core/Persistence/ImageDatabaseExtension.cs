@@ -11,7 +11,7 @@ namespace tag_h.Core.Persistence
 
         static public HImage AddNewImage(this IDatabase database, string fileName)
         {
-            return database.ExecuteQuery(new AddNewImageQuery(fileName)).Image;
+            return database.ExecuteQuery(new AddNewImageQuery(fileName));
         }
 
         static public void SaveImage(this IDatabase database, HImage image)
@@ -21,7 +21,7 @@ namespace tag_h.Core.Persistence
 
         static public List<HImage> FetchAllImages(this IDatabase database, ImageQuery query)
         {
-            return database.ExecuteQuery(new FetchImagesQuery(query)).Result;
+            return database.ExecuteQuery(new FetchImagesQuery(query));
         }
 
         static public void DeleteImage(this IDatabase database, HImage image)
@@ -31,7 +31,7 @@ namespace tag_h.Core.Persistence
 
         static public TagSet GetTagsForImage(this IDatabase database, HImage image)
         {
-            return database.ExecuteQuery(new FetchTagsForImageQuery(image)).Result;
+            return database.ExecuteQuery(new FetchTagsForImageQuery(image));
         }
 
         static public void AddTagToImage(this IDatabase database, HImage image, Tag tag)
@@ -51,7 +51,7 @@ namespace tag_h.Core.Persistence
 
         static public List<HImage> GetDeletedImages(this IDatabase database)
         {
-            return database.ExecuteQuery(new FetchDeletedImagesQuery()).Result;
+            return database.ExecuteQuery(new FetchDeletedImagesQuery());
         }
     }
 }

@@ -35,19 +35,18 @@ namespace tag_h.Core.Persistence.Query
         }
     }
 
-    public class FetchTagValues : IQuery
+    public class FetchTagValues : IQuery<List<string>>
     {
         private readonly Tag _tag;
-        public List<string> Result { get; private set; }
         
         public FetchTagValues(Tag tag)
         {
             _tag = tag;
         }
 
-        public void Execute(ISQLCommandExecutor commandExecutor)
+        public List<string> Execute(ISQLCommandExecutor commandExecutor)
         {
-            commandExecutor.ExecuteCommand(
+            return commandExecutor.ExecuteCommand(
                 command =>
                 {
                     command.CommandText
@@ -57,7 +56,7 @@ namespace tag_h.Core.Persistence.Query
 
                     command.Parameters.AddWithValue("@id", _tag.Id);
 
-                    Result = GetValues(command.ExecuteReader()).ToList();
+                    return GetValues(command.ExecuteReader()).ToList();
                 }
             );
         }
@@ -65,9 +64,7 @@ namespace tag_h.Core.Persistence.Query
         private static IEnumerable<string> GetValues(SQLiteDataReader dataReader)
         {
             while (dataReader.Read())
-            {
                 yield return dataReader.GetString(0);
-            }
         }
     }
 }
