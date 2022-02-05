@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Core\Tasks\**" />
+    <EmbeddedResource Remove="Core\Tasks\**" />
+    <None Remove="Core\Tasks\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="NSubstitute" Version="4.2.2" />
@@ -17,10 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\tag_h\tag_h.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Core\Tasks\" />
   </ItemGroup>
 
 </Project>
