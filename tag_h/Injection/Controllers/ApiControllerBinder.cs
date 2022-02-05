@@ -14,17 +14,13 @@ namespace tag_h.Injection.Controllers
     static public class ApiControllerBinder
     {
 
-        public static IEnumerable<ControllerDefinition> GetControllerDefinitions()
-        {
-            return GetApiControllers()
+        public static IEnumerable<ControllerDefinition> GetControllerDefinitions() 
+            => GetApiControllers()
                 .Select(controller => new ControllerDefinition(controller));
-        }
 
-        private static IEnumerable<Type> GetApiControllers()
-        {
-            return ReflectionHelper.AllTypes
+        private static IEnumerable<Type> GetApiControllers() 
+            => ReflectionHelper.AllTypes
                 .Where(type => type.IsAttributed<ApiControllerAttribute>());
-        }
 
         public record ControllerDefinition(string Name, ControllerMethod[] Methods)
         {
@@ -47,32 +43,58 @@ namespace tag_h.Injection.Controllers
                         GetHttpMethod(method),
                         method.ReturnType.Name,
                         method.GetParameters()
-                            .Select(parameter => new ControllerMethodParameter(parameter))
+                            .Select(parameter => new ControllerMethodParameter(method, parameter))
                             .ToArray()
                     )
             { }
 
-            private static string GetHttpMethod(MethodInfo method)
-            {
-                return method
+            private static string GetHttpMethod(MethodInfo method) 
+                => method
                     .GetCustomAttribute(typeof(HttpMethodAttribute), true)
-                    .GetType()
+                    ?.GetType()
                     .Name
                     .MatchFirst(@"Http(.*)Attribute")
-                    .ToUpperInvariant();
-            }
+                    .ToUpperInvariant()
+                    ?? throw new MethodIsNotAHttpMethodException(method);
         }
 
         public record ControllerMethodParameter(string Name, string Type, bool IsSimple)
         {
-            internal ControllerMethodParameter(ParameterInfo parameter)
+            internal ControllerMethodParameter(MethodInfo method, ParameterInfo parameter)
                 : this(
-                        parameter.Name, 
+                        parameter.Name ?? throw new MethodParameterHasNoNameException(method, parameter), 
                         parameter.ParameterType.Name,
                         parameter.ParameterType.IsSimple()
                     ) 
             { }
         }
 
+
+        internal abstract class ApiControllerBindingException : Exception
+        { }
+
+        internal class MethodIsNotAHttpMethodException : Exception
+        {
+            public MethodInfo Method { get; }
+
+            internal MethodIsNotAHttpMethodException(MethodInfo method)
+                : base("Method is not a HTTP")
+            {
+                Method = method;
+            }
+        }
+
+        internal class MethodParameterHasNoNameException : Exception
+        {
+            public MethodInfo Method { get; }
+            public ParameterInfo Parameter { get; }
+
+            internal MethodParameterHasNoNameException(MethodInfo method, ParameterInfo parameter)
+                : base("Method is not a HTTP")
+            {
+                Method = method;
+                Parameter = parameter;
+            }
+        }
     }
 }
