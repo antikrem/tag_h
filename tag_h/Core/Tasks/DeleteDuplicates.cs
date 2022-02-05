@@ -12,9 +12,10 @@ namespace tag_h.Core.Tasks
         private readonly IImageHasher _imageHasher;
         private readonly IHImageRepository _imageRepository;
 
-        public DeleteDuplicates(IImageHasher imageHasher)
+        public DeleteDuplicates(IImageHasher imageHasher, IHImageRepository imageRepository)
         {
             _imageHasher = imageHasher;
+            _imageRepository = imageRepository;
         }
 
         public string Name => "Delete Duplicates";

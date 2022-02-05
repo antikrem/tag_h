@@ -23,9 +23,9 @@ namespace tag_h.Core.Model
             return Name;
         }
 
-        public int CompareTo(Tag other)
+        public int CompareTo(Tag? other)
         {
-            return Id.CompareTo(other.Id);
+            return Id.CompareTo(other!.Id);
         }
     }
 }

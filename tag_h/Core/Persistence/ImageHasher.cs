@@ -10,7 +10,7 @@ using tag_h.Core.Persistence.Query;
 namespace tag_h.Core.Persistence
 {
 
-    public record ImageHash(string FileHash, string PerceptualHash);
+    public record ImageHash(string FileHash, string? PerceptualHash);
 
     [Injectable]
     public interface IImageHasher

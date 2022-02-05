@@ -3,8 +3,6 @@ using System.IO;
 
 using Workshell.FileFormats;
 
-using tag_h.Injection.Typing;
-
 
 namespace tag_h.Core.Model
 {
@@ -15,7 +13,7 @@ namespace tag_h.Core.Model
 
         public string Location { get; }
 
-        Stream _stream = null;
+        Stream? _stream = null;
         private Stream Stream
         {
             get
@@ -30,7 +28,7 @@ namespace tag_h.Core.Model
 
         public bool FileExists => File.Exists(Location);
 
-        public FileFormat Format => _stream is null ? FileExists ? FileFormat.Get(Location) : null : FileFormat.Get(Stream);
+        public FileFormat Format => _stream is null ? FileFormat.Get(Location) : FileFormat.Get(Stream);
 
         public HImage(int id, string location)
         {

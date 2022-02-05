@@ -8,7 +8,7 @@ namespace tag_h.Core.Persistence
 {
     static class SQLExtensions
     {
-        public static string GetStringOrNull(this SQLiteDataReader dataReader, int column) 
+        public static string? GetStringOrNull(this SQLiteDataReader dataReader, int column) 
             => dataReader.IsDBNull(column) ? null : dataReader.GetString(column);
 
         private static HImage GetHImage(this SQLiteDataReader dataReader) 
