@@ -8,7 +8,6 @@ using EphemeralEx.Injection;
 
 namespace tag_h.Core.Model
 {
-
     public class HFile : IDisposable
     {
         private HFileState _state;
@@ -52,7 +51,7 @@ namespace tag_h.Core.Model
 
         public void Delete()
         {
-            _database.SaveFile(_state);
+            _database.DeleteFile(_state);
         }
     }
 }
