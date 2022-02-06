@@ -1,14 +1,11 @@
-using System.Security.Cryptography;
-
-using EphemeralEx.Extensions;
 using EphemeralEx.Injection;
 
 using tag_h.Core.Persistence.Query;
 using tag_h.Persistence.Model;
 
+
 namespace tag_h.Persistence
 {
-
     public record FileHash(string DataHash, string? PerceptualHash);
 
     [Injectable]
@@ -23,27 +20,24 @@ namespace tag_h.Persistence
     public class FileHasher : IFileHasher
     {
         private readonly IDatabase _database;
+        private readonly IDataHasher _hasher;
         private readonly IPhysicalImageProvider _physicalImageProvider;
 
-        private readonly MD5 _md5Hasher;
 
-        public FileHasher(IDatabase database, IPhysicalImageProvider physicalImageProvider)
+        public FileHasher(IDatabase database, IDataHasher hasher, IPhysicalImageProvider physicalImageProvider)
         {
             _database = database;
+            _hasher = hasher;
             _physicalImageProvider = physicalImageProvider;
-
-            _md5Hasher = MD5.Create();
         }
 
-        public FileHash GetHash(HFileState file)
-        {
-            return _database.ExecuteQuery(new GetImageHashQuery(file)) ?? HashImage(file);
-        }
+        public FileHash GetHash(HFileState file) 
+            => _database.ExecuteQuery(new GetImageHashQuery(file)) ?? HashImage(file);
 
         public FileHash HashImage(HFileState file)
         {
             using var stream = _physicalImageProvider.LoadFileStream(file);
-            var hash = _md5Hasher.ComputeHash(stream).ToHexString();
+            var hash = _hasher.Hash(stream);
 
             _database.ExecuteQuery(
                     new SetImageHashQuery(file, new FileHash(hash, null))
