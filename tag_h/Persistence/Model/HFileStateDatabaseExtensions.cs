@@ -2,7 +2,6 @@
 
 using tag_h.Core.Model;
 using tag_h.Core.Persistence.Query;
-using tag_h.Persistence;
 
 namespace tag_h.Persistence.Model
 {

@@ -27,23 +27,18 @@ namespace tag_h.Core.Tasks
             var hashes = new Dictionary<string, string>();
             var duplicates = new List<(string, string)>();
 
-            //TODO
-            //var dbImages = _fileRepository.FetchImages(FileQuery.All)
-            //    .Where(image => image.IsHashableFormat())
-            //    .Select(image => (image, Hash: _fileHasher.GetHash(image).PerceptualHash))
-            //    .Where(image => image.Hash != null);
+            var dbFiles = _fileRepository.FetchFiles(FileQuery.All)
+                .Where(file => file.IsHashableFormat())
+                .Where(file => file.Hash.DataHash != null);
 
-            //foreach (var (image, hash) in dbImages)
-            //{
-            //    if (hashes.ContainsKey(hash))
-            //    {
-            //        duplicates.Add((hashes[hash], image.Location));
-            //    }
-            //    else
-            //    {
-            //        hashes[hash] = image.Location;
-            //    }
-            //}
+            foreach (var file in dbFiles)
+            {
+                var hash = file.Hash.DataHash;
+                if (hashes.ContainsKey(hash))
+                    duplicates.Add((hashes[hash], file.Location));
+                else
+                    hashes[hash] = file.Location;
+            }
 
             System.Console.WriteLine($"Found {duplicates.Count} duplicate image/s"); //TODO: replace with logger
             return Task.CompletedTask;

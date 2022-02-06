@@ -33,7 +33,7 @@ namespace tag_h.Core.TagRetriever.TagSource
 
         private async Task<IEnumerable<string>> RetrieveTagsFromApi(HFileState file)
         {
-            var hash = _imageHasher.GetHash(file).Hash;
+            var hash = _imageHasher.GetHash(file).DataHash;
             var response = await _fetchHandler.FetchAsync<CureNinjaResponse>($"{_url}{hash}");
 
             return response.Success ? ResolveResults(response.Results) : Enumerable.Empty<string>();

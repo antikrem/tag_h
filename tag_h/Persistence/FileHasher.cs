@@ -9,7 +9,7 @@ using tag_h.Persistence.Model;
 namespace tag_h.Persistence
 {
 
-    public record FileHash(string Hash, string? PerceptualHash);
+    public record FileHash(string DataHash, string? PerceptualHash);
 
     [Injectable]
     public interface IFileHasher
