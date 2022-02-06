@@ -1,17 +1,16 @@
 ﻿using System.Data.SQLite;
-
-using tag_h.Core.Model;
-
+using tag_h.Persistence;
+using tag_h.Persistence.Model;
 
 namespace tag_h.Core.Persistence.Query
 {
-    class DeleteImageQuery : IQuery
+    class DeleteFileQuery : IQuery
     {
-        private HImage _image;
+        private HFileState _file;
 
-        public DeleteImageQuery(HImage image)
+        public DeleteFileQuery(HFileState file)
         {
-            _image = image;
+            _file = file;
         }
 
         public void Execute(ISQLCommandExecutor commandExecutor)
@@ -24,7 +23,7 @@ namespace tag_h.Core.Persistence.Query
                         SET deleted = 1
                         WHERE id = @id;";
 
-                    command.Parameters.AddWithValue("@id", _image.Id);
+                    command.Parameters.AddWithValue("@id", _file.Id);
                     command.ExecuteNonQuery();
                 }
             );

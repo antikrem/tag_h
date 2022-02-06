@@ -3,7 +3,7 @@
 using EphemeralEx.Injection;
 using Serilog;
 
-namespace tag_h.Core.Persistence
+namespace tag_h.Persistence
 {
     [Injectable]
     public interface IDatabaseConnection : IStopOnDejection

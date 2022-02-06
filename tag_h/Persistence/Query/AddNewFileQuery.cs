@@ -1,20 +1,19 @@
 ﻿using System.Linq;
-
-using tag_h.Core.Model;
-
+using tag_h.Persistence;
+using tag_h.Persistence.Model;
 
 namespace tag_h.Core.Persistence.Query
 {
-    class AddNewImageQuery : IQuery<HImage>
+    class AddNewFileQuery : IQuery<HFileState>
     {
         private string _location;
 
-        public AddNewImageQuery(string location)
+        public AddNewFileQuery(string location)
         {
             _location = location;
         }
 
-        public HImage Execute(ISQLCommandExecutor commandExecutor)
+        public HFileState Execute(ISQLCommandExecutor commandExecutor)
         {
             //TODO: Pretty bad, make these two happen together
             commandExecutor.ExecuteCommand(
@@ -39,7 +38,7 @@ namespace tag_h.Core.Persistence.Query
 
                     return command
                         .ExecuteReader()
-                        .GetHImages()
+                        .GetHFiles()
                         .First();
                 }
             );

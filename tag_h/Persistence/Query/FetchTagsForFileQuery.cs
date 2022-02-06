@@ -2,17 +2,19 @@
 using System.Data.SQLite;
 
 using tag_h.Core.Model;
-
+using tag_h.Persistence;
+using tag_h.Persistence.Model;
 
 namespace tag_h.Core.Persistence.Query
 {
-    class FetchTagsForImageQuery : IQuery<TagSet>
+    class FetchTagsForFileQuery
+        : IQuery<TagSet>
     {
-        private readonly HImage _image;
+        private readonly HFileState _file;
 
-        public FetchTagsForImageQuery(HImage image)
+        public FetchTagsForFileQuery(HFileState file)
         {
-            _image = image;
+            _file = file;
         }
 
         public TagSet Execute(ISQLCommandExecutor commandExecutor)
@@ -25,7 +27,7 @@ namespace tag_h.Core.Persistence.Query
                         FROM ImageTags INNER JOIN Tags 
                         ON ImageTags.tagId = Tags.id
                         WHERE ImageTags.imageId = @imageId;";
-                    command.Parameters.AddWithValue("@imageId", _image.Id);
+                    command.Parameters.AddWithValue("@imageId", _file.Id);
 
                     return command.ExecuteReader().GetTags();
                 }

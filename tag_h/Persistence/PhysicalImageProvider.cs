@@ -1,18 +1,17 @@
 using System.IO;
 
 using EphemeralEx.Injection;
+using tag_h.Persistence.Model;
 
-using tag_h.Core.Model;
-
-
-namespace tag_h.Core.Persistence
+namespace tag_h.Persistence
 {
     [Injectable]
     public interface IPhysicalImageProvider
     {
         void CreatePhysicalImage(string location, string filename, byte[] data);
-        byte[] LoadImage(HImage image);
-        FileStream LoadImageStream(HImage image);
+        byte[] LoadFile(HFileState file);
+        //TODO: why does this exist?
+        FileStream LoadFileStream(HFileState file);
     }
 
     public class PhysicalImageProvider : IPhysicalImageProvider
@@ -23,14 +22,14 @@ namespace tag_h.Core.Persistence
             stream.Write(data);
         }
 
-        public byte[] LoadImage(HImage image)
+        public byte[] LoadFile(HFileState file)
         {
-            return File.ReadAllBytes(image.Location);
+            return File.ReadAllBytes(file.Location);
         }
 
-        public FileStream LoadImageStream(HImage image)
+        public FileStream LoadFileStream(HFileState file)
         {
-            return File.OpenRead(image.Location);
+            return File.OpenRead(file.Location);
         }
     }
 }

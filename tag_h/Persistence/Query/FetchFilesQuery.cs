@@ -2,20 +2,21 @@
 using System.Linq;
 
 using tag_h.Core.Model;
-
+using tag_h.Persistence;
+using tag_h.Persistence.Model;
 
 namespace tag_h.Core.Persistence.Query
 {
-    class FetchImagesQuery : IQuery<List<HImage>>
+    class FetchFilesQuery : IQuery<List<HFileState>>
     {
-        private readonly ImageQuery _query;
+        private readonly FileQuery _query;
 
-        public FetchImagesQuery(ImageQuery query)
+        public FetchFilesQuery(FileQuery query)
         {
             _query = query;
         }
 
-        public List<HImage> Execute(ISQLCommandExecutor commandExecutor)
+        public List<HFileState> Execute(ISQLCommandExecutor commandExecutor)
         {
             return commandExecutor.ExecuteCommand(
                 command =>
@@ -34,7 +35,7 @@ namespace tag_h.Core.Persistence.Query
 
                     return command
                         .ExecuteReader()
-                        .GetHImages()
+                        .GetHFiles()
                         .ToList();
                 }
             );
@@ -73,7 +74,7 @@ namespace tag_h.Core.Persistence.Query
                 yield return $"matchedTags == {_query.Included.Count()}";
 
             if (_query.ImageHash != null)
-                yield return $"fileHash == '{_query.ImageHash.FileHash}'";
+                yield return $"fileHash == '{_query.ImageHash.Hash}'";
         }
     }
 

@@ -6,7 +6,7 @@ using EphemeralEx.Injection;
 using Serilog;
 
 
-namespace tag_h.Core.Persistence
+namespace tag_h.Persistence
 {
     public class SqlExecutionException : Exception
     {

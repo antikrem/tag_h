@@ -2,11 +2,10 @@
 
 using EphemeralEx.Injection;
 using Serilog;
-
 using tag_h.Core.Persistence.Query;
 using tag_h.Helpers;
 
-namespace tag_h.Core.Persistence
+namespace tag_h.Persistence
 {
     [Injectable]
     public interface IDatabase
@@ -43,7 +42,7 @@ namespace tag_h.Core.Persistence
 
         public T ExecuteQuery<T>(T query) where T : IQuery
         {
-            
+
             return query;
         }
 

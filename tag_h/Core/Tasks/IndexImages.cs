@@ -3,20 +3,19 @@ using System.Threading.Tasks;
 using EphemeralEx.Extensions;
 
 using tag_h.Core.Model;
-using tag_h.Core.Persistence;
-using tag_h.Core.TagRetriever;
-
+using tag_h.Core.Repositories;
+using tag_h.Persistence;
 
 namespace tag_h.Core.Tasks
 {
     class IndexImages : ITask
     {
-        private readonly IHImageRepository _imageRepository;
-        private readonly IImageHasher _imageHasher;
+        private readonly IHFileRepository _fileRepository;
+        private readonly IFileHasher _imageHasher;
 
-        public IndexImages(IHImageRepository imageRepository, IImageHasher imageHasher)
+        public IndexImages(IHFileRepository fileRepository, IFileHasher imageHasher)
         {
-            _imageRepository = imageRepository;
+            _fileRepository = fileRepository;
             _imageHasher = imageHasher;
         }
 
@@ -24,11 +23,11 @@ namespace tag_h.Core.Tasks
 
         public Task Run()
         {
-            var unhashedImages = _imageRepository.FetchImages(ImageQuery.All)
-                .Where(image => image.IsHashableFormat())
-                .Where(image => _imageHasher.GetHash(image).FileHash == null);
+            var unhashedImages = _fileRepository.FetchFiles(FileQuery.All)
+                .Where(image => image.IsHashableFormat());
+                //.Where(image => _imageHasher.GetHash(image).FileHash == null); TODO
 
-            unhashedImages.ForEach(image => _imageHasher.HashImage(image));
+            //unhashedImages.ForEach(image => _imageHasher.HashImage(image));
 
             return Task.CompletedTask;
         }

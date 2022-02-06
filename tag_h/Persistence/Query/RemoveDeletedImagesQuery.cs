@@ -1,5 +1,5 @@
 ﻿using System.Data.SQLite;
-
+using tag_h.Persistence;
 
 namespace tag_h.Core.Persistence.Query
 {

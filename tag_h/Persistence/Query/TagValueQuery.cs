@@ -3,6 +3,7 @@ using System.Data.SQLite;
 using System.Linq;
 
 using tag_h.Core.Model;
+using tag_h.Persistence;
 
 namespace tag_h.Core.Persistence.Query
 {

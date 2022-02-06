@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
-using tag_h.Core.Model;
-
+using tag_h.Persistence;
+using tag_h.Persistence.Model;
 
 namespace tag_h.Core.Persistence.Query
 {
-    class FetchDeletedImagesQuery : IQuery<List<HImage>>
+    class FetchDeletedFilesQuery : IQuery<List<HFileState>>
     {
-        public List<HImage> Execute(ISQLCommandExecutor commandExecutor)
+        public List<HFileState> Execute(ISQLCommandExecutor commandExecutor)
         {
             return commandExecutor.ExecuteCommand(
                 command =>
@@ -20,7 +19,7 @@ namespace tag_h.Core.Persistence.Query
 
                     return command
                         .ExecuteReader()
-                        .GetHImages()
+                        .GetHFiles()
                         .ToList();
                 }
             );

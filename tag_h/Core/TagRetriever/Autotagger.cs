@@ -4,15 +4,14 @@ using EphemeralEx.Extensions;
 using EphemeralEx.Injection;
 
 using tag_h.Core.Model;
-using tag_h.Core.Persistence;
-
+using tag_h.Persistence;
 
 namespace tag_h.Core.TagRetriever
 {
     [Injectable]
     public interface IAutoTagger
     {
-        Task TagImage(HImage image);
+        //Task TagImage(HImage image); TODO
     }
 
     public class AutoTagger : IAutoTagger
@@ -26,10 +25,10 @@ namespace tag_h.Core.TagRetriever
             _tagRepository = tagRepository;
         }
 
-        public async Task TagImage(HImage image)
-        {
-            var tags = await _tagRetriever.FetchTagValues(image);
-            tags.ForEach(tag => _tagRepository.AddTagToImage(image, tag));
-        }
+        //public async Task TagImage(HImage image)
+        //{
+        //    var tags = await _tagRetriever.FetchTagValues(image);
+        //    tags.ForEach(tag => _tagRepository.AddTagToImage(image, tag));
+        //}
     }
 }

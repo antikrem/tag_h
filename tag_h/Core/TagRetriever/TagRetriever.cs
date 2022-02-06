@@ -7,14 +7,14 @@ using EphemeralEx.Extensions;
 
 using tag_h.Core.Model;
 using tag_h.Core.TagRetriever.TagSource;
-
+using tag_h.Persistence.Model;
 
 namespace tag_h.Core.TagRetriever
 {
     [Injectable]
     public interface ITagRetriever
     {
-        Task<IEnumerable<Tag>> FetchTagValues(HImage image);
+        Task<IEnumerable<Tag>> FetchTagValues(HFileState file);
     }
 
     public class TagRetriever : ITagRetriever
@@ -27,9 +27,9 @@ namespace tag_h.Core.TagRetriever
             
         }
 
-        public async Task<IEnumerable<Tag>> FetchTagValues(HImage image)
+        public async Task<IEnumerable<Tag>> FetchTagValues(HFileState file)
         {
-            var tagResult = await Task.WhenAll(_tagSources.Select(source => source.RetrieveTags(image)));
+            var tagResult = await Task.WhenAll(_tagSources.Select(source => source.RetrieveTags(file)));
             return tagResult
                 .Flatten()
                 .DistinctBy(tag => tag.Id);

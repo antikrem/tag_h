@@ -1,4 +1,6 @@
-﻿namespace tag_h.Core.Persistence.Query
+﻿using tag_h.Persistence;
+
+namespace tag_h.Core.Persistence.Query
 {
     public interface IQuery
     {

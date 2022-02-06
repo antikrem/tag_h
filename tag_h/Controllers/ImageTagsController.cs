@@ -1,10 +1,11 @@
 using System.Linq;
 
 using Microsoft.AspNetCore.Mvc;
-using Serilog;
 
 using tag_h.Core.Model;
-using tag_h.Core.Persistence;
+using tag_h.Core.Repositories;
+using tag_h.Persistence;
+
 
 namespace tag_h.Controllers
 {
@@ -13,12 +14,12 @@ namespace tag_h.Controllers
     [Route("[controller]")]
     public class ImageTagsController : ControllerBase
     {
-        private readonly IHImageRepository _imageRepository;
+        private readonly IHFileRepository _fileRepository;
         private readonly ITagRepository _tagRepository;
 
-        public ImageTagsController(IHImageRepository imageRepository, ITagRepository tagRepository)
+        public ImageTagsController(IHFileRepository fileRepository, ITagRepository tagRepository)
         {
-            _imageRepository = imageRepository;
+            _fileRepository = fileRepository;
             _tagRepository = tagRepository;
         }
 
@@ -26,20 +27,20 @@ namespace tag_h.Controllers
         [Route("[action]")]
         public void RemoveTag(int imageId, int tagId)
         {
-            var image = _imageRepository.FetchImages(new ImageQuery { Id = imageId }).First();
+            var image = _fileRepository.FetchFiles(new FileQuery { Id = imageId }).First();
             var tag = _tagRepository.GetAllTags().Where(tag => tag.Id == tagId).First();// TODO Optimise
 
-            _tagRepository.RemoveTagFromImage(image, tag);
+            //_tagRepository.RemoveTagFromImage(image, tag); TODO
         }
 
         [HttpPost]
         [Route("[action]")]
         public void AddTag(int id, int tagId)
         {
-            var image = _imageRepository.FetchImages(new ImageQuery { Id = id }).First();
+            var image = _fileRepository.FetchFiles(new FileQuery { Id = id }).First();
             var tag = _tagRepository.GetAllTags().Where(tag => tag.Id == tagId).First();// TODO Optimise
 
-            _tagRepository.AddTagToImage(image, tag);
+            //_tagRepository.AddTagToImage(image, tag); TODO
         }
     }
 }

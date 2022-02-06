@@ -5,8 +5,7 @@ using EphemeralEx.Extensions;
 using EphemeralEx.Injection;
 
 using tag_h.Core.Model;
-using tag_h.Core.Persistence;
-
+using tag_h.Persistence;
 
 namespace tag_h.Core.TagRetriever.TagSource
 {

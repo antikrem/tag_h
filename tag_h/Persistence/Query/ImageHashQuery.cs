@@ -1,20 +1,19 @@
 using System.Data.SQLite;
-
-using tag_h.Core.Model;
-
+using tag_h.Persistence;
+using tag_h.Persistence.Model;
 
 namespace tag_h.Core.Persistence.Query
 {
-    class GetImageHashQuery : IQuery<ImageHash?>
+    class GetImageHashQuery : IQuery<FileHash?>
     {
-        private HImage _image;
+        private HFileState _file;
 
-        public GetImageHashQuery(HImage image)
+        public GetImageHashQuery(HFileState file)
         {
-            _image = image;
+            _file = file;
         }
 
-        public ImageHash? Execute(ISQLCommandExecutor commandExecutor)
+        public FileHash? Execute(ISQLCommandExecutor commandExecutor)
         {
             return commandExecutor.ExecuteCommand(
                 command => {
@@ -23,12 +22,12 @@ namespace tag_h.Core.Persistence.Query
                         FROM Images
                         WHERE id = @id;";
 
-                    command.Parameters.AddWithValue("@id", _image.Id);
+                    command.Parameters.AddWithValue("@id", _file.Id);
 
                     var reader = command.ExecuteReader();
                     // TODO: make extension
                     return reader.Read() 
-                        ? new ImageHash(reader.GetStringOrNull(0), reader.GetStringOrNull(1)) 
+                        ? new FileHash(reader.GetStringOrNull(0), reader.GetStringOrNull(1)) 
                         : null;
                 }
             );
@@ -37,12 +36,12 @@ namespace tag_h.Core.Persistence.Query
 
     class SetImageHashQuery : IQuery
     {
-        private HImage _image;
-        private readonly ImageHash _hash;
+        private HFileState _file;
+        private readonly FileHash _hash;
 
-        public SetImageHashQuery(HImage image, ImageHash hash)
+        public SetImageHashQuery(HFileState file, FileHash hash)
         {
-            _image = image;
+            _file = file;
             _hash = hash;
         }
 
@@ -56,8 +55,8 @@ namespace tag_h.Core.Persistence.Query
                         SET (fileHash, perceptualHash) = (@fileHash, @perceptualHash)
                         WHERE id = @id;";
 
-                    command.Parameters.AddWithValue("@id", _image.Id);
-                    command.Parameters.AddWithValue("@fileHash", _hash.FileHash);
+                    command.Parameters.AddWithValue("@id", _file.Id);
+                    command.Parameters.AddWithValue("@fileHash", _hash.Hash);
                     command.Parameters.AddWithValue("@perceptualHash", _hash.PerceptualHash);
                     command.ExecuteNonQuery();
                 }

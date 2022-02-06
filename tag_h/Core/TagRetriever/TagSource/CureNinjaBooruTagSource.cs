@@ -3,7 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using tag_h.Core.Model;
-using tag_h.Core.Persistence;
+using tag_h.Persistence;
+using tag_h.Persistence.Model;
+
 
 namespace tag_h.Core.TagRetriever.TagSource
 {
@@ -12,26 +14,26 @@ namespace tag_h.Core.TagRetriever.TagSource
     {
         private readonly ITagMaterialiser _tagMaterialiser;
         private readonly IFetchHandler _fetchHandler;
-        private readonly IImageHasher _imageHasher;
+        private readonly IFileHasher _imageHasher;
 
         private static string _url => "https://cure.ninja/booru/api/json/md5/";
 
-        public CureNinjaBooruTagSource(ITagMaterialiser tagMaterialiser, IFetchHandler fetchHandler, IImageHasher imageHasher)
+        public CureNinjaBooruTagSource(ITagMaterialiser tagMaterialiser, IFetchHandler fetchHandler, IFileHasher imageHasher)
         {
             _tagMaterialiser = tagMaterialiser;
             _fetchHandler = fetchHandler;
             _imageHasher = imageHasher;
         }
 
-        public async Task<IEnumerable<Tag>> RetrieveTags(HImage image)
+        public async Task<IEnumerable<Tag>> RetrieveTags(HFileState file)
         {
-            var tags = await RetrieveTagsFromApi(image);
+            var tags = await RetrieveTagsFromApi(file);
             return tags.Select(_tagMaterialiser.GetOrCreateTag);
         }
 
-        private async Task<IEnumerable<string>> RetrieveTagsFromApi(HImage image)
+        private async Task<IEnumerable<string>> RetrieveTagsFromApi(HFileState file)
         {
-            var hash = _imageHasher.GetHash(image).FileHash;
+            var hash = _imageHasher.GetHash(file).Hash;
             var response = await _fetchHandler.FetchAsync<CureNinjaResponse>($"{_url}{hash}");
 
             return response.Success ? ResolveResults(response.Results) : Enumerable.Empty<string>();

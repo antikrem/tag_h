@@ -5,9 +5,9 @@ using EphemeralEx.Injection;
 
 using tag_h.Core.Model;
 using tag_h.Core.Persistence.Query;
+using tag_h.Persistence.Model;
 
-
-namespace tag_h.Core.Persistence
+namespace tag_h.Persistence
 {
     [Injectable]
     public interface ITagRepository
@@ -20,11 +20,11 @@ namespace tag_h.Core.Persistence
 
         Tag CreateTag(string name, IEnumerable<string> values);
 
-        TagSet GetTagsForImage(HImage image);
+        TagSet GetTagsForFile(HFileState file);
 
-        bool AddTagToImage(HImage image, Tag tag);
-        
-        void RemoveTagFromImage(HImage image, Tag tag);
+        bool AddTagToFile(HFileState file, Tag tag);
+
+        void RemoveTagFromFile(HFileState file, Tag tag);
     }
 
     public class TagRespository : ITagRepository
@@ -62,20 +62,20 @@ namespace tag_h.Core.Persistence
             return tag;
         }
 
-        // TODO: Add ImageTagRepository
-        public TagSet GetTagsForImage(HImage image)
+        // TODO: Add FileTagRepository
+        public TagSet GetTagsForFile(HFileState file)
         {
-            return _database.ExecuteQuery(new FetchTagsForImageQuery(image));
+            return _database.ExecuteQuery(new FetchTagsForFileQuery(file));
         }
 
-        public bool AddTagToImage(HImage image, Tag tag)
+        public bool AddTagToFile(HFileState file, Tag tag)
         {
-            return _database.ExecuteQuery(new AddImageTagQuery(image, tag));
+            return _database.ExecuteQuery(new AddFileTagQuery(file, tag));
         }
 
-        public void RemoveTagFromImage(HImage image, Tag tag)
+        public void RemoveTagFromFile(HFileState file, Tag tag)
         {
-            _database.ExecuteQuery(new RemoveImageTagQuery(image, tag));
+            _database.ExecuteQuery(new RemoveFileTagQuery(file, tag));
         }
     }
 }

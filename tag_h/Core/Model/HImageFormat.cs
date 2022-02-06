@@ -6,7 +6,7 @@ using Workshell.FileFormats.Formats.Images;
 
 namespace tag_h.Core.Model
 {
-    static class HImageFormat
+    static class HFileFormat
     {
 
         public static IEnumerable<Type> HashableFormats()
@@ -17,9 +17,9 @@ namespace tag_h.Core.Model
             yield return typeof(PNGImageFormat);
         }
 
-        public static bool IsHashableFormat(this HImage image)
+        public static bool IsHashableFormat(this HFile file)
         {
-            return image.Format is JPEGImageFormat or BitmapImageFormat or GIFImageFormat or PNGImageFormat;
+            return file.Format is JPEGImageFormat or BitmapImageFormat or GIFImageFormat or PNGImageFormat;
         }
     }
 }
