@@ -24,9 +24,9 @@ namespace tag_h.Core.Persistence.Query
                 {
                     command.CommandText
                        = @"SELECT ImageTags.tagId, Tags.name 
-                        FROM ImageTags INNER JOIN Tags 
-                        ON ImageTags.tagId = Tags.id
-                        WHERE ImageTags.imageId = @imageId;";
+                       FROM ImageTags INNER JOIN Tags 
+                       ON ImageTags.tagId = Tags.id
+                       WHERE ImageTags.imageId = @imageId;";
                     command.Parameters.AddWithValue("@imageId", _file.Id);
 
                     return command.ExecuteReader().GetTags();
