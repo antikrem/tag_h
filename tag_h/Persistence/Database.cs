@@ -40,12 +40,6 @@ namespace tag_h.Persistence
             _commandExecutor = commandExecutor;
         }
 
-        public T ExecuteQuery<T>(T query) where T : IQuery
-        {
-
-            return query;
-        }
-
         public void ExecuteQuery(IQuery query)
         {
             using (_logger.LogPerformance(query.GetType().Name))
