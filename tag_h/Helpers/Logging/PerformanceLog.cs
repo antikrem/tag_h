@@ -25,7 +25,7 @@ namespace tag_h.Helpers
 
         public void Dispose()
         {
-            _logger.Debug("Starting performant task {TimeTaken}", _stopwatch.Elapsed);
+            _logger.Debug("Completed performant task {TimeTaken}", _stopwatch.Elapsed);
         }
     }
 
