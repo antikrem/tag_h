@@ -16,14 +16,16 @@ namespace tag_h.Core.Model
     {
         private readonly IDatabase _database;
         private readonly IFileHasher _hasher;
+        private readonly ITagRepository _tagRepository;
 
-        public HFileFactory(IDatabase database, IFileHasher hasher)
+        public HFileFactory(IDatabase database, IFileHasher hasher, ITagRepository tagRepository)
         {
             _database = database;
             _hasher = hasher;
+            _tagRepository = tagRepository;
         }
 
         public HFile Create(HFileState state)
-            => new(_database, _hasher , state);
+            => new(_database, _hasher, _tagRepository, state);
     }
 }

@@ -56,7 +56,7 @@ namespace tag_h.Core.Persistence.Query
                         WHERE id = @id;";
 
                     command.Parameters.AddWithValue("@id", _file.Id);
-                    command.Parameters.AddWithValue("@fileHash", _hash.Hash);
+                    command.Parameters.AddWithValue("@fileHash", _hash.DataHash);
                     command.Parameters.AddWithValue("@perceptualHash", _hash.PerceptualHash);
                     command.ExecuteNonQuery();
                 }

@@ -74,7 +74,7 @@ namespace tag_h.Core.Persistence.Query
                 yield return $"matchedTags == {_query.Included.Count()}";
 
             if (_query.ImageHash != null)
-                yield return $"fileHash == '{_query.ImageHash.Hash}'";
+                yield return $"fileHash == '{_query.ImageHash.DataHash}'";
         }
     }
 
