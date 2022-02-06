@@ -4,28 +4,38 @@ using System.IO;
 using Workshell.FileFormats;
 using tag_h.Persistence.Model;
 using tag_h.Persistence;
+using EphemeralEx.Injection;
 
 namespace tag_h.Core.Model
 {
 
     public class HFile : IDisposable
     {
-        private readonly IDatabase _database;
         private HFileState _state;
-        private readonly Lazy<Stream> _stream;
+
+        private readonly IDatabase _database;
+        private readonly IFileHasher _hasher;
 
         public int Id => _state.Id;
         public string Location => _state.Location;
         
         public bool FileExists => File.Exists(Location);
-        public Stream Stream => _stream.Value;
-        public FileFormat Format
-            => _stream.IsValueCreated ? FileFormat.Get(Stream) : FileFormat.Get(Location);
 
-        public HFile(IDatabase database, HFileState state)
+        private readonly Lazy<Stream> _stream;
+        public Stream Stream => _stream.Value;
+
+        public FileFormat Format => _stream.IsValueCreated ? FileFormat.Get(Stream) : FileFormat.Get(Location);
+
+        private readonly Lazy<FileHash> _hash;
+        public FileHash Hash => _hash.Value;
+
+        public HFile(IDatabase database, IFileHasher hasher, HFileState state)
         {
             _state = state;
             _database = database;
+            _hasher = hasher;
+
+            _hash = new Lazy<FileHash>(() => _hasher.GetHash(_state));
             _stream = new Lazy<Stream>(() => File.OpenRead(Location));
         }
 
@@ -44,23 +54,5 @@ namespace tag_h.Core.Model
         {
             _database.SaveFile(_state);
         }
-    }
-
-    public interface IHFileFactory
-    {
-        HFile Create(HFileState state);
-    }
-
-    public class HFileFactory : IHFileFactory
-    {
-        private readonly IDatabase _database;
-
-        public HFileFactory(IDatabase database)
-        {
-            _database = database;
-        }
-
-        public HFile Create(HFileState state)
-            => new(_database, state);
     }
 }
