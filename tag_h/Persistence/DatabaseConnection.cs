@@ -3,6 +3,7 @@
 using EphemeralEx.Injection;
 using Serilog;
 
+
 namespace tag_h.Persistence
 {
     [Injectable]
@@ -68,7 +69,6 @@ namespace tag_h.Persistence
                     command.ExecuteNonQuery();
                 }
             }
-
         }
 
         public SQLiteCommand CreateCommand() => _connection.CreateCommand();
