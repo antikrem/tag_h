@@ -27,10 +27,9 @@ namespace tag_h.Controllers
         [Route("[action]")]
         public void RemoveTag(int imageId, int tagId)
         {
-            var image = _fileRepository.FetchFiles(new FileQuery { Id = imageId }).First();
-            var tag = _tagRepository.GetAllTags().Where(tag => tag.Id == tagId).First();// TODO Optimise
-
-            //_tagRepository.RemoveTagFromImage(image, tag); TODO
+            var image = _fileRepository.FetchFiles(new FileQuery { Id = imageId }).Single();
+            var tag = image.Tags.Where(tag => tag.Id == tagId).Single();
+            image.RemoveTag(tag);
         }
 
         [HttpPost]
