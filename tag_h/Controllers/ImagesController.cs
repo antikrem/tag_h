@@ -34,22 +34,16 @@ namespace tag_h.Controllers
 
         private readonly ILogger _logger;
         private readonly IHFileRepository _fileRepository;
-        private readonly ITagRepository _tagRepository;
-        private readonly IPhysicalImageProvider _physicalImageProvider;
         private readonly ITaskRunner _taskRunner;
 
         public ImagesController(
                 ILogger logger,
                 IHFileRepository fileRepository, 
-                ITagRepository tagRepository, 
-                IPhysicalImageProvider physicalImageProvider,
                 ITaskRunner taskRunner
             )
         {
             _logger = logger;
             _fileRepository = fileRepository;
-            _tagRepository = tagRepository;
-            _physicalImageProvider = physicalImageProvider;
             _taskRunner = taskRunner;
         }
 
@@ -78,10 +72,7 @@ namespace tag_h.Controllers
             _taskRunner.Execute<AddNewImages, AddNewImagesConfiguration>(new(files));
         }
 
-        //private ImageViewModel CreateViewModel(HFile file) TODO
-        //   => new(file, _tagRepository.GetTagsForFile(file));
-
         private ImageViewModel CreateViewModel(HFile file)
-           => new(file, TagSet.Empty);
+           => new(file, file.Tags);
     }
 }
