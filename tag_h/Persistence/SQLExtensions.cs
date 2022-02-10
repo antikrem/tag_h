@@ -20,16 +20,13 @@ namespace tag_h.Persistence
                 yield return dataReader.GetHFile();
         }
 
-        private static Tag GetTag(this SQLiteDataReader dataReader)
+        private static TagState GetTag(this SQLiteDataReader dataReader)
             => new(dataReader.GetInt32(0), (string)dataReader.GetValue(1));
 
-        private static IEnumerable<Tag> GetTagEnumeration(this SQLiteDataReader dataReader)
+        public static IEnumerable<TagState> GetTags(this SQLiteDataReader dataReader)
         {
             while (dataReader.Read())
                 yield return dataReader.GetTag();
         }
-
-        public static TagSet GetTags(this SQLiteDataReader dataReader)
-            => new(dataReader.GetTagEnumeration());
     }
 }

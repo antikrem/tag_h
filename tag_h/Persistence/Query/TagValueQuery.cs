@@ -4,15 +4,17 @@ using System.Linq;
 
 using tag_h.Core.Model;
 using tag_h.Persistence;
+using tag_h.Persistence.Model;
+
 
 namespace tag_h.Core.Persistence.Query
 {
     public class AddTagValue : IQuery
     {
-        private readonly Tag _tag;
+        private readonly TagState _tag;
         private readonly string _value;
 
-        public AddTagValue(Tag tag, string value)
+        public AddTagValue(TagState tag, string value)
         {
             _tag = tag;
             _value = value;
@@ -38,9 +40,9 @@ namespace tag_h.Core.Persistence.Query
 
     public class FetchTagValues : IQuery<List<string>>
     {
-        private readonly Tag _tag;
+        private readonly TagState _tag;
         
-        public FetchTagValues(Tag tag)
+        public FetchTagValues(TagState tag)
         {
             _tag = tag;
         }

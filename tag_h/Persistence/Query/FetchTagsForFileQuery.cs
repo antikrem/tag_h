@@ -5,10 +5,10 @@ using tag_h.Core.Model;
 using tag_h.Persistence;
 using tag_h.Persistence.Model;
 
+
 namespace tag_h.Core.Persistence.Query
 {
-    class FetchTagsForFileQuery
-        : IQuery<TagSet>
+    class FetchTagsForFileQuery : IQuery<IEnumerable<TagState>>
     {
         private readonly HFileState _file;
 
@@ -17,7 +17,7 @@ namespace tag_h.Core.Persistence.Query
             _file = file;
         }
 
-        public TagSet Execute(ISQLCommandExecutor commandExecutor)
+        public IEnumerable<TagState> Execute(ISQLCommandExecutor commandExecutor)
         {
             return commandExecutor.ExecuteCommand(
                 command =>

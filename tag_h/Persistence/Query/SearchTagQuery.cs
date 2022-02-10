@@ -2,10 +2,12 @@ using System.Linq;
 
 using tag_h.Core.Model;
 using tag_h.Persistence;
+using tag_h.Persistence.Model;
+
 
 namespace tag_h.Core.Persistence.Query
 {
-    class SearchTagQuery : IQuery<Tag?>
+    class SearchTagQuery : IQuery<TagState?>
     {
         string _value;
 
@@ -14,12 +16,11 @@ namespace tag_h.Core.Persistence.Query
             _value = value;
         }
 
-        public Tag? Execute(ISQLCommandExecutor commandExecutor)
+        public TagState? Execute(ISQLCommandExecutor commandExecutor)
         {
             return commandExecutor.ExecuteCommand(
                 command =>
                 {
-                    // TODO: Optimise query to not use outer join
                     command.CommandText
                     = @"SELECT Tags.id, Tags.name 
                         FROM Tags LEFT OUTER JOIN TagValues 

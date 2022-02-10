@@ -1,13 +1,14 @@
-﻿using System.Data.SQLite;
+﻿using System.Collections.Generic;
 
-using tag_h.Core.Model;
 using tag_h.Persistence;
+using tag_h.Persistence.Model;
+
 
 namespace tag_h.Core.Persistence.Query
 {
-    class FetchAllTagsQuery : IQuery<TagSet>
+    class FetchAllTagsQuery : IQuery<IEnumerable<TagState>>
     {
-        public TagSet Execute(ISQLCommandExecutor commandExecutor)
+        public IEnumerable<TagState> Execute(ISQLCommandExecutor commandExecutor)
         {
             return commandExecutor.ExecuteCommand(
                 command =>
@@ -15,7 +16,9 @@ namespace tag_h.Core.Persistence.Query
                     command.CommandText
                     = @"SELECT * FROM Tags;";
 
-                    return command.ExecuteReader().GetTags();
+                    return command
+                        .ExecuteReader()
+                        .GetTags();
                 }
             );
         }

@@ -1,10 +1,11 @@
 ﻿using tag_h.Core.Model;
 using tag_h.Persistence;
+using tag_h.Persistence.Model;
 
 
 namespace tag_h.Core.Persistence.Query
 {
-    public class AddNewTagQuery : IQuery<Tag>
+    public class AddNewTagQuery : IQuery<TagState>
     {
         private readonly string _name;
 
@@ -13,7 +14,7 @@ namespace tag_h.Core.Persistence.Query
             _name = name;
         }
 
-        public Tag Execute(ISQLCommandExecutor commandExecutor)
+        public TagState Execute(ISQLCommandExecutor commandExecutor)
         {
             var id = (int)commandExecutor.ExecuteCommand(
                 command =>
@@ -29,7 +30,7 @@ namespace tag_h.Core.Persistence.Query
                     return command.Connection.LastInsertRowId;
                 }
             );
-            return new Tag(id, _name);
+            return new(id, _name);
         }
     }
 }

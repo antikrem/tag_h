@@ -9,9 +9,9 @@ namespace tag_h.Core.Persistence.Query
     class AddFileTagQuery : IQuery<bool>
     {
         private HFileState _file;
-        private readonly Tag _tag;
+        private readonly TagState _tag;
 
-        public AddFileTagQuery(HFileState file, Tag tag)
+        public AddFileTagQuery(HFileState file, TagState tag)
         {
             _file = file;
             _tag = tag;
