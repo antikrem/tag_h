@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Data.SQLite;
-using tag_h.Core.Model;
+﻿using tag_h.Core.Model;
 using tag_h.Persistence;
+
 
 namespace tag_h.Core.Persistence.Query
 {
-    public class AddNewTagQuery : IQuery
+    public class AddNewTagQuery : IQuery<Tag>
     {
         private readonly string _name;
 
@@ -14,25 +13,23 @@ namespace tag_h.Core.Persistence.Query
             _name = name;
         }
 
-        public void Execute(SQLiteCommand command)
+        public Tag Execute(ISQLCommandExecutor commandExecutor)
         {
-            
-        }
-
-        public void Execute(ISQLCommandExecutor commandExecutor)
-        {
-            commandExecutor.ExecuteCommand(
+            var id = (int)commandExecutor.ExecuteCommand(
                 command =>
                 {
                     command.CommandText
                     = @"INSERT OR REPLACE INTO Tags
                         (name)
-                        VALUES (@name);";
+                        VALUES (@name)";
 
                     command.Parameters.AddWithValue("@name", _name);
                     command.ExecuteNonQuery();
+
+                    return command.Connection.LastInsertRowId;
                 }
             );
+            return new Tag(id, _name);
         }
     }
 }

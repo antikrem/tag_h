@@ -53,9 +53,7 @@ namespace tag_h.Persistence
 
         public Tag CreateTag(string name, IEnumerable<string> values)
         {
-            //TODO: make query return new tag
-            _database.ExecuteQuery(new AddNewTagQuery(name));
-            var tag = _database.ExecuteQuery(new SearchTagQuery(name))!;
+            var tag = _database.ExecuteQuery(new AddNewTagQuery(name));
             values.ForEach(
                     value => _database.ExecuteQuery(new AddTagValue(tag, value))
                 );
