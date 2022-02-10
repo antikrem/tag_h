@@ -27,19 +27,20 @@ namespace tag_h.Controllers
         [Route("[action]")]
         public void RemoveTag(int imageId, int tagId)
         {
-            var image = _fileRepository.FetchFiles(new FileQuery { Id = imageId }).Single();
-            var tag = image.Tags.Where(tag => tag.Id == tagId).Single();
-            image.RemoveTag(tag);
+            var file = _fileRepository.FetchFiles(new FileQuery { Id = imageId }).Single();
+            var tag = file.Tags.Where(tag => tag.Id == tagId).Single();
+
+            file.RemoveTag(tag);
         }
 
         [HttpPost]
         [Route("[action]")]
         public void AddTag(int id, int tagId)
         {
-            var image = _fileRepository.FetchFiles(new FileQuery { Id = id }).First();
-            var tag = _tagRepository.GetAllTags().Where(tag => tag.Id == tagId).First();// TODO Optimise
+            var file = _fileRepository.FetchFiles(new FileQuery { Id = id }).First();
+            var tag = _tagRepository.GetAllTags().Where(tag => tag.Id == tagId).Single();// TODO Optimise
 
-            //_tagRepository.AddTagToImage(image, tag); TODO
+            file.AddTag(tag);
         }
     }
 }
