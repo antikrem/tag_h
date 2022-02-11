@@ -22,6 +22,12 @@ namespace tag_h.Persistence.Model
             return database.ExecuteQuery(new FetchTagValues(tag));
         }
 
+        // TODO: take in IEnumerable of values
+        public static void AddValue(this IDatabase database, TagState tag, string value)
+        {
+            database.ExecuteQuery(new AddTagValue(tag, value));
+        }
+
         public static TagState CreateTag(this IDatabase database, string name)
         {
             return database.ExecuteQuery(new AddNewTagQuery(name));
