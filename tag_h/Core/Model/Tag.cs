@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using tag_h.Injection.Typing;
+using tag_h.Persistence;
+using tag_h.Persistence.Model;
 
 
 namespace tag_h.Core.Model
@@ -8,14 +11,20 @@ namespace tag_h.Core.Model
     [UsedByClient]
     public class Tag : IComparable<Tag>
     {
-        public int Id { get; }
+        private readonly TagState _tagState;
+        private readonly IDatabase _database;
 
-        public string Name { get; }
+        public int Id => _tagState.Id;
 
-        public Tag(int id, string name)
+        public string Name => _tagState.Name;
+
+        public IEnumerable<string> Values => _database.GetValues(_tagState);
+
+        public Tag(IDatabase database, TagState tagState)
         {
-            Id = id;
-            Name = name;
+            _tagState = tagState;
+
+            _database = database;
         }
 
         public override string ToString()
