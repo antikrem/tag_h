@@ -19,7 +19,7 @@ namespace tag_h.Core.Model
 
         public int Id => _state.Id;
         public string Location => _state.Location;
-        
+
         public bool FileExists => File.Exists(Location);
 
         private readonly Lazy<Stream> _stream;
@@ -36,6 +36,7 @@ namespace tag_h.Core.Model
         public HFile(IDatabase database, IFileHasher hasher, ITagRepository tagRepository, HFileState state)
         {
             _state = state;
+
             _database = database;
             _hasher = hasher;
             _tagRepository = tagRepository;
