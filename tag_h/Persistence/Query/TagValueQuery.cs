@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 
-using tag_h.Core.Model;
 using tag_h.Persistence;
 using tag_h.Persistence.Model;
 
