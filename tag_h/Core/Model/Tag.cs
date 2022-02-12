@@ -30,13 +30,9 @@ namespace tag_h.Core.Model
         }
 
         public override string ToString()
-        {
-            return Name;
-        }
+            => Name;
 
         public int CompareTo(Tag? other)
-        {
-            return Id.CompareTo(other!.Id);
-        }
+            => Id.CompareTo(other!.Id);
     }
 }
