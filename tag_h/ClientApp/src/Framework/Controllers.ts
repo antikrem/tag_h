@@ -1,20 +1,20 @@
-﻿import { ImagesController } from "../Controllers/ImagesController";
-import { ImageTagsController } from "../Controllers/ImageTagsController";
+﻿import { FilesController } from "../Controllers/FilesController";
+import { FileTagsController } from "../Controllers/FileTagsController";
 import { LoggingController } from "../Controllers/LoggingController";
 import { TagsController } from "../Controllers/TagsController";
 
 export { Controllers };
 
 class ControllerType {
-    Images!: ImagesController;
-    ImageTags!: ImageTagsController;
+    Files!: FilesController;
+    FileTags!: FileTagsController;
     Logging!: LoggingController;
     Tags!: TagsController;
 };
 
 let Controllers : ControllerType = {
-    Images: null!,
-    ImageTags: null!,
+    Files: null!,
+    FileTags: null!,
     Logging: null!,
     Tags: null!
 };

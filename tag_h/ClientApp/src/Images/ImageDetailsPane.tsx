@@ -15,11 +15,11 @@ export const ImageDetailsPane = reactive(function Images({ model, tags }: { mode
 });
 
 async function removeTag(model: ImageModel, tag: Tag) {
-    await Controllers.ImageTags.RemoveTag(model.id, tag.id);
+    await Controllers.FileTags.RemoveTag(model.id, tag.id);
     model.events.removeTag(tag);
 }
 
 async function addTag(model: ImageModel, tag: Tag) {
-    await Controllers.ImageTags.AddTag(model.id, tag.id);
+    await Controllers.FileTags.AddTag(model.id, tag.id);
     model.events.addTag(tag);
 }

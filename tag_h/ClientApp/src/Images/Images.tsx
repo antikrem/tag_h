@@ -54,7 +54,7 @@ export class ImageModel implements ImageTileModel {
     }
 
     get src() {
-        return `/Images/GetFile?imageId=${this.id}`;
+        return `/Files/GetFile?imageId=${this.id}`;
     }
 
     @reduced
@@ -68,7 +68,7 @@ export class ImageModel implements ImageTileModel {
 }
 
 export const Images = reactive(function Images({ model, tags }: { model: ImagesModel, tags: TagsModel }) {
-    useEffect(() => model.events.fetchImages(Controllers.Images.GetAll()), [model])
+    useEffect(() => model.events.fetchImages(Controllers.Files.GetAll()), [model])
 
     let panes = Array.from(getPanes(model, tags));
 

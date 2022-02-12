@@ -20,7 +20,7 @@ export const ImportPane = reactive(function Images({ model }: { model: ImportMod
 async function submit(model: ImportModel) {
     model.selectedFiles.forEach(
         async file => {
-            await Controllers.Images.AddImages(
+            await Controllers.Files.AddFiles(
                 [{ Data: await toBase64(file), FileName: file.name, Tags: []}]
             );
         }
