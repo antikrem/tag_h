@@ -4,6 +4,7 @@ using EphemeralEx.Extensions;
 using EphemeralEx.Injection;
 
 using tag_h.Core.Model;
+using tag_h.Core.Repositories;
 using tag_h.Persistence;
 
 namespace tag_h.Core.TagRetriever

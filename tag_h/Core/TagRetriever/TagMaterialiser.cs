@@ -5,7 +5,8 @@ using EphemeralEx.Extensions;
 using EphemeralEx.Injection;
 
 using tag_h.Core.Model;
-using tag_h.Persistence;
+using tag_h.Core.Repositories;
+
 
 namespace tag_h.Core.TagRetriever.TagSource
 {
@@ -36,12 +37,10 @@ namespace tag_h.Core.TagRetriever.TagSource
         }
 
         private Tag MaterialiseTag(string value)
-        {
-            _tagRepository.CreateTag(CreateTagName(value), GetTagValues(value).Distinct());
-            return _tagRepository.SearchTag(value);
-        }
+            => _tagRepository.CreateTag(CreateTagName(value), GetTagValues(value).Distinct());
 
-        private static string CreateTagName(string value) => value.ToLower().Split("_(")[0].Replace("_", " ");
+        private static string CreateTagName(string value)
+            => value.ToLower().Split("_(")[0].Replace("_", " ");
 
         private static IEnumerable<string> GetTagValues(string value)
         {

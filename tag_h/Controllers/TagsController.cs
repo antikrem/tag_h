@@ -5,8 +5,9 @@ using EphemeralEx.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 using tag_h.Core.Model;
+using tag_h.Core.Repositories;
 using tag_h.Injection.Typing;
-using tag_h.Persistence;
+
 
 namespace tag_h.Controllers
 {
@@ -36,16 +37,17 @@ namespace tag_h.Controllers
             return _tagRepository.CreateTag(name, name.ToLower().ToEnumerable());
         }
 
+        //TODO, Remove, tag values move with GetAllTags
         [HttpGet]
         [Route("[action]")]
         public List<string> GetValues(int tagId)
         {
-            // TODO: Optimise
-            var tag = _tagRepository
+            return _tagRepository
                 .GetAllTags()
                 .Where(tag => tag.Id == tagId)
-                .First();
-            return _tagRepository.GetValues(tag).ToList();
+                .First()
+                .Values
+                .ToList();
         }
     }
 }
