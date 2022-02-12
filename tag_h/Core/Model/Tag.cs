@@ -14,6 +14,8 @@ namespace tag_h.Core.Model
         private readonly TagState _tagState;
         private readonly IDatabase _database;
 
+        public TagState State => _tagState;
+
         public int Id => _tagState.Id;
 
         public string Name => _tagState.Name;

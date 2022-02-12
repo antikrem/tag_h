@@ -15,7 +15,7 @@ namespace tag_h.Core.Model
 
         private readonly IDatabase _database;
         private readonly IFileHasher _hasher;
-        private readonly ITagRepository _tagRepository;
+        private readonly ITagFactory _tagFactory;
 
         public int Id => _state.Id;
         public string Location => _state.Location;
@@ -30,16 +30,15 @@ namespace tag_h.Core.Model
         private readonly Lazy<FileHash> _hash;
         public FileHash Hash => _hash.Value;
 
-        public TagSet Tags => _tagRepository.GetTagsForFile(_state);
+        public TagSet Tags => _tagFactory.Create(_database.GetTagsForFile(_state));
 
-
-        public HFile(IDatabase database, IFileHasher hasher, ITagRepository tagRepository, HFileState state)
+        public HFile(IDatabase database, IFileHasher hasher, ITagFactory tagFactory, HFileState state)
         {
             _state = state;
 
             _database = database;
             _hasher = hasher;
-            _tagRepository = tagRepository;
+            _tagFactory = tagFactory;
 
             _hash = new Lazy<FileHash>(() => _hasher.GetHash(_state));
             _stream = new Lazy<Stream>(() => File.OpenRead(Location));
@@ -63,12 +62,12 @@ namespace tag_h.Core.Model
 
         public void AddTag(Tag tag)
         {
-            _tagRepository.AddTagToFile(_state, tag);
+            _database.AddTagToFile(_state, tag.State);
         }
 
         public void RemoveTag(Tag tag)
         {
-            _tagRepository.RemoveTagFromFile(_state, tag);
+            _database.RemoveTagFromFile(_state, tag.State);
         }
     }
 }
