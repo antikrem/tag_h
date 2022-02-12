@@ -14,8 +14,7 @@ namespace tag_h.Core.Tasks
 
     public record AddNewImagesConfiguration(List<SubmittedFile> Files);
 
-    class AddNewImages
-        : ITask<AddNewImagesConfiguration>
+    class AddNewImages : ITask<AddNewImagesConfiguration>
     {
         private readonly IHFileRepository _fileRepository;
         private readonly IDataHasher _datahasher;
