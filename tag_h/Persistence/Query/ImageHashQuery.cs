@@ -1,14 +1,14 @@
-using System.Data.SQLite;
 using tag_h.Persistence;
 using tag_h.Persistence.Model;
 
+
 namespace tag_h.Core.Persistence.Query
 {
-    class GetImageHashQuery : IQuery<FileHash?>
+    class GetFileHashQuery : IQuery<FileHash?>
     {
         private HFileState _file;
 
-        public GetImageHashQuery(HFileState file)
+        public GetFileHashQuery(HFileState file)
         {
             _file = file;
         }
@@ -19,7 +19,7 @@ namespace tag_h.Core.Persistence.Query
                 command => {
                     command.CommandText
                     = @"SELECT fileHash, perceptualHash
-                        FROM Images
+                        FROM Files
                         WHERE id = @id;";
 
                     command.Parameters.AddWithValue("@id", _file.Id);
@@ -27,19 +27,19 @@ namespace tag_h.Core.Persistence.Query
                     var reader = command.ExecuteReader();
                     // TODO: make extension
                     return reader.Read() 
-                        ? new FileHash(reader.GetStringOrNull(0), reader.GetStringOrNull(1)) 
+                        ? new FileHash(reader.GetString(0), reader.GetStringOrNull(1)) 
                         : null;
                 }
             );
         }
     }
 
-    class SetImageHashQuery : IQuery
+    class SetFileHashQuery : IQuery
     {
         private HFileState _file;
         private readonly FileHash _hash;
 
-        public SetImageHashQuery(HFileState file, FileHash hash)
+        public SetFileHashQuery(HFileState file, FileHash hash)
         {
             _file = file;
             _hash = hash;
@@ -51,7 +51,7 @@ namespace tag_h.Core.Persistence.Query
                 command =>
                 {
                     command.CommandText
-                    = @"UPDATE Images
+                    = @"UPDATE Files
                         SET (fileHash, perceptualHash) = (@fileHash, @perceptualHash)
                         WHERE id = @id;";
 

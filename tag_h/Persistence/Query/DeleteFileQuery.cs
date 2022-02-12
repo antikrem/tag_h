@@ -19,7 +19,7 @@ namespace tag_h.Core.Persistence.Query
                 command =>
                 {
                     command.CommandText
-                    = @"UPDATE Images
+                    = @"UPDATE Files
                         SET deleted = 1
                         WHERE id = @id;";
 

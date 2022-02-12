@@ -20,7 +20,7 @@ namespace tag_h.Core.Persistence.Query
                 command =>
                 {
                     command.CommandText
-                    = @"INSERT INTO Images (fileName, deleted) 
+                    = @"INSERT INTO Files (fileName, deleted) 
                         VALUES (@fileName, 0);";
                     command.Parameters.AddWithValue("@fileName", _location);
 
@@ -33,7 +33,7 @@ namespace tag_h.Core.Persistence.Query
                 {
                     command.CommandText
                     = @"SELECT * 
-                        FROM Images 
+                        FROM Files 
                         WHERE id = last_insert_rowid();";
 
                     return command

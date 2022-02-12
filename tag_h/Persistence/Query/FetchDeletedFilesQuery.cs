@@ -14,7 +14,7 @@ namespace tag_h.Core.Persistence.Query
                 {
                     command.CommandText
                     = @"SELECT * 
-                        FROM Images 
+                        FROM Files 
                         WHERE deleted = 1;";
 
                     return command

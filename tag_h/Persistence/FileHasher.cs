@@ -32,7 +32,7 @@ namespace tag_h.Persistence
         }
 
         public FileHash GetHash(HFileState file) 
-            => _database.ExecuteQuery(new GetImageHashQuery(file)) ?? HashImage(file);
+            => _database.ExecuteQuery(new GetFileHashQuery(file)) ?? HashImage(file);
 
         public FileHash HashImage(HFileState file)
         {
@@ -40,7 +40,7 @@ namespace tag_h.Persistence
             var hash = _hasher.Hash(stream);
 
             _database.ExecuteQuery(
-                    new SetImageHashQuery(file, new FileHash(hash, null))
+                    new SetFileHashQuery(file, new FileHash(hash, null))
                 );
 
             return new FileHash(hash, null);

@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Data.SQLite;
 
-using tag_h.Core.Model;
 using tag_h.Persistence;
 using tag_h.Persistence.Model;
 
@@ -23,11 +21,11 @@ namespace tag_h.Core.Persistence.Query
                 command =>
                 {
                     command.CommandText
-                       = @"SELECT ImageTags.tagId, Tags.name 
-                       FROM ImageTags INNER JOIN Tags 
-                       ON ImageTags.tagId = Tags.id
-                       WHERE ImageTags.imageId = @imageId;";
-                    command.Parameters.AddWithValue("@imageId", _file.Id);
+                       = @"SELECT FileTags.tagId, Tags.name 
+                       FROM FileTags INNER JOIN Tags 
+                       ON FileTags.tagId = Tags.id
+                       WHERE FileTags.fileId = @fileId;";
+                    command.Parameters.AddWithValue("@fileId", _file.Id);
 
                     return command.ExecuteReader().GetTags();
                 }

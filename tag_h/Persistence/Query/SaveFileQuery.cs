@@ -27,7 +27,7 @@ namespace tag_h.Core.Persistence.Query
         }
 
         private static string CreateCommand() 
-            => @"UPDATE Images
+            => @"UPDATE Files
                 SET fileName = @fileName,
                 WHERE id = @id;";
     }

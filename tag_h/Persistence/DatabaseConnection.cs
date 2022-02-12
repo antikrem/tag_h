@@ -33,7 +33,7 @@ namespace tag_h.Persistence
 
         private readonly string[] _initialiserScripts = new string[]
         {
-            @"CREATE TABLE if not exists Images (
+            @"CREATE TABLE if not exists Files (
                     id INTEGER PRIMARY KEY ASC,
                     fileName STRING NOT NULL, 
                     fileHash STRING,
@@ -50,11 +50,11 @@ namespace tag_h.Persistence
                     PRIMARY KEY (id, value),
                     FOREIGN KEY(id) REFERENCES Tags(id)
                 );",
-            @"CREATE TABLE if not exists ImageTags (
-                    imageId INTEGER NOT NULL,
+            @"CREATE TABLE if not exists FileTags (
+                    fileId INTEGER NOT NULL,
                     tagId INTEGER NOT NULL,
-                    PRIMARY KEY (imageId, tagId),
-                    FOREIGN KEY(imageId) REFERENCES Images(id),
+                    PRIMARY KEY (fileId, tagId),
+                    FOREIGN KEY(fileId) REFERENCES Images(id),
                     FOREIGN KEY(tagId) REFERENCES Tags(id)
                 );"
         };

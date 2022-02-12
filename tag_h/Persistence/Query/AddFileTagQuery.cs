@@ -23,11 +23,11 @@ namespace tag_h.Core.Persistence.Query
                 command =>
                 {
                     command.CommandText
-                    = @"INSERT OR IGNORE INTO ImageTags
-                        (imageId, tagId)
-                        VALUES (@imageId, @tagId);";
+                    = @"INSERT OR IGNORE INTO FileTags
+                        (fileId, tagId)
+                        VALUES (@fileId, @tagId);";
 
-                    command.Parameters.AddWithValue("@imageId", _file.Id);
+                    command.Parameters.AddWithValue("@fileId", _file.Id);
                     command.Parameters.AddWithValue("@tagId", _tag.Id);
                     return command.ExecuteNonQuery() == 1;
                 }

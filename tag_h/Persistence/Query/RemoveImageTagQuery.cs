@@ -23,11 +23,11 @@ namespace tag_h.Core.Persistence.Query
                 command =>
                 {
                     command.CommandText
-                    = @"DELETE FROM ImageTags
-                        WHERE imageId = @imageId
+                    = @"DELETE FROM FileTags
+                        WHERE fileId = @fileId
                         AND tagId = @tagId;";
 
-                    command.Parameters.AddWithValue("@imageId", _file.Id);
+                    command.Parameters.AddWithValue("@fileId", _file.Id);
                     command.Parameters.AddWithValue("@tagId", _tag.Id);
                     command.ExecuteNonQuery();
                 }
