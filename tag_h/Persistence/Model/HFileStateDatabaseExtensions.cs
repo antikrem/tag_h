@@ -27,21 +27,6 @@ namespace tag_h.Persistence.Model
             database.ExecuteQuery(new DeleteFileQuery(file));
         }
 
-        static public IEnumerable<TagState> GetTagsForFile(this IDatabase database, HFileState file)
-        {
-            return database.ExecuteQuery(new FetchTagsForFileQuery(file));
-        }
-
-        static public void AddTagToFile(this IDatabase database, HFileState file, TagState tag)
-        {
-            database.ExecuteQuery(new AddFileTagQuery(file, tag));
-        }
-
-        static public void RemoveTagFromImage(this IDatabase database, HFileState file, TagState tag)
-        {
-            database.ExecuteQuery(new RemoveFileTagQuery(file, tag));
-        }
-
         static public void RemoveDeletedFiles(this IDatabase database)
         {
             database.ExecuteQuery(new RemoveDeletedImagesQuery());
