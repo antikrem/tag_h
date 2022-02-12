@@ -12,12 +12,12 @@ namespace tag_h.Controllers
 
     [ApiController]
     [Route("[controller]")]
-    public class ImageTagsController : ControllerBase
+    public class FileTagsController : ControllerBase
     {
         private readonly IHFileRepository _fileRepository;
         private readonly ITagRepository _tagRepository;
 
-        public ImageTagsController(IHFileRepository fileRepository, ITagRepository tagRepository)
+        public FileTagsController(IHFileRepository fileRepository, ITagRepository tagRepository)
         {
             _fileRepository = fileRepository;
             _tagRepository = tagRepository;
@@ -25,9 +25,9 @@ namespace tag_h.Controllers
 
         [HttpDelete]
         [Route("[action]")]
-        public void RemoveTag(int imageId, int tagId)
+        public void RemoveTag(int fileId, int tagId)
         {
-            var file = _fileRepository.FetchFiles(new FileQuery { Id = imageId }).Single();
+            var file = _fileRepository.FetchFiles(new FileQuery { Id = fileId }).Single();
             var tag = file.Tags.Where(tag => tag.Id == tagId).Single();
 
             file.RemoveTag(tag);
@@ -35,9 +35,9 @@ namespace tag_h.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public void AddTag(int id, int tagId)
+        public void AddTag(int fileId, int tagId)
         {
-            var file = _fileRepository.FetchFiles(new FileQuery { Id = id }).First();
+            var file = _fileRepository.FetchFiles(new FileQuery { Id = fileId }).First();
             var tag = _tagRepository.GetAllTags().Where(tag => tag.Id == tagId).Single();// TODO Optimise
 
             file.AddTag(tag);

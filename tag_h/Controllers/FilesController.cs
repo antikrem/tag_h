@@ -13,13 +13,13 @@ using tag_h.Persistence;
 namespace tag_h.Controllers
 {
     [UsedByClient]
-    public class ImageViewModel
+    public class FileViewModel
     {
         public int Id { get; }
         public string Location { get; }
         public IEnumerable<Tag> Tags { get; }
 
-        public ImageViewModel(HFile file, TagSet tags)
+        public FileViewModel(HFile file, TagSet tags)
         {
             Id = file.Id;
             Location = file.Location;
@@ -29,14 +29,14 @@ namespace tag_h.Controllers
 
     [ApiController]
     [Route("[controller]")]
-    public class ImagesController : ControllerBase
+    public class FilesController : ControllerBase
     {
 
         private readonly ILogger _logger;
         private readonly IHFileRepository _fileRepository;
         private readonly ITaskRunner _taskRunner;
 
-        public ImagesController(
+        public FilesController(
                 ILogger logger,
                 IHFileRepository fileRepository, 
                 ITaskRunner taskRunner
@@ -49,11 +49,11 @@ namespace tag_h.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public IEnumerable<ImageViewModel> GetAll()
+        public IEnumerable<FileViewModel> GetAll()
         {
-            var images = _fileRepository.FetchFiles(FileQuery.All);
-            _logger.Information("Fetching images {list}", images);
-            return images.Select(CreateViewModel);
+            var files = _fileRepository.FetchFiles(FileQuery.All);
+            _logger.Information("Fetching images {list}", files);
+            return files.Select(CreateViewModel);
         }
 
         [IgnoredByClient]
@@ -61,18 +61,23 @@ namespace tag_h.Controllers
         [Route("[action]")]
         public FileStreamResult GetFile(int imageId)
         {
-            var image = _fileRepository.FetchFiles(FileQuery.All with { Id = imageId }).First();
-            return File(image.Stream, "image/jpeg");
+            return File(
+                _fileRepository
+                    .FetchFiles(FileQuery.All with { Id = imageId })
+                    .First()
+                    .Stream, 
+                "image/jpeg"
+            );
         }
 
         [HttpPost]
         [Route("[action]")]
-        public void AddImages(List<SubmittedFile> files)
+        public void AddFiles(List<SubmittedFile> files)
         {
             _taskRunner.Execute<AddNewImages, AddNewImagesConfiguration>(new(files));
         }
 
-        private ImageViewModel CreateViewModel(HFile file)
+        private FileViewModel CreateViewModel(HFile file)
            => new(file, file.Tags);
     }
 }
